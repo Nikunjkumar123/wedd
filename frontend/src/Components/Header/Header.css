@@ -1,0 +1,164 @@
+/* General Navbar Styling */
+.nav-bg {
+  background-color: var(--font-color); /* Light background */
+  position: relative;
+}
+
+.navbar {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left-data img {
+  width: 120px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.nav-left-data img:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.nav-center-data ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-center-data .nav-links {
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-center-data .nav-links a,
+.nav-login-btn a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-center-data .nav-links::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: gold;
+  transition: width 0.3s ease;
+}
+
+.nav-center-data .nav-links:hover::after {
+  width: 100%;
+}
+
+.nav-right-data {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-login-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.login-name p {
+  font-size: 14px;
+}
+
+.login-icon {
+  font-size: 23px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-icon a i:hover {
+  color: gold;
+}
+
+.nav-login-btn:hover {
+  transform: translateY(-3px);
+}
+
+
+.hamburger-menu {
+  display: none;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.hamburger-menu i {
+  color: #fff;
+}
+
+/* Keyframe Animation for Navbar */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 !important;
+  }
+
+  .nav-center-data {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #800020;
+    z-index: 1000;
+    padding: 30px 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-100%);
+    animation: none;
+  }
+
+  .nav-center-data.menu-open {
+    display: flex;
+    animation: slideIn 0.5s ease forwards;
+  }
+
+  .nav-center-data ul {
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .nav-bg {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .nav-right-data {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+}

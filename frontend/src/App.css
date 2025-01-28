@@ -1,0 +1,218 @@
+@import url("https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Besley", Georgia, serif !important; /* Apply Besley font here */
+  background-color: #f5f5f5;
+  color: #1b1a1a;
+  scroll-behavior: smooth; 
+
+}
+
+:root {
+  --bg-color: #f7dde3;
+  --font-color: #800020;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.slick-arrow,
+.slick-prev,
+.slick-next {
+  display: none !important;
+}
+
+.payment-btn {
+  outline: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5rem;
+  font-weight: 600;
+  background: var(--bg-color);
+  color: black;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.button-container .viewall-btn {
+  outline: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5rem;
+  font-weight: 600;
+  background: var(--font-color);
+  color: #f5f5f5;
+}
+
+.page-header {
+  position: relative;
+  background-image: url(./Assets/muslimbanner.webp);
+  width: 100%;
+  height: 30vh;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: inherit;
+  filter: blur(5px); /* Adds the blur effect */
+  background-position: center;
+}
+
+.page-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Black overlay with 50% opacity */
+}
+
+.page-header h2 {
+  position: relative; /* Keeps text above the background and overlay */
+  z-index: 1;
+  color: var(--bg-color);
+}
+
+.page-header .page-render {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Keeps text above the background and overlay */
+  z-index: 1;
+  margin-top: 1rem;
+}
+
+.page-render a {
+  text-decoration: none;
+  color: rgba(255, 217, 0, 0.799);
+  font-weight: 600;
+}
+
+.page-render a:hover {
+  color: var(--font-color);
+}
+
+.page-render p {
+  margin: 0 !important;
+  font-weight: 600;
+  color: var(--bg-color);
+}
+
+.btn-floating {
+  position: fixed;
+  right: 25px;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  border: 0;
+  z-index: 9999;
+  color: white;
+  transition: 0.2s;
+}
+
+.btn-floating:hover {
+  width: auto;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.btn-floating span {
+  font-size: 16px;
+  margin-left: 5px;
+  transition: 0.2s;
+  line-height: 0px;
+  display: none;
+}
+
+.btn-floating:hover span {
+  display: inline-block;
+}
+
+.btn-floating img {
+  height: 40%;
+}
+
+.Heading {
+  text-align: center;
+  color: var(--font-color);
+  margin: 2rem 0;
+  padding-top: 1rem;
+}
+
+/* WhatsApp */
+.btn-floating.whatsapp {
+  background-color: #34af23;
+  bottom: 60px;
+}
+
+.btn-floating.whatsapp:hover {
+  background-color: #1f7a12;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    height: 30vh; /* Reduce height for smaller screens */
+    background-size: cover;
+  }
+
+  .page-header h2 {
+    font-size: 1.5rem; /* Smaller font size for headings */
+  }
+
+  .page-header p {
+    font-size: 0.9rem; /* Smaller font size for paragraphs */
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    height: 20vh; /* Further reduce height for very small screens */
+  }
+
+  .page-header h2 {
+    font-size: 1rem; /* Further reduce heading size */
+  }
+
+  .page-header p {
+    font-size: 0.8rem; /* Further reduce paragraph size */
+  }
+
+  .page-header .page-render {
+    margin-top: 0.5rem;
+  }
+}

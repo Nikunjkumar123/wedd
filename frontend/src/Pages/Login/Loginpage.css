@@ -1,0 +1,361 @@
+/* Overall Background Styling */
+.login-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0;
+}
+
+.login-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../../Assets/muslimbanner.webp) center/cover no-repeat,
+    #000;
+  z-index: -1;
+  opacity: 1;
+}
+
+/* Form Wrapper */
+.wrapper {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Form Styling */
+.Login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-heading {
+  font-size: 2.3rem;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Input Field Styling */
+.input-field {
+  position: relative;
+  border-bottom: 2px solid #ccc;
+  margin: 20px 0;
+}
+
+.input-field label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #ddd;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.input-field input {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #fff;
+  padding: 0 5px;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+  color: #fff;
+  font-weight: 600;
+}
+
+.password-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.password-field .eye-icon {
+  all: unset;
+}
+
+/* Remember Me and Forgot Password */
+.forget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0 35px 0;
+  color: #fff;
+}
+
+#remember {
+  accent-color: #fff;
+}
+
+.forget label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.forget .link-button {
+  all: unset;
+}
+
+.forget p {
+  margin: 0;
+  padding: 0;
+}
+
+.forget .link-button:hover {
+  text-decoration: underline;
+}
+
+.wrapper a {
+  color: #efefef;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.wrapper a:hover {
+  text-decoration: underline;
+}
+
+/* Button Styling */
+.Login-button {
+  background: #fff;
+  color: #000;
+  font-weight: 700;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+.Login-button:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.register {
+  text-align: center;
+  margin-top: 30px;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  color: gold;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .wrapper {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .login-heading {
+    font-size: 2rem;
+  }
+
+  .input-field input {
+    font-size: 14px;
+  }
+
+  .forget label {
+    font-size: 0.8rem;
+  }
+
+  .wrapper a {
+    font-size: 0.8rem;
+  }
+
+  .Login-button {
+    font-size: 14px;
+  }
+}
+
+/* Form Styling */
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container h3 {
+  color: white;
+  font-weight: 600;
+}
+
+.input-field {
+  position: relative;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+.input-field input {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #fff;
+  padding: 0 5px;
+}
+
+.input-field label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #ddd;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+  color: #fff;
+  font-weight: 600;
+}
+
+.form-container .submit-button {
+  margin-right: 5px;
+}
+
+/* OTP Fields */
+.otp-field {
+  display: flex;
+  justify-content: space-between;
+  border: none;
+}
+
+/* Styling for OTP input fields */
+.otp-input {
+  width: 40px;
+  height: 40px;
+  text-align: center; /* Centers the text */
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #ccc !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #000 !important;
+  margin: 0 5px;
+  box-shadow: none;
+  outline: none;
+  -moz-appearance: none; /* Removes Firefox default styling */
+  -webkit-appearance: none; /* Removes Chrome/Safari default styling */
+  appearance: none; /* General removal */
+}
+
+/* Removes default spinner and increment arrows in number fields */
+input[type="text"]::-webkit-inner-spin-button,
+input[type="text"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="text"]::-moz-inner-spin-button {
+  -moz-appearance: none;
+}
+
+input[type="text"] {
+  -moz-appearance: textfield;
+}
+
+.custom-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--font-color);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.submit-button,
+.close-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: 0.3s ease;
+  margin-top: 10px;
+}
+
+.submit-button {
+  background-color: #fff;
+  color: #000;
+}
+
+.submit-button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.close-button {
+  background-color: var(--bg-color);
+  color: var(--font-color);
+}
+
+.close-button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .popup-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .popup-content h2 {
+    font-size: 2rem;
+  }
+
+  .popup-content .submit-button,
+  .popup-content .close-button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}

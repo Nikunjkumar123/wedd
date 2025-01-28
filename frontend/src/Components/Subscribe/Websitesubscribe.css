@@ -1,0 +1,227 @@
+.Subscribe-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+.Subscribe-data .Subscribe-text {
+  max-width: 60%;
+  font-weight: 600;
+}
+
+.Subscribe-data .Subscribe-list .Subscribe-ul {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  list-style: decimal;
+}
+
+.wrap-input-9 {
+    width: 40%;
+    margin: 10px 3%;
+    position: relative;
+  }
+
+.wrap-input-9 .input {
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  background-color: #efe0e3;
+  border: 1px solid #ccc;
+  padding: 7px 14px 9px;
+  transition: 0.4s;
+  color: black;
+}
+
+.wrap-input-9 .input:focus {
+  outline: none;
+}
+
+
+
+.wrap-input-9 .input ~ .focus-border:before,
+.wrap-input-9 .input ~ .focus-border:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background-color: #800020;
+  transition: 0.2s;
+  transition-delay: 0.2s;
+}
+
+.wrap-input-9 .input ~ .focus-border:after {
+  top: auto;
+  bottom: 0;
+  right: auto;
+  left: 0;
+  transition-delay: 0.6s;
+}
+
+.wrap-input-9 .input ~ .focus-border i:before,
+.wrap-input-9 .input ~ .focus-border i:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background-color: #800020;
+  transition: 0.2s;
+}
+
+.wrap-input-9 .input ~ .focus-border i:after {
+  left: auto;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  transition-delay: 0.4s;
+}
+
+.wrap-input-9 .input:focus ~ .focus-border:before,
+.wrap-input-9 .input:focus ~ .focus-border:after {
+  width: 100%;
+  transition: 0.2s;
+  transition-delay: 0.6s;
+}
+
+.wrap-input-9 .input:focus ~ .focus-border:after {
+  transition-delay: 0.2s;
+}
+
+.wrap-input-9 .input:focus ~ .focus-border i:before,
+.wrap-input-9 .input:focus ~ .focus-border i:after {
+  height: 100%;
+  transition: 0.2s;
+}
+
+.wrap-input-9 .input:focus ~ .focus-border i:after {
+  transition-delay: 0.4s;
+}
+
+.btn-77,
+.btn-77 *,
+.btn-77 :after,
+.btn-77 :before,
+.btn-77:after,
+.btn-77:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+.btn-77 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: var(--font-color);
+  background-image: none;
+  letter-spacing: 2px;
+  color: #fff;
+  line-height: 1;
+  margin: 0;
+}
+.btn-77:disabled {
+  cursor: default;
+}
+.btn-77:-moz-focusring {
+  outline: auto;
+}
+.btn-77 svg {
+  display: block;
+  vertical-align: middle;
+}
+.btn-77 [hidden] {
+  display: none;
+}
+.btn-77 {
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
+  border: 1px solid;
+  border-radius: 5rem;
+  box-shadow: 0 0 0 2em transparent;
+  box-sizing: border-box;
+  display: block;
+  font-weight: 600;
+  -webkit-mask-image: none;
+  overflow: hidden;
+  padding: 1.2rem 3rem;
+  position: relative;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+@-webkit-keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #eaa1b1;
+  }
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #800020;
+  }
+}
+
+/* Responsive Code for Tablets and Mobile Devices */
+@media screen and (max-width: 1024px) {
+    .Subscribe-data .Subscribe-text {
+      max-width: 80%; /* Adjust text width for tablets */
+    }
+  
+    .Subscribe-data .Subscribe-list .Subscribe-ul {
+      flex-direction: column; /* Stack list items vertically */
+      gap: 1rem;
+      text-align: center;
+    }
+  
+    .wrap-input-9 {
+      width: 70%; /* Increase width for better input visibility */
+      margin: 10px auto; /* Center the input */
+    }
+  
+    .btn-77 {
+      padding: 1rem 2.5rem; /* Adjust button padding for tablets */
+      font-size: 14px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+
+    .Subscribe-data .Subscribe-text {
+      max-width: 90%; /* Further reduce text width for mobiles */
+    }
+  
+    .Subscribe-data .Subscribe-list .Subscribe-ul {
+      gap: 0.8rem; /* Reduce the gap for mobile screens */
+    }
+  
+    .wrap-input-9 {
+      width: 90%; /* Full width input on smaller devices */
+    }
+  
+    .btn-77 {
+      padding: 0.8rem 2rem; /* Smaller button size for mobiles */
+      font-size: 12px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .Subscribe-data {
+      flex-direction: column;
+      text-align: center; /* Ensure proper alignment */
+    }
+  
+    .Subscribe-data .Subscribe-text h3,
+    .Subscribe-data .Subscribe-list ul {
+      font-size: 16px; /* Reduce font sizes for smaller devices */
+    }
+  
+    .btn-77 {
+      width: 100%; /* Full width button for mobile screens */
+      padding: 0.8rem 1.5rem;
+    }
+  }
+  
+
+

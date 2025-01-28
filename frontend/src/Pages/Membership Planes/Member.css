@@ -1,0 +1,74 @@
+.why-purchase {
+  background-color: #f8f9fa;
+  padding: 3rem 1rem;
+  border-radius: 10px;
+}
+
+.why-purchase h2 {
+  font-size: 2rem;
+  color: var(--font-color);
+  font-weight: bold;
+}
+
+.why-purchase p {
+  font-size: 1.1rem;
+}
+
+.reason-card {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.reason-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+.icon-container {
+  font-size: 2rem;
+  color: var(--font-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 50px;
+  background-color: #e9f5ff;
+  border-radius: 50%;
+}
+
+.icon-container i {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.reason-title {
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.reason-description {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .reason-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .icon-container {
+    margin-bottom: 10px;
+    height: 70px;
+  }
+
+  .icon-container i {
+    font-size: 2rem;
+  }
+}

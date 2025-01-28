@@ -1,0 +1,91 @@
+/* Malik Footer Styles */
+.malik__footer {
+    --bs-body-color: #fff;
+    --shape-bg-rgb: 0, 0, 0;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    /* padding: 80px 0; */
+    position: relative;
+  }
+  
+  .malik__footer.light {
+    --bs-body-bg: #800020;
+    --bs-body-color: #fff;
+
+  }
+  
+  .malik__footer.dark {
+    --bs-body-color: #800020;
+    --bs-body-bg: #fff;
+  }
+  
+  
+  /* Social Media Links */
+  .malik__footer-social a , .malik__footer a
+  {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    font-size: 16px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  
+  .malik__footer-social a:hover , .malik__footer a:hover {
+    color: var(--theme-color);
+    opacity: 1;
+  }
+  
+  /* Quick Links */
+  .malik__footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .malik__footer ul li {
+    margin-bottom: 8px;
+  }
+  
+  .malik__footer ul li a {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  
+  .malik__footer ul li a:hover {
+    opacity: 1;
+  }
+  
+  /* Forms */
+  .malik__footer h6 {
+    font-weight: bold;
+}
+
+  /* Copyright Section */
+  .malik__footer-copyright {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--bs-body-color);
+    opacity: 0.7;
+    margin-top: 2rem;
+  }
+  
+  .malik__footer-copyright p {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    margin: 0 !important;
+  }
+  
+  .malik__footer-copyright p:hover {
+    color: var(--theme-color);
+  }
+  
+  /* Responsive Design */
+  @media (min-width: 768px) {
+    .malik__footer {
+      padding: 1.5rem 0 0 0;
+    }
+  }
+  

@@ -1,0 +1,291 @@
+.main-body {
+  padding: 15px;
+  margin-top: 20px;
+}
+.card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 0.25rem;
+  background: #f7dfe4 !important;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1rem;
+}
+
+.gutters-sm {
+  margin-right: -8px;
+  margin-left: -8px;
+}
+
+.gutters-sm > .col,
+.gutters-sm > [class*="col-"] {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+.mb-3,
+.my-3 {
+  margin-bottom: 1rem !important;
+}
+
+.h-100 {
+  height: 100% !important;
+}
+.shadow-none {
+  box-shadow: none !important;
+}
+
+.profile-data .userprofile-logout {
+  background: var(--font-color);
+  text-decoration: none;
+  color: #fff;
+  margin-right: 0.25rem;
+}
+
+.profile-data .userprofile-creataccount {
+  background: gray;
+  color: #fff;
+  text-decoration: none;
+}
+
+.profile-data .userprofile-logout:hover {
+  background: var(--font-color);
+  color: #fff;
+}
+
+.profile-data .userprofile-creataccount:hover {
+  background: gray;
+  color: #fff;
+}
+
+.list-group-item i,
+.material-icons {
+  color: var(--font-color);
+  margin-right: 0.25rem;
+}
+
+.modal-row {
+  --bs-gutter-y: -1rem !important;
+}
+
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-container h2 {
+  font-size: 24px;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--font-color);
+}
+
+.modal-container .form-group label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.modal-container .form-group .form-control {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.modal-container .btn {
+  margin-right: 10px;
+}
+
+.modal-container .save-change {
+  background: var(--font-color);
+  color: white;
+}
+
+.modal-container .save-change:hover {
+  background: var(--font-color);
+  color: white;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+}
+
+/* Modal Styles */
+.modal-style {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  width: 450px;
+  max-height: 80vh; /* Ensures the modal doesn't exceed 80% of the viewport height */
+  overflow-y: auto; /* Enables vertical scrolling if content exceeds the height */
+  text-align: center;
+  background: #fff;
+  /* transform: translate(-50%, -50%); */
+}
+
+
+/* Close Button */
+.modal-close-btn {
+  position: absolute;
+  top: 0px;
+  right: 30px;
+  border: none;
+  background: transparent;
+  font-size: 50px;
+  color: white;
+  cursor: pointer;
+}
+
+/* User Image */
+.user-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  
+}
+
+.connection-main p {
+  padding: 0;
+  margin: 0;
+}
+
+/* User Name */
+.user-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+ 
+}
+
+/* Request Actions */
+.request-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.request-actions .accept-btn,
+.request-actions .reject-btn {
+  outline: none;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Accept Button */
+.accept-btn {
+  background-color: var(--font-color);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.accept-btn:hover {
+  background-color: var(--font-color);
+}
+
+/* Reject Button */
+.reject-btn {
+  background-color: var(--bg-color);
+  color: var(--font-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.reject-btn:hover {
+  background-color: var(--bg-color);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 576px) {
+  
+  .modal-close-btn {
+    position: absolute;
+    top: 0px;
+    right: 35px;
+    border: none;
+    background: transparent;
+    font-size: 35px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .modal-style {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .user-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .user-name {
+    font-size: 1rem;
+  }
+
+  .request-actions {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .request-actions .accept-btn,
+  .request-actions .reject-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .modal-overlay1 {
+    position: absolute;
+    align-items: start;
+    top: auto !important;
+    bottom: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    position: absolute;
+    align-items: start;
+    bottom: -818px;
+    top: auto;
+  }
+
+}

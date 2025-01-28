@@ -1,0 +1,24 @@
+.image-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-section img {
+  border-radius: 5rem;
+  height: 380px;
+  margin-top: 3rem;
+}
+
+.left-data,
+.right-data,
+.center-data {
+  margin: 2rem 0;
+  border: 1px solid var(--font-color);
+}
+
+@media (max-width: 480px) {
+  .image-section img {
+    height: 250px;
+  }
+}
