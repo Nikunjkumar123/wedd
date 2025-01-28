@@ -34,7 +34,6 @@ const SignupPage = () => {
     annualIncome: "",
     house: "",
     password: "",
-    profilePhoto: "",
     phone: "", // For Phone Number
     email: "",
     area: "",

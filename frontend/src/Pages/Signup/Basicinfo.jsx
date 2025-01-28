@@ -329,7 +329,6 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
                 </select>
               </div>
             </div>
-
           </div>
 
           <div className="row">
@@ -341,6 +340,10 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
                 <input
                   type={passwordVisible ? "text" : "password"}
                   className="sign-up-password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   required
                 />
                 <button
@@ -354,15 +357,6 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
                     <i class="bi bi-eye"></i>
                   )}
                 </button>
-              </div>
-            </div>
-
-            <div className="col-md-4">
-              <div className="form-field">
-                <label htmlFor="ProfilePhoto" className="label-main">
-                  Upload Profile Image
-                </label>
-                <input type="file" accept="image/*" required />
               </div>
             </div>
           </div>

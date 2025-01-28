@@ -45,11 +45,14 @@ const Review = ({ formData }) => {
               <label className="label-main">Married Status</label>
               <p className="Signup-Review">{formData.maritalstatus}</p>
             </div>
-            
+            <div className="form-field">
+              <label className="label-main">Password</label>
+              <p className="Signup-Review">{formData.password}</p>
+            </div>
           </div>
 
           <div className="col-md-4">
-          <div className="form-field">
+            <div className="form-field">
               <label className="label-main">Family Head</label>
               <p className="Signup-Review">{formData.FamilyHead}</p>
             </div>
@@ -85,12 +88,10 @@ const Review = ({ formData }) => {
               <label className="label-main">House</label>
               <p className="Signup-Review">{formData.house}</p>
             </div>
-
-           
           </div>
 
           <div className="col-md-4">
-          <div className="form-field">
+            <div className="form-field">
               <label className="label-main">Phone</label>
               <p className="Signup-Review">{formData.phone}</p>
             </div>
@@ -127,6 +128,12 @@ const Review = ({ formData }) => {
             <div className="form-field">
               <label className="label-main">Wedding Style</label>
               <p className="Signup-Review">{formData.weddingStyle}</p>
+            </div>
+            <div className="form-field">
+              <label htmlFor="ProfilePhoto" className="label-main">
+                Upload Profile Image
+              </label>
+              <input type="file" accept="image/*" />
             </div>
           </div>
         </div>
