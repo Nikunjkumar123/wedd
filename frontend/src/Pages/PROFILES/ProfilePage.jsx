@@ -3,109 +3,114 @@ import "./ProfilePage.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import profilebg from "../../Assets/ProfileBg.jpeg";
-import profileimg from "../../Assets/Testimonial1.jpg";
-import profileimg2 from "../../Assets/Testimonail.png";
-import profileimg3 from "../../Assets/Testimonial1.jpg";
-import profileimg4 from "../../Assets/Testimonial2.png";
-import profileimg5 from "../../Assets/Testimonial3.png";
-import profileimg6 from "../../Assets/Testimonial4.png";
-import profileimg7 from "../../Assets/Testimonial5.png";
-import stories1 from "../../Assets/Testimonial5.png";
 import Modal from "react-modal";
+import axios from 'axios';
+import {axiosInstance} from "../Login/Loginpage";
+
 Modal.setAppElement("#root");
 
 const ProfilePage = () => {
+  const [prf,SetPrf] = useState([])
+  const [selec,SetSelec] = useState(false)
+  const getDETAILS = async()=>{
+    const response = await axiosInstance.get('/api/v1/profiles/opposite/users')
+    // console.log("adta is",response.data.opp);
+    SetPrf(response.data.opp);
+  }
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+    if (!selec) {
+      getDETAILS();
+    }
   }, []);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const profileImage = [
-    {
-      img: profileimg,
-      profileID: 101,
-      name: "Shruti",
-      age: "22",
-      Place: "Delhi",
-      height: "5.4Ich",
-      education: "B.A",
-    },
-    {
-      img: stories1,
-      profileID: 102,
-      name: "Kirti",
-      age: "22",
-      Place: "Delhi",
-      height: "5.4Ich",
-      education: "B.A",
-    },
-    {
-      img: profileimg2,
-      profileID: 103,
-      name: "Arti",
-      age: "22",
-      Place: "Delhi",
-      height: "5.4Ich",
-      education: "B.A",
-    },
-    {
-      img: profileimg3,
-      profileID: 104,
-      name: "Rachna",
-      age: "22",
-      Place: "Delhi",
-      height: "5.4Ich",
-      education: "B.A",
-    },
-    {
-      img: profileimg4,
-      profileID: 105,
-      name: "Rachna",
-      age: "22",
-      Place: "Delhi",
-      height: "5.4Ich",
-      education: "B.A",
-    },
-    {
-      img: profileimg5,
-      profileID: 106,
-      name: "Rachna",
-      age: "22",
-      Place: "Delhi",
-      height: "5.4Ich",
-      education: "B.A",
-    },
-    {
-      img: profileimg6,
-      profileID: 107,
-      name: "Rachna",
-      age: "22",
-      Place: "Delhi",
-      height: "5.4Ich",
-      education: "B.A",
-    },
-    {
-      img: profileimg7,
-      profileID: 108,
-      name: "Rachna",
-      age: "22",
-      Place: "Delhi",
-      height: "5.4Ich",
-      education: "B.A",
-    },
-  ];
+  // const profileImage = [
+  //   {
+  //     img: profileimg,
+  //     profileID: 101,
+  //     name: "Shruti",
+  //     age: "22",
+  //     Place: "Delhi",
+  //     height: "5.4Ich",
+  //     education: "B.A",
+  //   },
+  //   {
+  //     img: stories1,
+  //     profileID: 102,
+  //     name: "Kirti",
+  //     age: "22",
+  //     Place: "Delhi",
+  //     height: "5.4Ich",
+  //     education: "B.A",
+  //   },
+  //   {
+  //     img: profileimg2,
+  //     profileID: 103,
+  //     name: "Arti",
+  //     age: "22",
+  //     Place: "Delhi",
+  //     height: "5.4Ich",
+  //     education: "B.A",
+  //   },
+  //   {
+  //     img: profileimg3,
+  //     profileID: 104,
+  //     name: "Rachna",
+  //     age: "22",
+  //     Place: "Delhi",
+  //     height: "5.4Ich",
+  //     education: "B.A",
+  //   },
+  //   {
+  //     img: profileimg4,
+  //     profileID: 105,
+  //     name: "Rachna",
+  //     age: "22",
+  //     Place: "Delhi",
+  //     height: "5.4Ich",
+  //     education: "B.A",
+  //   },
+  //   {
+  //     img: profileimg5,
+  //     profileID: 106,
+  //     name: "Rachna",
+  //     age: "22",
+  //     Place: "Delhi",
+  //     height: "5.4Ich",
+  //     education: "B.A",
+  //   },
+  //   {
+  //     img: profileimg6,
+  //     profileID: 107,
+  //     name: "Rachna",
+  //     age: "22",
+  //     Place: "Delhi",
+  //     height: "5.4Ich",
+  //     education: "B.A",
+  //   },
+  //   {
+  //     img: profileimg7,
+  //     profileID: 108,
+  //     name: "Rachna",
+  //     age: "22",
+  //     Place: "Delhi",
+  //     height: "5.4Ich",
+  //     education: "B.A",
+  //   },
+  // ];
 
   // ===== Filter Code =====
 
   const [filters, setFilters] = useState({
     gender: "",
-    age: 25, // Default age slider value
+    age: 25, 
     city: "",
-    budget: 50000, // Default budget slider value
+    budget: 50000, 
   });
 
   const handleInputChange = (e) => {
@@ -118,9 +123,29 @@ const ProfilePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Applied Filters:", filters);
+    // console.log("Applied Filters:", filters);
     alert("Filters applied successfully!");
   };
+
+  const handlefilterSubmit = async () => {
+    try {
+      const response = await axiosInstance.post(
+        '/api/v1/profiles/profiles/filter',
+        filters, // Make sure 'filters' contains gender, age, city, and budget
+        {
+          headers: {
+            'Content-Type': 'application/json', 
+          },
+        }
+      );
+      console.log("Filtered Users:", response.data.all);
+      // Handle the response (e.g., set the filtered users in state to render them)
+    } catch (error) {
+      console.error("Error applying filters:", error);
+      // You can show an error message to the user
+    }
+  };
+  
 
   return (
     <>
@@ -191,7 +216,7 @@ const ProfilePage = () => {
                   type="range"
                   id="age"
                   name="age"
-                  min="16"
+                  min="18"
                   max="60"
                   value={filters.age}
                   onChange={handleInputChange}
@@ -209,8 +234,8 @@ const ProfilePage = () => {
                   id="budget"
                   name="budget"
                   min="10000"
-                  max="100000"
-                  step="5000"
+                  max="10000000"
+                  step="2"
                   value={filters.budget}
                   onChange={handleInputChange}
                   className="form-range"
@@ -219,7 +244,7 @@ const ProfilePage = () => {
 
               {/* Submit Button */}
               <div className="col-md-1 col-12 text-center mt-md-0 mt-3">
-                <button type="submit" className="btn-btn filter-submit">
+                <button type="submit" className="btn-btn filter-submit" onClick={handlefilterSubmit}>
                   Search
                 </button>
               </div>
@@ -228,10 +253,10 @@ const ProfilePage = () => {
 
           <div className="row">
             <div className="profile-container">
-              {profileImage.map((profile) => (
+              {prf.map((profile) => (
                 <div
                   className="profile-card col-md-3 mb-4"
-                  key={profile.profileID}
+                  key={profile._id}
                 >
                   <div
                     className="profile-image"
@@ -240,8 +265,8 @@ const ProfilePage = () => {
                     }}
                   >
                     <img
-                      src={profile.img}
-                      alt={profile.name}
+                      src={profile.image}
+                      alt={profile.fullName}
                       onClick={() => setModalOpen(true)}
                       className="profile-pic"
                     />
@@ -249,7 +274,7 @@ const ProfilePage = () => {
                   <div className="profile-details">
                     <div className="details-row">
                       <p>
-                        <strong>Name:</strong> {profile.name}
+                        <strong>Name:</strong> {profile.fullName}
                       </p>
                       <p>
                         <strong>Age:</strong> {profile.age}
@@ -257,7 +282,7 @@ const ProfilePage = () => {
                     </div>
                     <div className="details-row">
                       <p>
-                        <strong>Place:</strong> {profile.Place}
+                        <strong>Place:</strong> {profile.state}
                       </p>
                       <p>
                         <strong>Height:</strong> {profile.height}

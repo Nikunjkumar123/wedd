@@ -162,7 +162,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
                   <option value="" disabled>
                     Marital Status
                   </option>
-                  <option value="UnMarried">Never Married</option>
+                  <option value="UnMarried">Single</option>
                   <option value="Divorced">Divorced</option>
                   <option value="Windowed">Widow</option>
                 </select>

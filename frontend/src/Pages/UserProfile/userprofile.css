@@ -180,6 +180,11 @@
   
 }
 
+.profile-user-image {
+  width: 200px;
+  height: 200px;
+}
+
 .connection-main p {
   padding: 0;
   margin: 0;
@@ -245,6 +250,11 @@
     font-size: 35px;
     color: #333;
     cursor: pointer;
+  }
+
+  .profile-user-image {
+    width: 150px;
+    height: 150px;
   }
   
   .modal-style {

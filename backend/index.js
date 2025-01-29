@@ -14,25 +14,33 @@ const verifyToken=require('./Middleware/verifyToken.js');
 const vefiryADMIN = require('./Middleware/vefiryADMIN.js')
 const blockByADMINForWork = require('./Middleware/blockByAdmin.js');
 const freekaViewroute = require('./Routers/freekaViewroute.js');
+const ProfilesRouter = require('./Routers/ProfilesRouter.js');
 
 const corsOptions = {
-    origin: '*', 
+    origin: 'http://localhost:3001', 
     methods: 'GET, POST, PUT, DELETE', 
-    credentials: false, 
+    credentials: true, 
 };
-
 
 app.use(express.json());
 app.use(express.static('./public'));
 app.use(cors(corsOptions)); 
 app.use(cookieParser());
 app.use(fileUpload({useTempFiles:true}));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3001'); // your frontend URL
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+  
 
 app.use('/showpieces',freekaViewroute);
 app.use('/api/v1/auth',authenticationRouter);
+app.use('/api/v1/profiles',verifyToken,ProfilesRouter);
 app.use('/api/v1/myprofile',verifyToken,blockByADMINForWork,myprofileRouter);
 app.use('/api/v1/connectionRequest',verifyToken,connectionRouter);
-app.use('/api/v1/adminPanel',verifyToken,vefiryADMIN,adminRouter);
+// app.use('/api/v1/adminPanel',verifyToken,vefiryADMIN,adminRouter);
+app.use('/api/v1/adminPanel',adminRouter);
 
 
 connectDB(process.env.URL)

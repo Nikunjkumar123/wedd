@@ -5,37 +5,108 @@ import { Link } from "react-router-dom";
 import AvatarEditor from "react-avatar-editor";
 import { Helmet } from "react-helmet";
 import connectuser from "../../Assets/Testimonial5.png";
+import axios from "axios";
+import { axiosInstance } from "../Login/Loginpage";
 
 ReactModal.setAppElement("#root");
 
 const UserProfile = () => {
+  const [disData, SetDisdata] = useState({
+    _id: "",
+    fullName: "",
+    age: "",
+    gender: "",
+    fatherName: "",
+    motherName: "",
+    height: "",
+    dob: "",
+    maritalstatus: "",
+    FamilyHead: "",
+    FamilyHeadOccupation: "",
+    siblings: "",
+    Sistersiblings: "",
+    pehchan: "",
+    education: "",
+    working: "",
+    annualIncome: "",
+    house: "",
+    phone: "",
+    email: "",
+    image: "",
+    area: "",
+    city: "",
+    state: "",
+    pin: "",
+    country: "",
+    weddingBudget: "",
+    weddingStyle: "",
+    role: "",
+    blockByADMIN: "",
+    Verified: "",
+    connections: [],
+  });
+
+  const displayUserDetail = async () => {
+    const response = await axiosInstance.get("/api/v1/myprofile/viewProfile");
+    SetDisdata(response.data.message);
+  };
+
+  useEffect(() => {
+    if (disData.fullName) {
+      setFormData({
+        name: disData.fullName,
+        fatherName: disData.fatherName,
+        motherName: disData.motherName,
+        dob: disData.dob,
+        phone: disData.phone,
+        email: disData.email,
+        gender: disData.gender,
+        age: disData.age,
+        height: disData.height,
+        MarriedStatus: disData.maritalstatus,
+        belong: disData.pehchan,
+        sibling: disData.siblings,
+        education: disData.education,
+        working: disData.working,
+        income: disData.annualIncome,
+        address: disData.area,
+        city: disData.city,
+        pin: disData.pin,
+        budget: disData.weddingBudget,
+        style: disData.weddingStyle,
+        familyHead: disData.FamilyHead,
+      });
+    }
+  }, [disData]);
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+    displayUserDetail();
   }, []);
 
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
-    name: "Asif",
-    fatherName: "DynamicName",
-    motherName: "DynamicName",
-    dob: "DynamicDate",
-    phone: "DynamicPhone",
-    email: "DynamicEmail",
-    gender: "DynamicData",
-    age: "Dynamicage",
-    height: "DynamicData",
-    MarriedStatus: "DynamicData",
-    belong: "DynamicData",
+    name: "",
+    fatherName: "",
+    motherName: "",
+    dob: "",
+    phone: "",
+    email: "",
+    gender: "",
+    age: "",
+    height: "",
+    MarriedStatus: "",
+    belong: "",
     sibling: "DynamicData",
     education: "DynamicData",
     working: "DynamicData",
     income: "DynamicData",
     address: "DynamicAddress",
-    city: "DyanamicCity",
-    pin: "DyanamicPin",
+    city: "DynamicCity",
+    pin: "DynamicPin",
     budget: "Dyamic Budget",
     style: "DynamicData",
     familyHead: "DynamicData",
@@ -84,7 +155,7 @@ const UserProfile = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // Sample user data
-  const user =  {
+  const user = {
     img: connectuser,
     name: "Shruti",
     age: "22",
@@ -104,6 +175,12 @@ const UserProfile = () => {
     alert("Connection Request Rejected!");
     closeModal();
   };
+
+  // const updateDATA = async(req,res)=>{
+  //   const respone = axios.patch("http://localhost:3000/api/v1/myprofile/viewProfile",formData,{ headers: { "Content-Type": "application/json" }})
+  //   //   console.log("Profile updated:", respone.data);
+  //     setShowModal(false);
+  // }
 
   return (
     <>
@@ -130,9 +207,9 @@ const UserProfile = () => {
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
                       <img
-                        src={profileImage || "https://via.placeholder.com/150"}
+                        src={disData.image || "https://via.placeholder.com/150"}
                         alt="Admin"
-                        className="rounded-circle"
+                        className="rounded-circle profile-user-image"
                         width={200}
                       />
 
@@ -146,19 +223,26 @@ const UserProfile = () => {
                       </div>
 
                       <div className="profile-data mt-3">
-                        <h4>{formData.name}</h4>
-                        <p className="text-secondary mb-1">
-                          {formData.working}
-                        </p>
+                        <h4>{disData.fullName}</h4>
+                        <p className="text-secondary mb-1">{disData.working}</p>
                         <p className="text-muted font-size-sm">
-                          {formData.city}
+                          {disData.city}
                         </p>
 
                         <Link to="/">
-                          <button className="btn userprofile-logout">
+                          <button className="btn userprofile-logout" onClick={async()=>{
+                            const response=await axios.get('http://localhost:3000/api/v1/auth/logout');
+                            if(response.data.message == "Logged out successfully"){
+                              document.cookie = "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+                              window.alert('logout successfull');
+                            }else{
+                              window.alert("logout failed");
+                            }
+                          }}>
                             Log Out
                           </button>
                         </Link>
+                        
                         <button
                           className="btn userprofile-creataccount"
                           onClick={() => setShowModal(true)}
@@ -185,7 +269,7 @@ const UserProfile = () => {
                         Father Name
                       </h6>
                       <span className="text-secondary">
-                        {formData.fatherName}
+                        {disData.fatherName}
                       </span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -194,7 +278,7 @@ const UserProfile = () => {
                         Mother Name
                       </h6>
                       <span className="text-secondary">
-                        {formData.motherName}
+                        {disData.motherName}
                       </span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -202,21 +286,21 @@ const UserProfile = () => {
                         <i className="bi bi-arrow-bar-right"></i>
                         DOB
                       </h6>
-                      <span className="text-secondary">{formData.dob}</span>
+                      <span className="text-secondary">{disData.dob}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                       <h6 className="mb-0">
                         <i className="bi bi-arrow-bar-right"></i>
                         Phone
                       </h6>
-                      <span className="text-secondary">{formData.phone}</span>
+                      <span className="text-secondary">{disData.phone}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                       <h6 className="mb-0">
                         <i className="bi bi-arrow-bar-right"></i>
                         Email
                       </h6>
-                      <span className="text-secondary">{formData.email}</span>
+                      <span className="text-secondary">{disData.email}</span>
                     </li>
                   </ul>
                 </div>
@@ -323,7 +407,7 @@ const UserProfile = () => {
               ))}
             </div>
             <div className="d-flex justify-content-end">
-              <button type="submit" className="btn save-change">
+              <button type="submit" className="btn save-change" >
                 Save Changes
               </button>
               <button
@@ -351,7 +435,6 @@ const UserProfile = () => {
           </button>
           <div className="container connection-main">
             <div className="row align-items-center">
-            
               <div className="col-md-2">
                 <img src={user.img} alt={user.name} className="user-image" />
               </div>
@@ -370,8 +453,7 @@ const UserProfile = () => {
                 </p>
               </div>
             </div>
-            </div>
-          
+          </div>
 
           <div className="request-actions">
             <button onClick={acceptRequest} className="accept-btn">

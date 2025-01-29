@@ -3,8 +3,17 @@ import ReactModal from "react-modal";
 import { Helmet } from "react-helmet";
 import "./Loginpage.css";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Import axios
 
 ReactModal.setAppElement("#root"); // Set the root element for accessibility
+
+// Define axiosInstance outside the Loginpage component
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:3000", // API base URL
+  withCredentials: true,
+});
+
+export { axiosInstance }; // Export axiosInstance here
 
 const Loginpage = () => {
   useEffect(() => {
@@ -18,6 +27,8 @@ const Loginpage = () => {
   const [showOTPForm, setShowOTPForm] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [otp, setOtp] = useState(Array(6).fill(""));
+  const [email, setEmail] = useState(""); // State for email
+  const [password, setPassword] = useState(""); // State for password
   const [error, setError] = useState("");
 
   const handleForgotPasswordSubmit = (e) => {
@@ -54,6 +65,23 @@ const Loginpage = () => {
     }
   };
 
+  // Handle the login functionality with API
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(axiosInstance);
+      const response = await axiosInstance.post("/api/v1/auth/login", {
+        email,
+        password,
+      });
+      console.log("Login response: ", response.data);
+      alert("Login successful!");
+      // You can handle the successful response here, like saving the token
+    } catch (err) {
+      setError("Invalid credentials. Please try again.");
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -65,14 +93,26 @@ const Loginpage = () => {
       </Helmet>
       <div className="container-fluid login-bg">
         <div className="wrapper">
-          <form action="#" className="Login-form">
+          <form onSubmit={handleLogin} className="Login-form">
+            {" "}
+            {/* Added handleLogin here */}
             <h2 className="login-heading">Login</h2>
             <div className="input-field">
-              <input type="text" required />
+              <input
+                type="email"
+                value={email} // Set email value
+                onChange={(e) => setEmail(e.target.value)} // Handle email change
+                required
+              />
               <label>Enter your Email</label>
             </div>
             <div className="input-field password-field">
-              <input type={passwordVisible ? "text" : "password"} required />
+              <input
+                type={passwordVisible ? "text" : "password"}
+                value={password} // Set password value
+                onChange={(e) => setPassword(e.target.value)} // Handle password change
+                required
+              />
               <label>Enter your Password</label>
               <button
                 type="button"
@@ -82,6 +122,8 @@ const Loginpage = () => {
                 {passwordVisible ? "🙈" : "👁️"}
               </button>
             </div>
+            {error && <p className="error-message">{error}</p>}{" "}
+            {/* Show error */}
             <div className="forget">
               <label htmlFor="remember">
                 <input type="checkbox" id="remember" />
@@ -181,4 +223,4 @@ const Loginpage = () => {
   );
 };
 
-export default Loginpage;
+export default Loginpage; // Default export for Loginpage component

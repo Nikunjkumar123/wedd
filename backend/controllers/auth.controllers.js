@@ -53,20 +53,20 @@ const RegisterUser = async (req, res) => {
       }
   
       const {
-        name,
+        fullName,
         age,
         gender,
         fatherName,
         motherName,
         grandfatherName,
         height,
-        dateOfBirth,
-        maritialStatus,
-        familyHead,
-        familyOccupationHead,
-        numberOfBrother,
-        NumOfSister,
-        Belong,
+        dob,
+        maritalstatus,
+        FamilyHead,
+        FamilyHeadOccupation,
+        siblings,
+        Sistersiblings,
+        pehchan,
         education,
         working,
         annualIncome,
@@ -77,46 +77,16 @@ const RegisterUser = async (req, res) => {
         area,
         city,
         state,
-        pincode,
+        pin,
         country,
         weddingBudget,
         weddingStyle,
         role,
       } = req.body;
   
-      if (
-        !name ||
-        !email ||
-        !password ||
-        !age ||
-        !gender ||
-        !fatherName ||
-        !motherName ||
-        !grandfatherName ||
-        !dateOfBirth ||
-        !height ||
-        !Belong ||
-        !education ||
-        !working ||
-        !annualIncome ||
-        !phone ||
-        !house ||
-        !city ||
-        !state ||
-        !area ||
-        !pincode ||
-        !country ||
-        !weddingBudget ||
-        !weddingStyle ||
-        !role ||
-        !image
-      ) {
-        return res.status(400).json({ msg: 'Please enter all required fields' });
-      }
-  
       // Create a new user
       const user = await UserModel.create({
-        name,
+        fullName,
         email,
         password,
         age,
@@ -125,13 +95,13 @@ const RegisterUser = async (req, res) => {
         motherName,
         grandfatherName,
         height,
-        dateOfBirth,
-        maritialStatus,
-        familyHead,
-        familyOccupationHead,
-        numberOfBrother,
-        NumOfSister,
-        Belong,
+        dob,
+        maritalstatus,
+        FamilyHead,
+        FamilyHeadOccupation,
+        siblings,
+        Sistersiblings,
+        pehchan,
         education,
         working,
         annualIncome,
@@ -140,7 +110,7 @@ const RegisterUser = async (req, res) => {
         area,
         city,
         state,
-        pincode,
+        pin,
         country,
         weddingBudget,
         weddingStyle,
@@ -148,14 +118,15 @@ const RegisterUser = async (req, res) => {
         image,
       });
       
-      res.status(201).json({ user });
+      res.status(201).json({ message:"user created" });
     } catch (error) {
       return res.status(500).json({
-        msg: 'Cloudinary upload and register failed',
+        msg: ' register failed',
         error: error.message,
       });
     }
   };
+  
   
 
 const LoginUser = async (req, res) => {
@@ -166,7 +137,8 @@ const LoginUser = async (req, res) => {
             return res.status(400).json({ message: 'Enter complete fields' });
         }
 
-        const checkuser = await UserModel.findOne({ email });
+        const checkuser = await UserModel.findOne({email} );
+        console.log(checkuser)
         if (!checkuser) {
             return res.status(400).json({ message: 'Enter correct email' });
         }
@@ -185,7 +157,7 @@ const LoginUser = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             maxAge: 2592000000, // 30 days in milliseconds
-            sameSite: 'strict',
+            sameSite: 'None',
         });
         
 
@@ -201,7 +173,7 @@ const LogoutUser=async(req,res)=>{
         res.clearCookie('token', {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict',
+            sameSite: 'None',
         });
         res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {

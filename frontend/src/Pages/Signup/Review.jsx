@@ -1,7 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./SignupPage.css";
 
 const Review = ({ formData }) => {
+  const [profileImage, setProfileImage] = useState(null);
+
+  // Handle image upload
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfileImage(file);
+    }
+  };
+
+  // Function to handle form submission
+  const handleSubmit = async () => {
+    try {
+      const formDataWithImage = new FormData();
+      // Append all form data fields
+      Object.keys(formData).forEach((key) => {
+        formDataWithImage.append(key, formData[key]);
+      });
+
+      // Append the image
+      if (profileImage) {
+        formDataWithImage.append("image", profileImage);
+      }
+
+      const response = await axios.post("http://localhost:3000/api/v1/auth/register", formDataWithImage, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("Form submitted successfully!");
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Failed to submit the form. Please try again.");
+    }
+  };
+
   return (
     <>
       <div>
@@ -28,7 +67,6 @@ const Review = ({ formData }) => {
               <label className="label-main">Mother's Name</label>
               <p className="Signup-Review">{formData.motherName}</p>
             </div>
-
             <div className="form-field">
               <label className="label-main">Grandfather's Name</label>
               <p className="Signup-Review">{formData.GrandFatherName}</p>
@@ -99,7 +137,6 @@ const Review = ({ formData }) => {
               <label className="label-main">Email</label>
               <p className="Signup-Review">{formData.email}</p>
             </div>
-
             <div className="form-field">
               <label className="label-main">Area</label>
               <p className="Signup-Review">{formData.area}</p>
@@ -112,7 +149,6 @@ const Review = ({ formData }) => {
               <label className="label-main">State</label>
               <p className="Signup-Review">{formData.state}</p>
             </div>
-
             <div className="form-field">
               <label className="label-main">Pin Code</label>
               <p className="Signup-Review">{formData.pin}</p>
@@ -133,12 +169,16 @@ const Review = ({ formData }) => {
               <label htmlFor="ProfilePhoto" className="label-main">
                 Upload Profile Image
               </label>
-              <input type="file" accept="image/*" />
+              <input type="file" accept="image/*" onChange={handleImageChange} />
             </div>
           </div>
         </div>
 
-        <button type="submit" className="submit-btn login-page-btn">
+        <button
+          type="button"
+          className="submit-btn login-page-btn"
+          onClick={handleSubmit}
+        >
           Submit
         </button>
       </div>

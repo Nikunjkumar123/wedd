@@ -12,6 +12,7 @@ const verifyToken = (req, res, next) => {
             email: data.email,
             role: data.role,
             name: data.name,
+            gender:data.gender,
         };
         next();
     } catch (error) {
