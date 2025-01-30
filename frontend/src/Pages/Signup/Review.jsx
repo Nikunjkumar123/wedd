@@ -27,11 +27,15 @@ const Review = ({ formData }) => {
         formDataWithImage.append("image", profileImage);
       }
 
-      const response = await axios.post("http://localhost:3000/api/v1/auth/register", formDataWithImage, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "https://malikwedd.onrender.com/api/v1/auth/register",
+        formDataWithImage,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       alert("Form submitted successfully!");
       console.log("Response:", response.data);
@@ -169,7 +173,11 @@ const Review = ({ formData }) => {
               <label htmlFor="ProfilePhoto" className="label-main">
                 Upload Profile Image
               </label>
-              <input type="file" accept="image/*" onChange={handleImageChange} />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
             </div>
           </div>
         </div>

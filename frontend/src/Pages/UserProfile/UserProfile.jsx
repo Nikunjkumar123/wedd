@@ -177,7 +177,7 @@ const UserProfile = () => {
   };
 
   // const updateDATA = async(req,res)=>{
-  //   const respone = axios.patch("http://localhost:3000/api/v1/myprofile/viewProfile",formData,{ headers: { "Content-Type": "application/json" }})
+  //   const respone = axios.patch("https://malikwedd.onrender.com/api/v1/myprofile/viewProfile",formData,{ headers: { "Content-Type": "application/json" }})
   //   //   console.log("Profile updated:", respone.data);
   //     setShowModal(false);
   // }
@@ -230,19 +230,28 @@ const UserProfile = () => {
                         </p>
 
                         <Link to="/">
-                          <button className="btn userprofile-logout" onClick={async()=>{
-                            const response=await axios.get('http://localhost:3000/api/v1/auth/logout');
-                            if(response.data.message == "Logged out successfully"){
-                              document.cookie = "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-                              window.alert('logout successfull');
-                            }else{
-                              window.alert("logout failed");
-                            }
-                          }}>
+                          <button
+                            className="btn userprofile-logout"
+                            onClick={async () => {
+                              const response = await axios.get(
+                                "https://malikwedd.onrender.com/api/v1/auth/logout"
+                              );
+                              if (
+                                response.data.message ==
+                                "Logged out successfully"
+                              ) {
+                                document.cookie =
+                                  "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+                                window.alert("logout successfull");
+                              } else {
+                                window.alert("logout failed");
+                              }
+                            }}
+                          >
                             Log Out
                           </button>
                         </Link>
-                        
+
                         <button
                           className="btn userprofile-creataccount"
                           onClick={() => setShowModal(true)}
@@ -407,7 +416,7 @@ const UserProfile = () => {
               ))}
             </div>
             <div className="d-flex justify-content-end">
-              <button type="submit" className="btn save-change" >
+              <button type="submit" className="btn save-change">
                 Save Changes
               </button>
               <button
