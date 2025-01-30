@@ -234,7 +234,7 @@ const UserProfile = () => {
                             className="btn userprofile-logout"
                             onClick={async () => {
                               const response = await axios.get(
-                                "https://malikwedd.onrender.com/api/v1/auth/logout"
+                                "http://localhost:3000/api/v1/auth/logout"
                               );
                               if (
                                 response.data.message ==
