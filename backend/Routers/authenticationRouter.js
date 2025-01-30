@@ -4,7 +4,7 @@ const {RegisterUser,LoginUser,LogoutUser,forgotPasswordUser,verifyTokenOTP,updat
 
 authenticationRouter.route('/register').post(RegisterUser);
 authenticationRouter.route('/Login').post(LoginUser);
-authenticationRouter.route('/Logout').get(LogoutUser);
+authenticationRouter.route('/Logout').post(LogoutUser);
 authenticationRouter.route('/forgotPassword').post(forgotPasswordUser);
 authenticationRouter.route('/verifyToken').post(verifyTokenOTP);
 authenticationRouter.route('/updatePassword').post(updatePasswordOTP);

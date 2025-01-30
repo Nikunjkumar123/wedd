@@ -119,6 +119,8 @@ const UserProfile = () => {
   const [imageFile, setImageFile] = useState(null);
   const editorRef = useRef(null);
 
+
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -233,9 +235,7 @@ const UserProfile = () => {
                           <button
                             className="btn userprofile-logout"
                             onClick={async () => {
-                              const response = await axios.get(
-                                "http://localhost:3000/api/v1/auth/logout"
-                              );
+                              const response = await axios.post("http://localhost:3000/api/v1/auth/logout", {}, { withCredentials: true });
                               if (
                                 response.data.message ==
                                 "Logged out successfully"
@@ -254,7 +254,10 @@ const UserProfile = () => {
 
                         <button
                           className="btn userprofile-creataccount"
-                          onClick={() => setShowModal(true)}
+                          onClick={() => {
+                            setShowModal(true)
+                            // editProfileUser()
+                          }}
                         >
                           Edit Profile
                         </button>
