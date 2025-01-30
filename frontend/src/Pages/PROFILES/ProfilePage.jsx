@@ -6,10 +6,12 @@ import profilebg from "../../Assets/ProfileBg.jpeg";
 import Modal from "react-modal";
 import axios from 'axios';
 import {axiosInstance} from "../Login/Loginpage";
+import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [prf,SetPrf] = useState([])
   const [selec,SetSelec] = useState(false)
   const getDETAILS = async()=>{
@@ -267,7 +269,10 @@ const ProfilePage = () => {
                     <img
                       src={profile.image}
                       alt={profile.fullName}
-                      onClick={() => setModalOpen(true)}
+                      onClick={() => {
+                        setModalOpen(true)
+                        navigate(`/InnerProfile/${profile._id}`)
+                      }}
                       className="profile-pic"
                     />
                   </div>

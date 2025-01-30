@@ -26,7 +26,7 @@ function App() {
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/profilePage" element={<ProfilePage />} />
         <Route path="/userProfile" element={<UserProfile />} />
-        <Route path="/InnerProfile" element={<InnerProfile />} />
+        <Route path="/InnerProfile/:id" element={<InnerProfile />} />
         <Route path="/termCondition" element={<TermsAndConditions/>} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy/>} />
         <Route path="/*" element={<PageNotFound/>} />
