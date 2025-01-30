@@ -44,5 +44,11 @@ const filteredData = async (req, res) => {
   }
 };
 
+const getSingleUser = async(req,res)=>{ // give user with id
+  const id = req.params.id;
+  const user = await userModel.findOne({_id:id});
+  if(!user) return res.status(400).json({msg:"user not found"});
+  return res.status(202).json({user:user});
+}
 
-module.exports = { oppUsers ,filteredData};
+module.exports = { oppUsers ,filteredData,getSingleUser};

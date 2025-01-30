@@ -9,7 +9,7 @@ ReactModal.setAppElement("#root"); // Set the root element for accessibility
 
 // Define axiosInstance outside the Loginpage component
 const axiosInstance = axios.create({
-  baseURL: "https://malikwedd.onrender.com", // API base URL
+  baseURL: "http://localhost:3001", // API base URL
   withCredentials: true,
 });
 
