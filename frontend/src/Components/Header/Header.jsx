@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { isCookie, Link } from "react-router-dom";
 import websitelogo from "../../Assets/Websitelogo.png";
 import whatsapp from "../../Assets/whatsapp.png";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);

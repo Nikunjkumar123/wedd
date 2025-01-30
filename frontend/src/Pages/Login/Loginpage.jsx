@@ -4,12 +4,13 @@ import { Helmet } from "react-helmet";
 import "./Loginpage.css";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Import axios
-
+import Swal from "sweetalert2"; // Import SweetAlert2
+import { useNavigate } from "react-router-dom"; // Import navigation
 ReactModal.setAppElement("#root"); // Set the root element for accessibility
 
 // Define axiosInstance outside the Loginpage component
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3001", // API base URL
+  baseURL: "http://localhost:3000", // API base URL
   withCredentials: true,
 });
 
@@ -64,10 +65,12 @@ const Loginpage = () => {
       document.getElementById(`otp-input-${index - 1}`).focus();
     }
   };
+  const navigate = useNavigate(); // Initialize navigate
 
-  // Handle the login functionality with API
+
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       console.log(axiosInstance);
       const response = await axiosInstance.post("/api/v1/auth/login", {
@@ -75,8 +78,21 @@ const Loginpage = () => {
         password,
       });
       console.log("Login response: ", response.data);
-      alert("Login successful!");
-      // You can handle the successful response here, like saving the token
+
+      // Store login info in localStorage
+      localStorage.setItem("user", "true");
+
+      // Show SweetAlert2 with longer duration & auto-close disabled
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful!",
+        text: "Welcome back!",
+        timer: 2000, // Keeps alert for 2 seconds
+        showConfirmButton: false, // Hides confirm button
+      }).then(() => {
+        // Redirect to homepage after SweetAlert closes
+        navigate("/");
+      });
     } catch (err) {
       setError("Invalid credentials. Please try again.");
     }
