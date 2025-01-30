@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
 import heroimage from "../../Assets/heroimage.png";
 import AOS from "aos";
@@ -22,6 +22,16 @@ const Home = () => {
       top: 0,
       behavior: "smooth",
     });
+  }, []);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check login status from localStorage when component mounts
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   return (
@@ -48,10 +58,7 @@ const Home = () => {
         <meta property="og:image" content={heroimage} />
         <meta property="og:url" content="https://your-website-url.com/" />
         <meta property="og:type" content="website" />
-        <meta
-          name="twitter:card"
-          content="summary_large_image"
-        />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
           content="Find Your Soulmate - Muslim Malik Rishte"
@@ -77,28 +84,29 @@ const Home = () => {
           </h1>
           <div className="hero-para-text">
             <h5 className="hero-paragraph">
-            Directly Connect With Your Muslim Malik Community at Muslim Malik Rishte
-            <br />
-            Ab Sabhi Rishte Online
+              Directly Connect With Your Muslim Malik Community at Muslim Malik
+              Rishte
+              <br />
+              Ab Sabhi Rishte Online
             </h5>
           </div>
 
           <div className="hero-mobile-sign">
-            <div className="mobile-login">
-              <Link to="/login">
-                <button className="hero-login">Login In</button>
-              </Link>
-            </div>
-            <div className="mobile-login">
-              <Link to="/signup">
-                <button className="hero-login">Create Profile</button>
-              </Link>
-            </div>
-            <div className="mobile-login">
-              <Link to="/userProfile">
-                <button className="hero-login">My Profile</button>
-              </Link>
-            </div>
+            {!isLoggedIn ? (
+              // Show "Login" when user is NOT logged in
+              <div className="mobile-login">
+                <Link to="/login">
+                  <button className="hero-login">Login In</button>
+                </Link>
+              </div>
+            ) : (
+              // Show "My Profile" when user is logged in
+              <div className="mobile-login">
+                <Link to="/userProfile">
+                  <button className="hero-login">My Profile</button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -116,7 +124,7 @@ const Home = () => {
                   <p>Register for free & put up your matrimonial profile up.</p>
                 </div>
               </div>
-              <div className="match-data1" data-aos="fade-left">
+              <div className="match-data1">
                 <div className="match-icon-data">
                   <h5>Connect</h5>
                   <p>Select & Connect with matches you like.</p>

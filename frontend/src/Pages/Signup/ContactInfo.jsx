@@ -9,7 +9,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
         <h3>Other Details</h3>
         <form>
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="phone">
                   Phone <sup>*</sup>
@@ -25,7 +25,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
               </div>
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="email" className="label-main">
                   Email <sup>*</sup>
@@ -59,7 +59,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           </div>
 
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="city" className="label-main">
                   City <sup>*</sup>
@@ -75,7 +75,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
               </div>
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="state" className="label-main">
                   State <sup>*</sup>
@@ -109,7 +109,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           </div>
 
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="country" className="label-main">
                   Country <sup>*</sup>
@@ -125,7 +125,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
               </div>
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-4 col-6">
               <div className="form-field">
                 <label htmlFor="weddingBudget" className="label-main">
                   Wedding Budget

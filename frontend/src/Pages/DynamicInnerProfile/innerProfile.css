@@ -7,6 +7,7 @@
 .image-section img {
   border-radius: 5rem;
   height: 380px;
+  width: 400px;
   margin-top: 3rem;
 }
 
@@ -20,5 +21,6 @@
 @media (max-width: 480px) {
   .image-section img {
     height: 250px;
+    width: 280px;
   }
 }

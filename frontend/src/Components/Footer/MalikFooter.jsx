@@ -60,7 +60,7 @@ const MalikFooter = () => {
             </ul>
           </Col>
           {/* Quick Links */}
-          <Col lg={3} className="mt-4">
+          <Col lg={3}  className="mt-4">
             <h6 className="text-uppercase small">Quick Links</h6>
             <ul className="list-unstyled">
               {quickLinks1.map((link, i) => (
