@@ -107,7 +107,7 @@
 textarea {
   width: 100%;
   padding: 5px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.5);
   color: black;
@@ -128,7 +128,7 @@ textarea:focus {
 .gender-style .select-style {
   width: 100%;
   padding: 5px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.5);
   color: black;
@@ -179,10 +179,10 @@ textarea {
 }
 
 .form-field .signup-eye-icon {
- all: unset;
+  all: unset;
   position: absolute;
-margin-left: -2rem;
-margin-top: 0.25rem;
+  margin-left: -2rem;
+  margin-top: 0.25rem;
 }
 
 sup {
@@ -233,6 +233,10 @@ sup {
     padding: 10px;
     font-size: 0.95rem;
   }
+
+  .form-field .Signup-Review {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -246,6 +250,23 @@ sup {
     margin: 1rem auto;
   }
 
+  #signup-page input[type="text"],
+  #signup-page input[type="number"],
+  #signup-page input[type="email"],
+  #signup-page input[type="password"],
+  #signup-page input[type="file"],
+  textarea {
+    padding: 3px 8px;
+  }
+
+  .gender-style .select-style {
+    padding: 3px 8px;
+  }
+
+  .label-main {
+    font-size: 14px;
+  }
+
   .form-header h1 {
     font-size: 1.2rem;
   }
@@ -253,5 +274,9 @@ sup {
   .login-page-btn {
     font-size: 0.85rem;
     padding: 8px 16px;
+  }
+
+  .form-field .Signup-Review {
+    max-width: 100% !important;
   }
 }

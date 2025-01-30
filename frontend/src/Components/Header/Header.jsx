@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import websitelogo from "../../Assets/Websitelogo.png";
@@ -6,10 +6,19 @@ import whatsapp from "../../Assets/whatsapp.png";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  // Check login status from localStorage when component mounts
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <>
@@ -64,43 +73,35 @@ const Header = () => {
           </div>
 
           <div className="nav-right-data">
-            <div className="nav-login-btn">
-              <div className="login-icon">
-                <Link to="/userProfile">
-                  <i class="bi bi-person-lines-fill"></i>{" "}
-                </Link>
+            {isLoggedIn ? (
+              // Show "My Profile" when user is logged in
+              <div className="nav-login-btn">
+                <div className="login-icon">
+                  <Link to="/userProfile">
+                    <i className="bi bi-person-lines-fill"></i>
+                  </Link>
+                </div>
+                <div className="login-name">
+                  <p>
+                    <Link to="/userProfile">MY PROFILE</Link>
+                  </p>
+                </div>
               </div>
-              <div className="login-name">
-                <p>
-                  <Link to="/userProfile">MY PROFILE</Link>
-                </p>
+            ) : (
+              // Show "Login" when user is NOT logged in
+              <div className="nav-login-btn">
+                <div className="login-icon">
+                  <Link to="/login">
+                    <i className="bi bi-person-circle"></i>
+                  </Link>
+                </div>
+                <div className="login-name">
+                  <p>
+                    <Link to="/login">LOGIN</Link>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="nav-login-btn">
-              <div className="login-icon">
-                <Link to="/login">
-                  <i className="bi bi-person-circle"></i>
-                </Link>
-              </div>
-              <div className="login-name">
-                <p>
-                  <Link to="/login">LOGIN</Link>
-                </p>
-              </div>
-            </div>
-
-            <div className="nav-login-btn">
-              <div className="login-icon">
-                <Link to="/signup">
-                  <i className="bi bi-person-add"></i>
-                </Link>
-              </div>
-              <div className="login-name">
-                <p>
-                  <Link to="/signup">SIGN UP</Link>
-                </p>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Hamburger Menu Icon */}
