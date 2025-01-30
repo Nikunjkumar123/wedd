@@ -177,7 +177,7 @@ const UserProfile = () => {
   };
 
   // const updateDATA = async(req,res)=>{
-  //   const respone = axios.patch("https://malikwedd.onrender.com/api/v1/myprofile/viewProfile",formData,{ headers: { "Content-Type": "application/json" }})
+  //   const respone = axios.patch("http://localhost:3000//api/v1/myprofile/viewProfile",formData,{ headers: { "Content-Type": "application/json" }})
   //   //   console.log("Profile updated:", respone.data);
   //     setShowModal(false);
   // }
@@ -234,7 +234,7 @@ const UserProfile = () => {
                             className="btn userprofile-logout"
                             onClick={async () => {
                               const response = await axios.get(
-                                "https://malikwedd.onrender.com/api/v1/auth/logout"
+                                "http://localhost:3000//api/v1/auth/logout"
                               );
                               if (
                                 response.data.message ==
