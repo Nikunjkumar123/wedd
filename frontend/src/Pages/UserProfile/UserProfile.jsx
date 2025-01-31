@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactModal from "react-modal";
 import "./userprofile.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AvatarEditor from "react-avatar-editor";
 import { Helmet } from "react-helmet";
 import connectuser from "../../Assets/Testimonial5.png";
 import axios from "axios";
 import { axiosInstance } from "../Login/Loginpage";
+import Swal from "sweetalert2";
 
 ReactModal.setAppElement("#root");
 
@@ -119,17 +120,33 @@ const UserProfile = () => {
   const [imageFile, setImageFile] = useState(null);
   const editorRef = useRef(null);
 
-
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log("Updated Data:", formData);
-    alert("Profile updated successfully!");
+
+    try {
+      const response = await axiosInstance.patch(
+        "/api/v1/myprofile/viewProfile", // The API endpoint
+        formData, // The data to be updated (formData)
+        {
+          headers: {
+            "Content-Type": "application/json", // Set Content-Type header
+          },
+        }
+      );
+
+      console.log("API Response:", response.data);
+      alert("Profile updated successfully!");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("There was an error updating the profile. Please try again.");
+    }
+
     setShowModal(false); // Close the modal after submission
   };
 
@@ -184,6 +201,53 @@ const UserProfile = () => {
   //     setShowModal(false);
   // }
 
+  // ------------- Logout function --------------
+
+  const navigate = useNavigate(); // Initialize navigation
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/auth/logout",
+        {},
+        { withCredentials: true }
+      );
+
+      if (response.data.message === "Logged out successfully") {
+        // Clear session
+        document.cookie =
+          "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+        localStorage.removeItem("user");
+
+        // Dispatch custom event
+        window.dispatchEvent(new Event("userStatusChanged"));
+
+        // Show SweetAlert2 & redirect after 2 sec
+        Swal.fire({
+          icon: "success",
+          title: "Logout Successful!",
+          text: "You have been logged out.",
+          timer: 2000,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate("/"); // Redirect to homepage after SweetAlert closes
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Logout Failed!",
+          text: "Something went wrong. Please try again.",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Logout request failed.",
+      });
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -231,31 +295,17 @@ const UserProfile = () => {
                           {disData.city}
                         </p>
 
-                        <Link to="/">
-                          <button
-                            className="btn userprofile-logout"
-                            onClick={async () => {
-                              const response = await axios.post("http://localhost:3000/api/v1/auth/logout", {}, { withCredentials: true });
-                              if (
-                                response.data.message ==
-                                "Logged out successfully"
-                              ) {
-                                document.cookie =
-                                  "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-                                window.alert("logout successfull");
-                              } else {
-                                window.alert("logout failed");
-                              }
-                            }}
-                          >
-                            Log Out
-                          </button>
-                        </Link>
+                        <button
+                          className="btn userprofile-logout"
+                          onClick={handleLogout}
+                        >
+                          Log Out
+                        </button>
 
                         <button
                           className="btn userprofile-creataccount"
                           onClick={() => {
-                            setShowModal(true)
+                            setShowModal(true);
                             // editProfileUser()
                           }}
                         >
