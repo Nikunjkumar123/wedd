@@ -18,7 +18,7 @@ const ProfilesRouter = require('./Routers/ProfilesRouter.js');
 
 const corsOptions = {
     origin: 'http://localhost:3001', 
-    methods: 'GET, POST, PUT, DELETE', 
+    methods: 'GET, POST, PUT, DELETE,PATCH', 
     credentials: true, 
 };
 
