@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Removed 'isCookie' (not needed)
 import "./Header.css";
-import { isCookie, Link } from "react-router-dom";
 import websitelogo from "../../Assets/Websitelogo.png";
 import whatsapp from "../../Assets/whatsapp.png";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -15,16 +14,26 @@ const Header = () => {
 
   // Check login status from localStorage when component mounts
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setIsLoggedIn(true);
-    }
+    const checkUser = () => {
+      const user = localStorage.getItem("user");
+      setIsLoggedIn(!!user); // Convert to boolean
+    };
+
+    checkUser(); // Initial check on mount
+
+    // Listen for login/logout updates
+    window.addEventListener("userStatusChanged", checkUser);
+
+    return () => {
+      window.removeEventListener("userStatusChanged", checkUser);
+    };
   }, []);
+
+  
 
   return (
     <>
       {/* =================Float whatsapp icon ================= */}
-
       <div>
         <Link
           to="https://api.whatsapp.com/send?phone=9599467465"
