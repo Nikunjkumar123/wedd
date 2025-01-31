@@ -208,23 +208,23 @@ const UserProfile = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/logout",
+        "http://api.muslimmalikrishte.com/api/v1/auth/logout",
         {},
         { withCredentials: true }
       );
-  
+
       if (response.data.message === "Logged out successfully") {
         // Clear session
         document.cookie =
           "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
         localStorage.removeItem("user");
-  
+
         // Update state before navigation
         window.dispatchEvent(new Event("userStatusChanged"));
-  
+
         // Redirect immediately to trigger re-render
         navigate("/");
-  
+
         // Show SweetAlert2 (after navigation)
         Swal.fire({
           icon: "success",

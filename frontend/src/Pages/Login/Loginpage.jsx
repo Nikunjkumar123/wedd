@@ -3,18 +3,17 @@ import ReactModal from "react-modal";
 import { Helmet } from "react-helmet";
 import "./Loginpage.css";
 import { Link } from "react-router-dom";
-import axios from "axios"; 
-import Swal from "sweetalert2"; 
-import { useNavigate } from "react-router-dom"; 
-ReactModal.setAppElement("#root"); 
-
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+ReactModal.setAppElement("#root");
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://api.muslimmalikrishte.com",
   withCredentials: true,
 });
 
-export { axiosInstance }; 
+export { axiosInstance };
 
 const Loginpage = () => {
   useEffect(() => {
@@ -28,8 +27,8 @@ const Loginpage = () => {
   const [showOTPForm, setShowOTPForm] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [otp, setOtp] = useState(Array(6).fill(""));
-  const [email, setEmail] = useState(""); 
-  const [password, setPassword] = useState(""); 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleForgotPasswordSubmit = (e) => {
@@ -65,12 +64,11 @@ const Loginpage = () => {
       document.getElementById(`otp-input-${index - 1}`).focus();
     }
   };
-  const navigate = useNavigate(); 
-
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     try {
       console.log(axiosInstance);
       const response = await axiosInstance.post("/api/v1/auth/login", {
@@ -78,29 +76,24 @@ const Loginpage = () => {
         password,
       });
       console.log("Login response: ", response.data);
-  
-      
+
       localStorage.setItem("user", "true");
-  
-      
+
       window.dispatchEvent(new Event("userStatusChanged"));
-  
-      
+
       Swal.fire({
         icon: "success",
         title: "Login Successful!",
         text: "Welcome back!",
-        timer: 1000, 
-        showConfirmButton: false, 
+        timer: 1000,
+        showConfirmButton: false,
       }).then(() => {
-        
         navigate("/");
       });
     } catch (err) {
       setError("Invalid credentials. Please try again.");
     }
   };
-  
 
   return (
     <>
@@ -120,8 +113,8 @@ const Loginpage = () => {
             <div className="input-field">
               <input
                 type="email"
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <label>Enter your Email</label>
@@ -129,8 +122,8 @@ const Loginpage = () => {
             <div className="input-field password-field">
               <input
                 type={passwordVisible ? "text" : "password"}
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
               <label>Enter your Password</label>
@@ -243,4 +236,4 @@ const Loginpage = () => {
   );
 };
 
-export default Loginpage; 
+export default Loginpage;
