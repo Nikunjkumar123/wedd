@@ -33,7 +33,9 @@ app.use((req, res, next) => {
     next();
 });
   
-
+app.get('/', (req, res) => {
+    res.send("API WORKING FINE");
+});
 app.use('/showpieces',freekaViewroute);
 app.use('/api/v1/auth',authenticationRouter);
 app.use('/api/v1/profiles',verifyToken,ProfilesRouter);
