@@ -3,18 +3,18 @@ import ReactModal from "react-modal";
 import { Helmet } from "react-helmet";
 import "./Loginpage.css";
 import { Link } from "react-router-dom";
-import axios from "axios"; // Import axios
-import Swal from "sweetalert2"; // Import SweetAlert2
-import { useNavigate } from "react-router-dom"; // Import navigation
-ReactModal.setAppElement("#root"); // Set the root element for accessibility
+import axios from "axios"; 
+import Swal from "sweetalert2"; 
+import { useNavigate } from "react-router-dom"; 
+ReactModal.setAppElement("#root"); 
 
-// Define axiosInstance outside the Loginpage component
+
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000", // API base URL
+  baseURL: "http://localhost:3000",
   withCredentials: true,
 });
 
-export { axiosInstance }; // Export axiosInstance here
+export { axiosInstance }; 
 
 const Loginpage = () => {
   useEffect(() => {
@@ -28,8 +28,8 @@ const Loginpage = () => {
   const [showOTPForm, setShowOTPForm] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [otp, setOtp] = useState(Array(6).fill(""));
-  const [email, setEmail] = useState(""); // State for email
-  const [password, setPassword] = useState(""); // State for password
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState(""); 
   const [error, setError] = useState("");
 
   const handleForgotPasswordSubmit = (e) => {
@@ -65,12 +65,12 @@ const Loginpage = () => {
       document.getElementById(`otp-input-${index - 1}`).focus();
     }
   };
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate(); 
 
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       console.log(axiosInstance);
       const response = await axiosInstance.post("/api/v1/auth/login", {
@@ -78,25 +78,29 @@ const Loginpage = () => {
         password,
       });
       console.log("Login response: ", response.data);
-
-      // Store login info in localStorage
+  
+      
       localStorage.setItem("user", "true");
-
-      // Show SweetAlert2 with longer duration & auto-close disabled
+  
+      
+      window.dispatchEvent(new Event("userStatusChanged"));
+  
+      
       Swal.fire({
         icon: "success",
         title: "Login Successful!",
         text: "Welcome back!",
-        timer: 2000, // Keeps alert for 2 seconds
-        showConfirmButton: false, // Hides confirm button
+        timer: 1000, 
+        showConfirmButton: false, 
       }).then(() => {
-        // Redirect to homepage after SweetAlert closes
+        
         navigate("/");
       });
     } catch (err) {
       setError("Invalid credentials. Please try again.");
     }
   };
+  
 
   return (
     <>
@@ -116,8 +120,8 @@ const Loginpage = () => {
             <div className="input-field">
               <input
                 type="email"
-                value={email} // Set email value
-                onChange={(e) => setEmail(e.target.value)} // Handle email change
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
                 required
               />
               <label>Enter your Email</label>
@@ -125,8 +129,8 @@ const Loginpage = () => {
             <div className="input-field password-field">
               <input
                 type={passwordVisible ? "text" : "password"}
-                value={password} // Set password value
-                onChange={(e) => setPassword(e.target.value)} // Handle password change
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
                 required
               />
               <label>Enter your Password</label>
@@ -239,4 +243,4 @@ const Loginpage = () => {
   );
 };
 
-export default Loginpage; // Default export for Loginpage component
+export default Loginpage; 

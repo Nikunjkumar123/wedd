@@ -93,15 +93,13 @@ const ContactUs = () => {
               <div className="col-md-3 info-box">
                 <i className="bi bi-envelope icon"></i>
                 <p>
-                  <a href="mailto:info@gmail.com">malikwedding@gmail.com</a>
-                  <a href="mailto:info@gmail.com">malikwedding@gmail.com</a>
+                  <a href="mailto:muslimmalikrishte@gmail.com">muslimmalikrishte@gmail.com</a>
                 </p>
               </div>
               <div className="col-md-3 info-box">
                 <i className="bi bi-telephone icon"></i>
                 <p>
-                  <a href="tel:+9193506****">+91 9350**** </a>
-                  <a href="tel:+91981******">+91 9810**** </a>
+                  <a href="tel:+919599467465">+91 9599467465 </a>
                 </p>
               </div>
             </div>

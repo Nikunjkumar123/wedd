@@ -212,25 +212,26 @@ const UserProfile = () => {
         {},
         { withCredentials: true }
       );
-
+  
       if (response.data.message === "Logged out successfully") {
         // Clear session
         document.cookie =
           "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
         localStorage.removeItem("user");
-
-        // Dispatch custom event
+  
+        // Update state before navigation
         window.dispatchEvent(new Event("userStatusChanged"));
-
-        // Show SweetAlert2 & redirect after 2 sec
+  
+        // Redirect immediately to trigger re-render
+        navigate("/");
+  
+        // Show SweetAlert2 (after navigation)
         Swal.fire({
           icon: "success",
           title: "Logout Successful!",
           text: "You have been logged out.",
           timer: 2000,
           showConfirmButton: false,
-        }).then(() => {
-          navigate("/"); // Redirect to homepage after SweetAlert closes
         });
       } else {
         Swal.fire({
