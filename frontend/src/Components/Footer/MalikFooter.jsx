@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import "./MalikFooter.css";
-import FooterLogo from "../../Assets/Websitelogo.png";
+import FooterLogo from "../../Assets/malikLogobgr.png";
 import { Link } from "react-router-dom";
 
 const quickLinks = [
@@ -75,13 +75,13 @@ const MalikFooter = () => {
           {/* Language and Currency */}
           <Col lg={3} className="malik__footer light">
             <h6 className="text-uppercase small">Phone</h6>
-            <Link to="tel: 9315949***" target="_blank">
-              9315949***
+            <Link to="tel:9599467465" target="_blank">
+             9599467465
             </Link>{" "}
             {/* Replace phoneNumber with your dynamic value */}
             <h6 className="text-uppercase small mt-2">Email</h6>
-            <Link to="mailto: malikwedding@gmail.com" target="_blank">
-              malikwedding@gmail.com
+            <Link to="mailto:muslimmalikrishte@gmail.com" target="_blank">
+            muslimmalikrishte@gmail.com
             </Link>{" "}
             {/* Replace email with your dynamic value */}
             <h6 className="text-uppercase small mt-2">Address</h6>

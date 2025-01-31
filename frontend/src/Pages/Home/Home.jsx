@@ -96,14 +96,14 @@ const Home = () => {
               // Show "Login" when user is NOT logged in
               <div className="mobile-login">
                 <Link to="/login">
-                  <button className="hero-login">Login In</button>
+                  <button className="hero-login">LOGIN</button>
                 </Link>
               </div>
             ) : (
               // Show "My Profile" when user is logged in
               <div className="mobile-login">
                 <Link to="/userProfile">
-                  <button className="hero-login">My Profile</button>
+                  <button className="hero-login">MY PROFILE</button>
                 </Link>
               </div>
             )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Removed 'isCookie' (not needed)
 import "./Header.css";
-import websitelogo from "../../Assets/Websitelogo.png";
+import websitelogo from "../../Assets/malikLogobgr.png";
 import whatsapp from "../../Assets/whatsapp.png";
 
 const Header = () => {
@@ -11,23 +11,24 @@ const Header = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
-
-  // Check login status from localStorage when component mounts
-  useEffect(() => {
-    const checkUser = () => {
+   
+   useEffect(() => {
+    const checkUserStatus = () => {
       const user = localStorage.getItem("user");
-      setIsLoggedIn(!!user); // Convert to boolean
+      setIsLoggedIn(!!user); // Update state based on user existence
     };
-
-    checkUser(); // Initial check on mount
-
-    // Listen for login/logout updates
-    window.addEventListener("userStatusChanged", checkUser);
-
+  
+    // Run once on mount
+    checkUserStatus();
+  
+    // Listen for login/logout events
+    window.addEventListener("userStatusChanged", checkUserStatus);
+  
     return () => {
-      window.removeEventListener("userStatusChanged", checkUser);
+      window.removeEventListener("userStatusChanged", checkUserStatus);
     };
   }, []);
+  
 
   
 
@@ -83,22 +84,8 @@ const Header = () => {
           </div>
 
           <div className="nav-right-data">
-            {isLoggedIn ? (
-              // Show "My Profile" when user is logged in
-              <div className="nav-login-btn">
-                <div className="login-icon">
-                  <Link to="/userProfile">
-                    <i className="bi bi-person-lines-fill"></i>
-                  </Link>
-                </div>
-                <div className="login-name">
-                  <p>
-                    <Link to="/userProfile">MY PROFILE</Link>
-                  </p>
-                </div>
-              </div>
-            ) : (
-              // Show "Login" when user is NOT logged in
+            {!isLoggedIn ? (
+              // Show "My Login" when user is logged in
               <div className="nav-login-btn">
                 <div className="login-icon">
                   <Link to="/login">
@@ -108,6 +95,21 @@ const Header = () => {
                 <div className="login-name">
                   <p>
                     <Link to="/login">LOGIN</Link>
+                  </p>
+                </div>
+              </div>
+             
+            ) : (
+              // Show "MyProfile" when user is NOT logged in
+              <div className="nav-login-btn">
+                <div className="login-icon">
+                  <Link to="/userProfile">
+                    <i className="bi bi-person-lines-fill"></i>
+                  </Link>
+                </div>
+                <div className="login-name">
+                  <p>
+                    <Link to="/userProfile">MY PROFILE</Link>
                   </p>
                 </div>
               </div>
