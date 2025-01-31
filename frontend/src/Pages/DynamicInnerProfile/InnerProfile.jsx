@@ -104,7 +104,7 @@ const InnerProfile = () => {
                     <i className="bi bi-arrow-bar-right"></i>
                     Grand Father Name
                   </h6>
-                  <span className="text-secondary">{dis.phone}</span>
+                  <span className="text-secondary">{dis.GrandFatherName}</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">

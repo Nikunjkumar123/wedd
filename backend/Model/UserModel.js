@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   motherName: {
     type: String,
   },
-  grandfatherName: {
+  GrandFatherName: {
     type: String,
   },
   height: {
