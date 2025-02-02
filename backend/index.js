@@ -16,22 +16,25 @@ const blockByADMINForWork = require('./Middleware/blockByAdmin.js');
 const freekaViewroute = require('./Routers/freekaViewroute.js');
 const ProfilesRouter = require('./Routers/ProfilesRouter.js');
 
-const corsOptions = {
-    origin: 'https://www.muslimmalikrishte.com', //frontend url
-    methods: 'GET, POST, PUT, DELETE,PATCH', 
-    credentials: true, 
-};
+
 
 app.use(express.json());
 app.use(express.static('./public'));
-app.use(cors(corsOptions)); 
+app.use(
+    cors({
+      origin: "https://www.muslimmalikrishte.com", // Allow only this origin
+      credentials: true, // Allow credentials (cookies, auth headers)
+      methods: "GET,POST,PUT,DELETE,OPTIONS",
+      allowedHeaders: "Content-Type, Authorization",
+    })
+  );
 app.use(cookieParser());
 app.use(fileUpload({useTempFiles:true}));
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://www.muslimmalikrishte.com'); // your frontend URL
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', 'https://www.muslimmalikrishte.com'); // your frontend URL
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     next();
+// });
 
   
 app.get('/', (req, res) => {
