@@ -28,7 +28,7 @@ const Review = ({ formData }) => {
       }
 
       const response = await axios.post(
-        "//api.muslimmalikrishte.com/api/v1/auth/register",
+        "https://api.muslimmalikrishte.com/api/v1/auth/register",
         formDataWithImage,
         {
           headers: {

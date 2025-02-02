@@ -208,7 +208,7 @@ const UserProfile = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        "//api.muslimmalikrishte.com/api/v1/auth/logout",
+        "https://api.muslimmalikrishte.com/api/v1/auth/logout",
         {},
         { withCredentials: true }
       );

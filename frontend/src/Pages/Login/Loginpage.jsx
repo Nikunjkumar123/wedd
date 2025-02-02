@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 ReactModal.setAppElement("#root");
 
 const axiosInstance = axios.create({
-  baseURL: "//api.muslimmalikrishte.com",
+  baseURL: "https://api.muslimmalikrishte.com",
   withCredentials: true,
 });
 
