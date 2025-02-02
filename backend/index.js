@@ -37,6 +37,13 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.send("API WORKING FINE");
 });
+app.use((req, res, next) => {
+    if (req.headers["x-forwarded-proto"] !== "https") {
+      return res.redirect(`https://${req.headers.host}${req.url}`);
+    }
+    next();
+  });
+  
 app.use('/showpieces',freekaViewroute);
 app.use('/api/v1/auth',authenticationRouter);
 app.use('/api/v1/profiles',verifyToken,ProfilesRouter);
