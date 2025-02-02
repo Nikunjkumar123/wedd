@@ -20,6 +20,7 @@ const ProfilesRouter = require('./Routers/ProfilesRouter.js');
 
 app.use(express.json());
 app.use(express.static('./public'));
+app.use(cookieParser());
 app.use(
     cors({
       origin: "https://www.muslimmalikrishte.com", // Allow only this origin
@@ -28,7 +29,8 @@ app.use(
       allowedHeaders: "Content-Type, Authorization",
     })
   );
-app.use(cookieParser());
+  app.options('*', cors());
+
 app.use(fileUpload({useTempFiles:true}));
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', 'https://www.muslimmalikrishte.com'); // your frontend URL
