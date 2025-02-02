@@ -32,11 +32,11 @@ app.use(
   app.options('*', cors());
 
 app.use(fileUpload({useTempFiles:true}));
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', 'https://www.muslimmalikrishte.com'); // your frontend URL
-//     res.header('Access-Control-Allow-Credentials', 'true');
-//     next();
-// });
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://www.muslimmalikrishte.com'); // your frontend URL
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+});
 
   
 app.get('/', (req, res) => {
