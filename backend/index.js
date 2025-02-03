@@ -23,9 +23,9 @@ app.use(express.static('./public'));
 app.use(cookieParser());
 app.use(
     cors({
-      origin: "https://www.muslimmalikrishte.com", // Allow only this origin
+      origin: ["https://www.dushadinfra.com","https://admin.dushadinfra.com"], // Allow only this origin
       credentials: true, // Allow credentials (cookies, auth headers)
-      methods: "GET,POST,PUT,DELETE,OPTIONS",
+      methods: "GET,POST,PUT,DELETE,OPTIONS,PATCH",
       allowedHeaders: "Content-Type, Authorization",
     })
   );
@@ -33,7 +33,7 @@ app.use(
 
 app.use(fileUpload({useTempFiles:true}));
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://www.muslimmalikrishte.com'); // your frontend URL
+    res.header('Access-Control-Allow-Origin', ['https://www.dushadinfra.com','https://admin.dushadinfra.com']); // your frontend URL
     res.header('Access-Control-Allow-Credentials', 'true');
     next();
 });
