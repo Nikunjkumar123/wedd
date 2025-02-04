@@ -13,100 +13,32 @@ Modal.setAppElement("#root");
 const ProfilePage = () => {
   const navigate = useNavigate();
   const [prf,SetPrf] = useState([])
-  const [selec,SetSelec] = useState(false)
+  const [allprf,SetAllPrf] = useState([])
+
   const getDETAILS = async()=>{
     const response = await axiosInstance.get('/api/v1/profiles/opposite/users')
     // console.log("adta is",response.data.opp);
     SetPrf(response.data.opp);
+  }
+  const getALLDETAILS = async()=>{
+    const response = await axiosInstance.get('/api/v1/adminPanel/allUsers')
+    // console.log("adta is",response.data.opp);
+    SetAllPrf(response.data);
   }
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-    if (!selec) {
+    const userStatus = localStorage.getItem("user");
+    if (userStatus) {
       getDETAILS();
+    }else{
+      getALLDETAILS();
     }
   }, []);
 
   const [isModalOpen, setModalOpen] = useState(false);
-
-  // const profileImage = [
-  //   {
-  //     img: profileimg,
-  //     profileID: 101,
-  //     name: "Shruti",
-  //     age: "22",
-  //     Place: "Delhi",
-  //     height: "5.4Ich",
-  //     education: "B.A",
-  //   },
-  //   {
-  //     img: stories1,
-  //     profileID: 102,
-  //     name: "Kirti",
-  //     age: "22",
-  //     Place: "Delhi",
-  //     height: "5.4Ich",
-  //     education: "B.A",
-  //   },
-  //   {
-  //     img: profileimg2,
-  //     profileID: 103,
-  //     name: "Arti",
-  //     age: "22",
-  //     Place: "Delhi",
-  //     height: "5.4Ich",
-  //     education: "B.A",
-  //   },
-  //   {
-  //     img: profileimg3,
-  //     profileID: 104,
-  //     name: "Rachna",
-  //     age: "22",
-  //     Place: "Delhi",
-  //     height: "5.4Ich",
-  //     education: "B.A",
-  //   },
-  //   {
-  //     img: profileimg4,
-  //     profileID: 105,
-  //     name: "Rachna",
-  //     age: "22",
-  //     Place: "Delhi",
-  //     height: "5.4Ich",
-  //     education: "B.A",
-  //   },
-  //   {
-  //     img: profileimg5,
-  //     profileID: 106,
-  //     name: "Rachna",
-  //     age: "22",
-  //     Place: "Delhi",
-  //     height: "5.4Ich",
-  //     education: "B.A",
-  //   },
-  //   {
-  //     img: profileimg6,
-  //     profileID: 107,
-  //     name: "Rachna",
-  //     age: "22",
-  //     Place: "Delhi",
-  //     height: "5.4Ich",
-  //     education: "B.A",
-  //   },
-  //   {
-  //     img: profileimg7,
-  //     profileID: 108,
-  //     name: "Rachna",
-  //     age: "22",
-  //     Place: "Delhi",
-  //     height: "5.4Ich",
-  //     education: "B.A",
-  //   },
-  // ];
-
-  // ===== Filter Code =====
 
   const [filters, setFilters] = useState({
     gender: "",
@@ -254,6 +186,7 @@ const ProfilePage = () => {
           </div>
 
           <div className="row">
+          {localStorage.getItem("user") ? (
             <div className="profile-container">
               {prf.map((profile) => (
                 <div
@@ -297,6 +230,51 @@ const ProfilePage = () => {
                 </div>
               ))}
             </div>
+          ) :(
+            <div className="profile-container">
+              {allprf.map((profile) => (
+                <div
+                  className="profile-card col-md-3 mb-4"
+                  key={profile._id}
+                >
+                  <div
+                    className="profile-image"
+                    style={{
+                      backgroundImage: `url(${profilebg})`,
+                    }}
+                  >
+                    <img
+                      src={profile.image}
+                      alt={profile.fullName}
+                      onClick={() => {
+                        setModalOpen(true)
+                        navigate(`/login`)
+                      }}
+                      className="profile-pic"
+                    />
+                  </div>
+                  <div className="profile-details">
+                    <div className="details-row">
+                      <p>
+                        <strong>Name:</strong> {profile.fullName}
+                      </p>
+                      <p>
+                        <strong>Age:</strong> {profile.age}
+                      </p>
+                    </div>
+                    <div className="details-row">
+                      <p>
+                        <strong>Place:</strong> {profile.state}
+                      </p>
+                      <p>
+                        <strong>Height:</strong> {profile.height}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           </div>
 
           <Modal

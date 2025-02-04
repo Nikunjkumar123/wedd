@@ -13,8 +13,8 @@ const User = () => {
 
   const getApiData = async () => {
     try {
-      let res = await axios.get("https://api.sitarammarriagebureau.com/api/user")
-      const newData = res.data.data
+      let res = await axios.get("http://localhost:3000/api/v1/adminPanel/allUsers")
+      const newData = res.data;
       setData(newData.reverse())
     } catch (error) {
       console.log(error);
@@ -23,7 +23,7 @@ const User = () => {
 
   const deleteRecord = async (_id) => {
     try {
-      let res = await axios.delete("https://api.sitarammarriagebureau.com/api/user/" + _id)
+      let res = await axios.delete("http://localhost:3000/api/v1/adminPanel/updateUser/" + _id)
       if (res.status === 200) {
         toast.success("User Details Deleted Successfully")
       }
@@ -71,7 +71,7 @@ const User = () => {
                   currentPageData.map((item, index) =>
                     <tr key={index}>
                       <td>{index + 1 + offset}</td>
-                      <td>{item.name}</td>
+                      <td>{item.fullName}</td>
                       <td>{item.email}</td>
                       <td>{item.phone}</td>
                       <td>{item.gender}</td>

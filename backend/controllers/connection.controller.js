@@ -67,4 +67,31 @@ const RejectRequest = async(req,res)=>{
     }
 }
 
-module.exports={sendRqst,AcceptRequest,RejectRequest}
+const getAllRequest = async(req,res)=>{
+    try {
+        const all = await ConnectionRequestModel.find();
+        if(!all) return res.status(404).json({msg:"no request found"});
+        return res.status(200).json({all:all});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+const RequestForMe = async (req, res) => {
+    try {
+        const requests = await ConnectionRequestModel.find({ recipient: req.user.userId })
+            .populate("sender", "fullName gender maritalstatus email age city working image phone "); // Populate sender details if needed
+
+        if (!requests || requests.length === 0) {
+            return res.status(400).json({ msg: "No requests found" });
+        }
+
+        return res.status(200).json({ requests });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+
+module.exports={sendRqst,AcceptRequest,RejectRequest,getAllRequest,RequestForMe}

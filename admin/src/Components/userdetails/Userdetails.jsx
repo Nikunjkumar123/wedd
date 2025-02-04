@@ -7,9 +7,9 @@ const Userdetails = () => {
     const {_id} = useParams()
     const getApiData = async () => {
         try {
-            let res = await axios.get("https://api.sitarammarriagebureau.com/api/user/" + _id)
-            console.log(res);
-            setData(res.data.data);
+            let res = await axios.get("http://localhost:3000/api/v1/adminPanel/user/" + _id)
+            console.log(res.data.user);
+            setData(res.data.user);
         } catch (error) {
             console.log(error);
         }
@@ -36,15 +36,15 @@ const Userdetails = () => {
                             </tr>
                             <tr>
                                 <th>Name</th>
-                                <td>{data.name}</td>
+                                <td>{data.fullName}</td>
                             </tr>
                             <tr>
                                 <th>Father Name</th>
-                                <td>{data.fathername}</td>
+                                <td>{data.fatherName}</td>
                             </tr>
                             <tr>
                                 <th>Mother Name</th>
-                                <td>{data.mothername}</td>
+                                <td>{data.motherName}</td>
                             </tr>
                             <tr>
                                 <th>Gender</th>
@@ -56,11 +56,7 @@ const Userdetails = () => {
                             </tr>
                             <tr>
                                 <th>Date Of Birth</th>
-                                <td>{data.dateofbirth}</td>
-                            </tr>
-                            <tr>
-                                <th>Birth Place</th>
-                                <td>{data.birthplace}</td>
+                                <td>{data.dob}</td>
                             </tr>
                             <tr>
                                 <th>Height</th>
@@ -92,18 +88,18 @@ const Userdetails = () => {
                                 <th>Phone</th>
                                 <td colSpan={2}>{data.email}</td>
                             </tr>
-                            <tr>
+                            {/* <tr>
                                 <th colSpan={6} style={{ color: "orange" }}>Religious & Social Background</th>
-                            </tr>
-                            <tr>
+                            </tr> */}
+                            {/* <tr>
                                 <th>Religion</th>
                                 <td>{data.religion}</td>
                                 <th>Cast</th>
                                 <td>{data.cast}</td>
                                 <th>Sub Cast</th>
                                 <td>{data.subcast}</td>
-                            </tr>
-                            <tr>
+                            </tr> */}
+                            {/* <tr>
                                 <th colSpan={6} style={{ color: "orange" }}>Gotra Information</th>
                             </tr>
                             <tr>
@@ -113,7 +109,7 @@ const Userdetails = () => {
                                 <td>{data.mgotra}</td>
                                 <th>Grand Mother Gotra</th>
                                 <td>{data.ggotra}</td>
-                            </tr>
+                            </tr> */}
                             <tr>
                                 <th colSpan={6} style={{ color: "orange" }}>Education Information</th>
                             </tr>
@@ -122,16 +118,16 @@ const Userdetails = () => {
                                 <td>{data.education}</td>
                                 <th>Company Name</th>
                                 <td>{data.companyname}</td>
-                                <th>Anuval Salary</th>
-                                <td>{data.salary}</td>
+                                <th>Annual Income</th>
+                                <td>{data.annualIncome}</td>
                             </tr>
                             <tr>
                                 <th colSpan={6} style={{ color: "orange" }}>Location / Residence</th>
                             </tr>
-                            <tr>
+                            {/* <tr>
                                 <th>Address</th>
                                 <td>{data.address}</td>
-                            </tr>
+                            </tr> */}
                             <tr>
                                 <th>Pin</th>
                                 <td>{data.pin}</td>
