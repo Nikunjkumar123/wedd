@@ -16,26 +16,25 @@ const blockByADMINForWork = require('./Middleware/blockByAdmin.js');
 const freekaViewroute = require('./Routers/freekaViewroute.js');
 const ProfilesRouter = require('./Routers/ProfilesRouter.js');
 
-const corsOptions = {
-    origin: 'http://localhost:3001', //frontend url
-    methods: 'GET, POST, PUT, DELETE,PATCH', 
-    credentials: true, 
-};
-
 app.use(express.json());
 app.use(express.static('./public'));
-app.use(cors(corsOptions)); 
 app.use(cookieParser());
+app.use(
+    cors({
+      origin:["http://localhost:3000","http://localhost:3001"],
+      credentials: true,
+      methods: "GET,POST,DELETE,PATCH",
+      allowedHeaders: "Content-Type, Authorization",
+    })
+  );
+  app.options('*', cors());
+
 app.use(fileUpload({useTempFiles:true}));
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3001'); // your frontend URL
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
-});
   
 app.get('/', (req, res) => {
     res.send("API WORKING FINE");
 });
+
 app.use('/showpieces',freekaViewroute);
 app.use('/api/v1/auth',authenticationRouter);
 app.use('/api/v1/profiles',verifyToken,ProfilesRouter);

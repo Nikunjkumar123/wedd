@@ -90,6 +90,15 @@ const blockUserByAdmin = async(req,res)=>{
         return res.status(400).json({error:error});
     }
 }
+const singleUser = async(req,res)=>{
+    try {
+        const id = req.params.id;
+        const user = await userModel.findOne(id);
+        if(!user) return req.status(404).json({msg:"user not found"});
+        return res.status(200).json({user:user});
+    } catch (error) {
+        return res.status(400).json({error:error});
+    }
+}
 
-
-module.exports = {allUsers,addUser,updateUser,deleteUser,normaluser,premiumuser,blockUserByAdmin};
+module.exports = {allUsers,addUser,updateUser,deleteUser,normaluser,premiumuser,blockUserByAdmin,singleUser};
