@@ -8,7 +8,7 @@ const Userdetails = () => {
   const getApiData = async () => {
     try {
       let res = await axios.get(
-        "https://api.sitarammarriagebureau.com/api/user/" + _id
+        "http://localhost:3000/api/v1/adminPanel/updateUser/" + _id // it will get single user , dont update user only a name in api url
       );
       console.log(res);
       setData(res.data.data);
