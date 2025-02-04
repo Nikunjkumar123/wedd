@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 ReactModal.setAppElement("#root");
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "http://localhost:3000",
   withCredentials: true,
 });
 
