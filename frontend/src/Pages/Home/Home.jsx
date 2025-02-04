@@ -24,16 +24,6 @@ const Home = () => {
     });
   }, []);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // Check login status from localStorage when component mounts
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
   return (
     <>
       <Helmet>
@@ -91,23 +81,6 @@ const Home = () => {
             </h5>
           </div>
 
-          <div className="hero-mobile-sign">
-            {!isLoggedIn ? (
-              // Show "Login" when user is NOT logged in
-              <div className="mobile-login">
-                <Link to="/login">
-                  <button className="hero-login">LOGIN</button>
-                </Link>
-              </div>
-            ) : (
-              // Show "My Profile" when user is logged in
-              <div className="mobile-login">
-                <Link to="/userProfile">
-                  <button className="hero-login">MY PROFILE</button>
-                </Link>
-              </div>
-            )}
-          </div>
         </div>
       </div>
 

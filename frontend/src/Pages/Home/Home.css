@@ -2,9 +2,9 @@
   position: relative;
 }
 
-.hero-mobile-sign {
+/* .hero-mobile-sign {
   display: none;
-}
+} */
 
 .hero-img img {
   width: 100%;
@@ -259,7 +259,7 @@
     font-size: 1rem;
   }
 
-  .hero-mobile-sign {
+  /* .hero-mobile-sign {
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -275,5 +275,5 @@
     border: none;
     border-radius: 1rem;
     padding: 0.5rem;
-  }
+  } */
 }
