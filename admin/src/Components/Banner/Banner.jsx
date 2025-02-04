@@ -55,16 +55,14 @@ const Banner = () => {
                 </div>
                 <div className="col-md-9 mb-5">
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <h5 className='bg-dark p-2 text-light text-center'>Planes</h5>
-                        {/* <Link to='/createbanner' className='btn btn-dark'>Create Banner</Link> */}
+                        <h5 className='bg-dark p-2 text-light text-center'>Banner</h5>
+                        <Link to='/createbanner' className='btn btn-dark'>Create Banner</Link>
                     </div>
                     <table className='table'>
                         <thead>
                             <tr>
                                 <th>S.No</th>
-                                <th>Plane Name</th>
-                                <th>Details</th>
-                                <th>Price</th>
+                                <th>Image</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -73,9 +71,7 @@ const Banner = () => {
                             {currentPageData.map((item, index) => (
                                 <tr key={index}>
                                     <td>{index + 1 + offset}</td>
-                                    <td>Basic</td>
-                                    <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo, voluptatibus?</td>
-                                    <td>999</td>
+                                    <td><img src={item.image} alt="" style={{ height: 50 }} /></td>
                                     <td><Link to={`/updatebanner/${item._id}`} className='btn btn-success'>Edit</Link></td>
                                     <td><button className='btn btn-danger' onClick={() => deleteRecord(item._id)}>Delete</button></td>
                                 </tr>
