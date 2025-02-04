@@ -11,41 +11,38 @@ const Header = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
-   
-   useEffect(() => {
+
+  useEffect(() => {
     const checkUserStatus = () => {
       const user = localStorage.getItem("user");
       setIsLoggedIn(!!user); // Update state based on user existence
     };
-  
+
     // Run once on mount
     checkUserStatus();
-  
+
     // Listen for login/logout events
     window.addEventListener("userStatusChanged", checkUserStatus);
-  
+
     return () => {
       window.removeEventListener("userStatusChanged", checkUserStatus);
     };
   }, []);
-  
-
-  
 
   return (
     <>
       {/* =================Float whatsapp icon ================= */}
       <div>
-        <Link
-          to="https://api.whatsapp.com/send?phone=9599467465"
+        <a
+          href="https://api.whatsapp.com/send?phone=919599467465"
           target="_blank"
           rel="noopener noreferrer"
         >
           <button className="btn-floating whatsapp">
             <img src={whatsapp} alt="WhatsApp" />
-            <span>9599467465</span>
+            <span>+91 9599467465</span>
           </button>
-        </Link>
+        </a>
       </div>
 
       <div className="container-fluid nav-bg">
@@ -98,7 +95,6 @@ const Header = () => {
                   </p>
                 </div>
               </div>
-             
             ) : (
               // Show "MyProfile" when user is NOT logged in
               <div className="nav-login-btn">
@@ -116,14 +112,46 @@ const Header = () => {
             )}
           </div>
 
-          {/* Hamburger Menu Icon */}
-          <div className="hamburger-menu" onClick={toggleMenu}>
+          {/* <div className="hamburger-menu" onClick={toggleMenu}>
             {menuOpen ? (
               <i className="bi bi-x-lg"></i> // Cross Icon
             ) : (
               <i className="bi bi-list"></i> // Hamburger Icon
             )}
-          </div>
+          </div> */}
+        </nav>
+
+        <nav className="mobile-navbar">
+          <Link to="/" className="nav-item">
+            <i class="bi bi-house-door-fill"></i>
+            <span>Home</span>
+          </Link>
+          <Link to="/profilePage" className="nav-item">
+            <i class="bi bi-person-circle"></i>
+            <span>Profiles</span>
+          </Link>
+          <Link to="/member" className="nav-item">
+            <i class="bi bi-person-hearts"></i>
+            <span>Membership</span>
+          </Link>
+          {!isLoggedIn ? (
+            <Link to="/login" className="nav-item">
+              <i class="bi bi-person-fill-check"></i>
+              <span>Login</span>
+            </Link>
+          ) : (
+            <Link to="/userProfile" className="nav-item">
+              <i class="bi bi-person-fill-check"></i>
+              <span>My Profile</span>
+            </Link>
+          )}
+          <Link to="/signup" className="nav-item">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Sign Up</span>
+          </Link>
+          <Link to="/contactUs" className="nav-item">
+            <i class="bi bi-gear-wide-connected"></i> <span>Contact Us</span>
+          </Link>
         </nav>
       </div>
     </>
