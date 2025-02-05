@@ -26,27 +26,69 @@ const Loginpage = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showOTPForm, setShowOTPForm] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [otp, setOtp] = useState(Array(6).fill(""));
+  const [myToken, setmyToken] = useState(Array(6).fill(""));
   const [email, setEmail] = useState("");
+  const [femail, setfEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [showUpdatePasswordModal, setShowUpdatePasswordModal] = useState(false);
 
-  const handleForgotPasswordSubmit = (e) => {
+  const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
-    alert("OTP sent to your Email");
-    setShowForgotPassword(false);
-    setShowOTPForm(true);
+    try {
+      const res = await axiosInstance.post("/api/v1/auth/forgotPassword", { email: femail });
+      Swal.fire({
+        icon: "success",
+        title: "OTP Sent!",
+        text: "Check your email for OTP.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      setShowForgotPassword(false);
+      setShowOTPForm(true);
+    } catch (error) {
+      setError(error.response?.data?.message || "Error sending OTP. Try again.");
+    }
   };
 
-  const handleOTPSubmit = (e) => {
+  const handleOTPSubmit = async (e) => {
     e.preventDefault();
-    const otpValue = otp.join("");
+    const otpValue = myToken.join("");
     if (otpValue.length < 6) {
       setError("Please enter a valid 6-digit OTP.");
       return;
     }
-    setError("");
-    alert("OTP Verified!");
+    try {
+      await axiosInstance.post("/api/v1/auth/verifyToken", { email: femail, myToken: otpValue });
+      Swal.fire({
+        icon: "success",
+        title: "OTP Verified!",
+        text: "You can reset your password now.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      setShowOTPForm(false);setShowUpdatePasswordModal(true); 
+    } catch (error) {
+      setError("Invalid OTP. Please try again.");
+    }
+  };
+
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axiosInstance.post("/api/v1/auth/updatePassword", { email: femail, password: newPassword });
+      Swal.fire({
+        icon: "success",
+        title: "Password Updated!",
+        text: "You can now log in with your new password.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      setShowUpdatePasswordModal(false);
+    } catch (error) {
+      setError("Error updating password. Try again.");
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -54,9 +96,9 @@ const Loginpage = () => {
   };
 
   const handleOtpChange = (value, index) => {
-    const updatedOtp = [...otp];
+    const updatedOtp = [...myToken];
     updatedOtp[index] = value;
-    setOtp(updatedOtp);
+    setmyToken(updatedOtp);
     if (value && index < 5) {
       document.getElementById(`otp-input-${index + 1}`).focus();
     }
@@ -173,7 +215,7 @@ const Loginpage = () => {
           <h3>Forgot Password</h3>
           <form onSubmit={handleForgotPasswordSubmit}>
             <div className="input-field">
-              <input type="email" required />
+              <input type="email" required  value={femail} onChange={(e) => setfEmail(e.target.value)}/>
               <label>Enter your Email</label>
             </div>
             <button type="submit" className="submit-button">
@@ -207,10 +249,10 @@ const Loginpage = () => {
                   id={`otp-input-${index}`}
                   type="text"
                   maxLength="1"
-                  value={otp[index] || ""}
+                  value={myToken[index] || ""}
                   onChange={(e) => handleOtpChange(e.target.value, index)}
                   onKeyDown={(e) => {
-                    if (e.key === "Backspace" && !otp[index]) {
+                    if (e.key === "Backspace" && !myToken[index]) {
                       handleOtpChange("", index - 1);
                     }
                   }}
@@ -229,6 +271,31 @@ const Loginpage = () => {
             >
               Close
             </button>
+          </form>
+        </div>
+      </ReactModal>
+      {/* New Modal for Updating Password */}
+      <ReactModal
+        isOpen={showUpdatePasswordModal}
+        onRequestClose={() => setShowUpdatePasswordModal(false)}
+        contentLabel="Update Password"
+        className="custom-modal"
+        overlayClassName="custom-overlay"
+      >
+        <div className="form-container">
+          <h2>Update Password</h2>
+          <form onSubmit={handleUpdatePassword}>
+            <div className="input-field">
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+              />
+              <label>Enter New Password</label>
+            </div>
+            <button type="submit" className="submit-button">Update Password</button>
+            <button type="button" className="close-button" onClick={() => setShowUpdatePasswordModal(false)}>Close</button>
           </form>
         </div>
       </ReactModal>
