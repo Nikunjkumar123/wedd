@@ -147,7 +147,7 @@ const UserProfile = () => {
           },
         }
       );
-
+      SetDisdata(response.data.message);
       console.log("API Response:", response.data);
       alert("Profile updated successfully!");
     } catch (error) {
