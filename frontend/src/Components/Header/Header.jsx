@@ -128,11 +128,7 @@ const Header = () => {
           </Link>
           <Link to="/profilePage" className="nav-item">
             <i class="bi bi-person-circle"></i>
-            <span>Profiles</span>
-          </Link>
-          <Link to="/member" className="nav-item">
-            <i class="bi bi-person-hearts"></i>
-            <span>Membership</span>
+            <span>User Profiles</span>
           </Link>
           {!isLoggedIn ? (
             <Link to="/login" className="nav-item">

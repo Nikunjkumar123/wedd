@@ -102,6 +102,10 @@
     padding: 0 !important;
   }
 
+  .nav-left-data {
+    margin: auto;
+  }
+
   .nav-center-data,
   .nav-right-data {
     display: none;
