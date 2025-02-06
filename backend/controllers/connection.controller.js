@@ -67,15 +67,22 @@ const RejectRequest = async(req,res)=>{
     }
 }
 
-const getAllRequest = async(req,res)=>{
+const getAllRequest = async (req, res) => {
     try {
-        const all = await ConnectionRequestModel.find();
-        if(!all) return res.status(404).json({msg:"no request found"});
-        return res.status(200).json({all:all});
+        const all = await ConnectionRequestModel.find()
+            .populate("sender", "fullName gender maritalstatus email age city working image phone")
+            .populate("recipient", "fullName gender maritalstatus email age city working image phone"); // Fixed
+
+        if (!all || all.length === 0) {
+            return res.status(404).json({ msg: "No request found" });
+        }
+
+        return res.status(200).json({ all });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-}
+};
+
 
 const RequestForMe = async (req, res) => {
     try {
@@ -92,6 +99,16 @@ const RequestForMe = async (req, res) => {
     }
 };
 
+const deletedRequest = async(req,res)=>{
+    try {
+        const id = req.params.id;
+        const del = await ConnectionRequestModel.findByIdAndDelete(id);
+        if(!del) return res.status(400).json({msg:"data no deleted"});
+        return res.status(200).json({msg:"data Deleted"});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 
-module.exports={sendRqst,AcceptRequest,RejectRequest,getAllRequest,RequestForMe}
+module.exports={sendRqst,AcceptRequest,RejectRequest,getAllRequest,RequestForMe,deletedRequest}

@@ -13,9 +13,9 @@ const Bride = () => {
 
     const deleteRecord = async (_id) => {
         try {
-            const res = await axios.delete(`https://api.sitarammarriagebureau.com/api/bride/${_id}`)
+            const res = await axios.delete(`http://localhost:3000/api/v1/connectionRequest/delete/${_id}`)
             if (res.status === 200) {
-                toast.success("Banner Deleted Successfully");
+                toast.success("Connection Deleted Successfully");
                 getApiData();
             }
         } catch (error) {
@@ -25,9 +25,9 @@ const Bride = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("https://api.sitarammarriagebureau.com/api/bride");
-            console.log(res)
-            const newData = res.data.data;
+            const res = await axios.get("http://localhost:3000/api/v1/connectionRequest/allRequest");
+            console.log(res.data)
+            const newData = res.data.all;
             setData(newData.reverse());
         } catch (error) {
             console.log(error);
@@ -55,17 +55,16 @@ const Bride = () => {
                 </div>
                 <div className="col-md-9 mb-5">
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <h5 className='bg-dark p-2 text-light text-center'>Bride</h5>
-                        <Link to='/createbride' className='btn btn-dark'>Create Bride</Link>
+                        <h5 className='bg-dark p-2 text-light text-center'>Connections</h5>
+                        {/* <Link to='/createbride' className='btn btn-dark'>Create Bride</Link> */}
                     </div>
                     <table className='table'>
                         <thead>
                             <tr>
                                 <th>S.No</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Bridename</th>
-                                <th>Update</th>
+                                <th>Sender Name</th>
+                                <th>Reciept Name</th>
+                                <th>status</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -73,10 +72,11 @@ const Bride = () => {
                             {currentPageData.map((item, index) => (
                                 <tr key={index}>
                                     <td>{index + 1 + offset}</td>
-                                    <td><img src={item.image} alt="" style={{ height: 50 }} /></td>
-                                    <td>{item.name}</td>
-                                    <td>{item.bridename}</td>
-                                    <td><Link to={`/updatebride/${item._id}`} className='btn btn-success'>Edit</Link></td>
+                                    {/* <td><img src={item.image} alt="" style={{ height: 50 }} /></td> */}
+                                    <td>{item.sender.fullName}</td>
+                                    <td>{item.recipient ? item.recipient.fullName : "N/A"}</td>
+                                    <td>{item.status}</td>
+                                    {/* <td><Link to={`/updatebride/${item._id}`} className='btn btn-success'>Edit</Link></td> */}
                                     <td><button className='btn btn-danger' onClick={() => deleteRecord(item._id)}>Delete</button></td>
                                 </tr>
                             ))}

@@ -40,7 +40,7 @@ app.use('/showpieces',freekaViewroute);
 app.use('/api/v1/auth',authenticationRouter);
 app.use('/api/v1/profiles',verifyToken,ProfilesRouter);
 app.use('/api/v1/myprofile',verifyToken,blockByADMINForWork,myprofileRouter);
-app.use('/api/v1/connectionRequest',verifyToken,connectionRouter);
+app.use('/api/v1/connectionRequest',connectionRouter);
 // app.use('/api/v1/adminPanel',verifyToken,vefiryADMIN,adminRouter);
 app.use('/api/v1/adminPanel',adminRouter);
 app.use('/api/v1/contact',contactRouter);
