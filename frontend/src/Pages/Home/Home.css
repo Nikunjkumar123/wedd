@@ -159,6 +159,10 @@
   color: var(--font-color); /* Optional: different color for the span text */
 }
 
+.hero-login {
+  display: none;
+}
+
 /* Responsive Styles */
 @media (max-width: 992px) {
   .main-match-div {
@@ -193,6 +197,10 @@
   .match-icon {
     width: 12%;
   }
+
+  /* .match-data1 .match-icon1 {
+        
+  } */
 
   .match-heading h2 {
     font-size: 1.5rem;
@@ -237,7 +245,7 @@
 
   .hero-text {
     position: absolute;
-    top: 45%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -248,32 +256,24 @@
   }
 
   .hero-heading {
-    font-size: 2rem;
+    font-size: 1.7rem;
     padding: 0;
   }
   .hero-para-text {
-    padding: 0.75rem;
+    padding: 0.60rem;
   }
 
   .hero-para-text .hero-paragraph {
-    font-size: 1rem;
+    font-size: 0.75rem;
   }
-
-  /* .hero-mobile-sign {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-  }
-
-  .hero-mobile-sign .hero-login {
+  
+  .hero-login {
+    margin-top: 1.5rem;
     background-color: var(--font-color);
     color: var(--bg-color);
     outline: none;
     border: none;
     border-radius: 1rem;
     padding: 0.5rem;
-  } */
+  }
 }

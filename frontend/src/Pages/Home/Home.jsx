@@ -73,14 +73,15 @@ const Home = () => {
             Find Your Soulmate on Muslim Malik Rishte
           </h1>
           <div className="hero-para-text">
-            <h5 className="hero-paragraph">
+            <h5 className="hero-paragraph m-0">
               Directly Connect With Your Muslim Malik Community at Muslim Malik
               Rishte
-              <br />
-              Ab Sabhi Rishte Online
             </h5>
+            <h5 className="hero-paragraph"> Ab Sabhi Rishte Online</h5>
           </div>
-
+     <Link to="/profilePage">
+      <button className="hero-login">User Profiles</button>
+     </Link>
         </div>
       </div>
 
@@ -102,7 +103,7 @@ const Home = () => {
                   <h5>Connect</h5>
                   <p>Select & Connect with matches you like.</p>
                 </div>
-                <div className="match-icon">
+                <div className="match-icon match-icon1">
                   <i className="bi bi-wechat match-icon-color"></i>{" "}
                 </div>
               </div>
