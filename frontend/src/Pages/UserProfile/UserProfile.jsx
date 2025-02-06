@@ -192,8 +192,10 @@ const UserProfile = () => {
   };
   const closeDetailsModal = () => setDetailsModalIsOpen(false);
 
-  const acceptRequest = () => {
-    alert("Connection Request Accepted!");
+  const acceptRequest = async(id) => {
+    alert(id);
+    // const res = await axiosInstance.get(`/api/v1/connectionRequest/sendrq/accept/${id}`);
+    // console.log(res);
     closeModal();
   };
 
@@ -500,13 +502,11 @@ const UserProfile = () => {
             </div>
             <div className="col-md-6 text-start">
               <p>City: <span className="text-secondary">{conn.sender.city}</span></p>
-              {/* <p>Work: <span className="text-secondary">{conn.sender.working}</span></p>
-              <p>Mobile: <span className="text-secondary">{conn.sender.phone}</span></p> */}
             </div>
           </div>
 
           <div className="request-actions">
-            <button onClick={() => openDetailsModal(conn.sender)} className="accept-btn">
+            <button onClick={() => {openDetailsModal(conn.sender); acceptRequest(conn._id)}} className="accept-btn">
               Accept
             </button>
             <button onClick={() => rejectRequest(conn.sender.id)} className="reject-btn">
