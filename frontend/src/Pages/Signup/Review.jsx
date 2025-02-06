@@ -38,7 +38,7 @@ const Review = ({ formData }) => {
       );
 
       alert("Form submitted successfully!");
-      console.log("Response:", response.data);
+      // console.log("Response:", response.data);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Failed to submit the form. Please try again.");

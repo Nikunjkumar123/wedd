@@ -37,7 +37,7 @@ const InnerProfile = () => {
   const getDeT = async(req,res)=>{
     try {
       const response = await axiosInstance.get(`/api/v1/profiles/single/user/${id}`);
-      console.log(response.data.user.fullName);
+      // console.log(response.data.user.fullName);
       SetDis(response.data.user)
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -51,7 +51,7 @@ const InnerProfile = () => {
         withCredentials: true, // Ensure cookies are sent if needed for authentication
       });
   
-      console.log(response.data.msg); // Success message
+      // console.log(response.data.msg); // Success message
       alert("Connection request sent successfully!");
     } catch (error) {
       console.error("Error sending request:", error.response?.data?.msg || error.message);

@@ -23,15 +23,14 @@ const sendRqst = async(req,res)=>{
 }
 const AcceptRequest = async (req, res) => {
     try {
-        const { id } = req.params.id;
-
-        const request = await ConnectionRequestModel.findOne(id).populate('sender recipient');
-        console.log(request.status);
+        const id  = req.params.id;
+        // console.log(id)
+        const request = await ConnectionRequestModel.findById(id)//.populate('sender recipient');
+        // console.log(request);
         if (!request || request.status !== 'pending') {
             return res.status(400).json({ msg: 'Invalid or already processed request' });
         }
 
-        // Update request status and save
         request.status = 'accepted';
         await request.save();
 
@@ -50,9 +49,9 @@ const AcceptRequest = async (req, res) => {
 
 const RejectRequest = async(req,res)=>{
     try {
-        const { id } = req.params;
-
-        const request = await ConnectionRequestModel.findOne(id);
+        const id  = req.params.id;
+        // console.log(id)
+        const request = await ConnectionRequestModel.findById(id);
         if (!request || request.status !== 'pending') {
             return res.status(400).json({ msg: 'Invalid or already processed request' });
         }
@@ -110,5 +109,32 @@ const deletedRequest = async(req,res)=>{
     }
 }
 
+const allConections = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.user.userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
-module.exports={sendRqst,AcceptRequest,RejectRequest,getAllRequest,RequestForMe,deletedRequest}
+        // Ensure `connections` is an array
+        if (!Array.isArray(user.connections)) {
+            return res.status(400).json({ error: "Invalid connections data" });
+        }
+
+        // Remove duplicates based on `_id`
+        const uniqueConnections = user.connections.filter(
+            (conn, index, self) => 
+                index === self.findIndex((c) => c._id.toString() === conn._id.toString())
+        );
+
+        res.send(uniqueConnections);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+
+
+
+module.exports={sendRqst,AcceptRequest,RejectRequest,getAllRequest,RequestForMe,deletedRequest,allConections}

@@ -21,7 +21,7 @@ const oppUsers = async (req, res) => {
 const filteredData = async (req, res) => {
   try {
     const { gender, age, city, budget } = req.body;
-    
+    // console.log(req.body);
     const filter = {};
 
     if (gender) filter.gender = gender;
@@ -31,7 +31,7 @@ const filteredData = async (req, res) => {
 
     // Find users based on the filter
     const all = await userModel.find(filter);
-    console.log(all)
+    // console.log(all)
     
     if (!all || all.length === 0) {
       return res.status(400).json({ msg: "No users found" });

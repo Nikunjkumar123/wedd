@@ -72,7 +72,7 @@ const ProfilePage = () => {
           },
         }
       );
-      console.log("Filtered Users:", response.data.all);
+      // console.log("Filtered Users:", response.data.all);
       // Handle the response (e.g., set the filtered users in state to render them)
     } catch (error) {
       console.error("Error applying filters:", error);

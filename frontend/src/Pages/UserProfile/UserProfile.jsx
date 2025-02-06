@@ -47,17 +47,22 @@ const UserProfile = () => {
     connections: [],
   });
 
-  const [seeRqt,SetRqt] = useState([]);
+  const [seeRqt, SetRqt] = useState([]);
 
   const displayUserDetail = async () => {
     const response = await axiosInstance.get("/api/v1/myprofile/viewProfile");
     SetDisdata(response.data.message);
   };
-  const getConnectionRequest = async ()=>{
-    const response = await axiosInstance.get('/api/v1/connectionRequest/forme')
-    SetRqt(response.data.requests)
-    console.log(response.data.requests)
-  }
+  const getConnectionRequest = async () => {
+    try {
+      const response = await axiosInstance.get(
+        "/api/v1/connectionRequest/forme"
+      );
+      SetRqt(response.data.requests);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
     if (disData.fullName) {
@@ -131,11 +136,10 @@ const UserProfile = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated Data:", formData);
+    // console.log("Updated Data:", formData);
 
     try {
       const response = await axiosInstance.patch(
@@ -148,7 +152,7 @@ const UserProfile = () => {
         }
       );
       SetDisdata(response.data.message);
-      console.log("API Response:", response.data);
+      // console.log("API Response:", response.data);
       alert("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -192,15 +196,20 @@ const UserProfile = () => {
   };
   const closeDetailsModal = () => setDetailsModalIsOpen(false);
 
-  const acceptRequest = async(id) => {
-    alert(id);
-    // const res = await axiosInstance.get(`/api/v1/connectionRequest/sendrq/accept/${id}`);
-    // console.log(res);
-    closeModal();
+  const acceptRequest = async (id) => {
+    try {
+      const res = await axiosInstance.get(
+        `/api/v1/connectionRequest/sendrq/accept/${id}`
+      );
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const rejectRequest = () => {
-    alert("Connection Request Rejected!");
+  const rejectRequest = async (id) => {
+    // console.log("id", id);
+    await axiosInstance.get(`/api/v1/connectionRequest/sendrq/reject/${id}`);
     closeModal();
   };
 
@@ -446,110 +455,170 @@ const UserProfile = () => {
 
         {/* Edit Profile Modal */}
         <ReactModal
-      isOpen={showModal}
-      onRequestClose={() => setShowModal(false)}
-      className="modal-container"
-      overlayClassName="modal-overlay"
-    >
-      <h2>Edit Profile</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div className="row modal-row">
-          {Object.entries(formData).map(([key, value]) => (
-            <div className="col-md-4 mb-3" key={key}>
-              <div className="form-group">
-                <label htmlFor={key}>{key.replace(/_/g, " ").toUpperCase()}</label>
-                <input
-                  type="text"
-                  id={key}
-                  name={key}
-                  value={value}
-                  onChange={handleInputChange}
-                  className="form-control"
-                />
-              </div>
+          isOpen={showModal}
+          onRequestClose={() => setShowModal(false)}
+          className="modal-container"
+          overlayClassName="modal-overlay"
+        >
+          <h2>Edit Profile</h2>
+          <form onSubmit={handleFormSubmit}>
+            <div className="row modal-row">
+              {Object.entries(formData).map(([key, value]) => (
+                <div className="col-md-4 mb-3" key={key}>
+                  <div className="form-group">
+                    <label htmlFor={key}>
+                      {key.replace(/_/g, " ").toUpperCase()}
+                    </label>
+                    <input
+                      type="text"
+                      id={key}
+                      name={key}
+                      value={value}
+                      onChange={handleInputChange}
+                      className="form-control"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="d-flex justify-content-end">
-          <button type="submit" className="btn save-change">Save Changes</button>
-          <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
-        </div>
-      </form>
-    </ReactModal>
+            <div className="d-flex justify-content-end">
+              <button type="submit" className="btn save-change">
+                Save Changes
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => setShowModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </ReactModal>
 
         {/* =========== User Connect Modal =========== */}
 
         <ReactModal
-  isOpen={modalIsOpen}
-  onRequestClose={closeModal}
-  className="modal-style"
-  overlayClassName="modal-overlay modal-overlay1"
-  contentLabel="User Requests"
->
-  <button onClick={closeModal} className="modal-close-btn">&times;</button>
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          className="modal-style"
+          overlayClassName="modal-overlay modal-overlay1"
+          contentLabel="User Requests"
+        >
+          <button onClick={closeModal} className="modal-close-btn">
+            &times;
+          </button>
 
-  <div className="container connection-main">
-    {seeRqt.length > 0 ? (
-      seeRqt.map((conn, index) => (
-        <div key={index} className="profile-card">
-          <div className="row align-items-center">
-            <div className="col-md-2">
-              <img src={conn.sender.image} alt={conn.sender.fullName} className="user-image" />
-            </div>
-            <div className="col-md-4 text-start">
-              <p className="user-name">{conn.sender.fullName}</p>
-              <p>Age: <span className="text-secondary">{conn.sender.age}</span></p>
-            </div>
-            <div className="col-md-6 text-start">
-              <p>City: <span className="text-secondary">{conn.sender.city}</span></p>
-            </div>
+          <div className="container connection-main">
+            {seeRqt.length > 0 ? (
+              seeRqt.map((conn, index) => (
+                <div key={index} className="profile-card">
+                  <div className="row align-items-center">
+                    <div className="col-md-2">
+                      <img
+                        src={conn.sender.image}
+                        alt={conn.sender.fullName}
+                        className="user-image"
+                      />
+                    </div>
+                    <div className="col-md-4 text-start">
+                      <p className="user-name">{conn.sender.fullName}</p>
+                      <p>
+                        Age:{" "}
+                        <span className="text-secondary">
+                          {conn.sender.age}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="col-md-6 text-start">
+                      <p>
+                        City:{" "}
+                        <span className="text-secondary">
+                          {conn.sender.city}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="col-md-6 text-start">
+                      <p>
+                        status:{" "}
+                        <span className="text-secondary">{conn.status}</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {conn.status === "accepted" || conn.status === "rejected" ? (
+                    <div className="request-actions">
+                      {/* {console.log(conn.sender._id)} */}
+                    </div>
+                  ) : (
+                    <div className="request-actions">
+                      <button
+                        onClick={() => {
+                          acceptRequest(conn._id);
+                          openDetailsModal(conn.sender);
+                        }}
+                        className="accept-btn"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => rejectRequest(conn._id)}
+                        className="reject-btn"
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  )}
+
+                  <hr />
+                </div>
+              ))
+            ) : (
+              <p>No Pending requests available.</p>
+            )}
           </div>
+        </ReactModal>
 
-          <div className="request-actions">
-            <button onClick={() => {openDetailsModal(conn.sender); acceptRequest(conn._id)}} className="accept-btn">
-              Accept
-            </button>
-            <button onClick={() => rejectRequest(conn.sender.id)} className="reject-btn">
-              Reject
-            </button>
-          </div>
+        {/* Second Modal - User Details */}
+        <ReactModal
+          isOpen={detailsModalIsOpen}
+          onRequestClose={closeDetailsModal}
+          className="modal-style"
+          overlayClassName="modal-overlay modal-overlay1"
+          contentLabel="User Details"
+        >
+          <button onClick={closeDetailsModal} className="modal-close-btn">
+            &times;
+          </button>
 
-          <hr />
-        </div>
-      ))
-    ) : (
-      <p>No requests available.</p>
-    )}
-  </div>
-</ReactModal>
+          {selectedUser && (
+            <div className="container user-details-card">
+              <h2 className="user-title">{selectedUser.fullName} Details</h2>
 
-{/* Second Modal - User Details */}
-<ReactModal
-  isOpen={detailsModalIsOpen}
-  onRequestClose={closeDetailsModal}
-  className="modal-style"
-  overlayClassName="modal-overlay modal-overlay1"
-  contentLabel="User Details"
->
-  <button onClick={closeDetailsModal} className="modal-close-btn">&times;</button>
-
-  {selectedUser && (
-    <div className="container user-details-card">
-  <h2 className="user-title">{selectedUser.fullName} Details</h2>
-  
-  <div className="user-info">
-    <p><strong>Age:</strong> <span>{selectedUser.age}</span></p>
-    <p><strong>City:</strong> <span>{selectedUser.city}</span></p>
-    <p><strong>Work:</strong> <span>{selectedUser.working}</span></p>
-    <p><strong>Phone:</strong> <span>{selectedUser.phone}</span></p>
-    <p><strong>Email:</strong> <span>{selectedUser.email}</span></p>
-    <p><strong>Marital Status:</strong> <span>{selectedUser.maritalstatus}</span></p>
-  </div>
-</div>
-
-  )}
-</ReactModal>
-
+              <div className="user-info">
+                <p>
+                  <strong>Age:</strong> <span>{selectedUser.age}</span>
+                </p>
+                <p>
+                  <strong>City:</strong> <span>{selectedUser.city}</span>
+                </p>
+                <p>
+                  <strong>Work:</strong> <span>{selectedUser.working}</span>
+                </p>
+                <p>
+                  <strong>Phone:</strong> <span>{selectedUser.phone}</span>
+                </p>
+                <p>
+                  <strong>Email:</strong> <span>{selectedUser.email}</span>
+                </p>
+                <p>
+                  <strong>Marital Status:</strong>{" "}
+                  <span>{selectedUser.maritalstatus}</span>
+                </p>
+              </div>
+            </div>
+          )}
+        </ReactModal>
       </section>
     </>
   );
