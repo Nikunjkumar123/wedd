@@ -47,15 +47,20 @@ const updateUser = async(req,res)=>{
         res.status(400).json({ msg: 'Error in updating profile', error: error.message });
     }
 }
-const deleteUser = async(req,res)=>{
+const deleteUser = async (req, res) => {
     try {
-        const usrId = req.params.id;
-        const usercheck=await userModel.findByIdAndDelete({_id:usrId});
-        if(!usercheck) return res.status(400).json({msg:"user not availabel"});
+        const id = req.params.id;
+        const usercheck = await userModel.findByIdAndDelete(id); // Pass ID directly
+        if (!usercheck) {
+            return res.status(404).json({ msg: "User not available" });
+        }
+
+        return res.status(200).json({ msg: "User deleted successfully" }); // Send success response
     } catch (error) {
-        res.status(400).json({ msg: 'Error in deleting profile', error: error.message });
+        return res.status(500).json({ msg: "Error in deleting profile", error: error.message }); // Use status 500 for server errors
     }
-}
+};
+
 
 const normaluser = async(req,res)=>{
     try {
@@ -90,15 +95,18 @@ const blockUserByAdmin = async(req,res)=>{
         return res.status(400).json({error:error});
     }
 }
-const singleUser = async(req,res)=>{
+const singleUser = async (req, res) => {
     try {
         const id = req.params.id;
-        const user = await userModel.findOne(id);
-        if(!user) return req.status(404).json({msg:"user not found"});
-        return res.status(200).json({user:user});
+        const user = await userModel.findById(id); // Use findById instead of find
+        if (!user) {
+            return res.status(404).json({ msg: "User not found" });
+        }
+        return res.status(200).json({ user: user });
     } catch (error) {
-        return res.status(400).json({error:error});
+        return res.status(400).json({ error: error.message }); 
     }
-}
+};
+
 
 module.exports = {allUsers,addUser,updateUser,deleteUser,normaluser,premiumuser,blockUserByAdmin,singleUser};

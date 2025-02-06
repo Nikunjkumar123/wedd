@@ -24,7 +24,7 @@ const ContactUs = () => {
     data.access_key = "007fd149-ccb4-4fcb-a57a-0b627d71f057";
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("http://localhost:3000/api/v1/contact/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const ContactUs = () => {
 
       const res = await response.json();
 
-      if (res.success) {
+      if (res.msg == 'Enquiry added') {
         Swal.fire({
           title: "Thank You!",
           text: "Inquiry sent successfully!",
@@ -62,10 +62,10 @@ const ContactUs = () => {
     <>
       {/* Helmet for SEO */}
       <Helmet>
-        <title>Contact Us - Mushlim Mushlim Mushlim Mushlim Muslim Malik Rishte</title>
+        <title>Contact Us - Mushlim Muslim Malik Rishte</title>
         <meta
           name="description"
-          content="Get in touch with us for any inquiries or assistance. Let Mushlim Mushlim Mushlim Mushlim Mushlim Muslim Malik Rishte help you find the right partner."
+          content="Get in touch with us for any inquiries or assistance. Let Mushlim Muslim Malik Rishte help you find the right partner."
         />
       </Helmet>
 
@@ -87,7 +87,7 @@ const ContactUs = () => {
               <div className="col-md-3 info-box">
                 <i className="bi bi-geo-alt icon"></i>
                 <a href=" " target="_blank" rel="noopener noreferrer">
-                  Kirti Nagar , New Delhi-110077
+                  Kirti Nagar, New Delhi-110077
                 </a>
               </div>
               <div className="col-md-3 info-box">
@@ -133,6 +133,7 @@ const ContactUs = () => {
                       {...register("email", {
                         required: "Email is required",
                         pattern: {
+                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                           message: "Invalid email address",
                         },
                       })}
@@ -145,10 +146,10 @@ const ContactUs = () => {
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <input
-                      type="Number"
+                      type="number"
                       className="form-control"
                       placeholder="Phone"
-                      {...register("phone", {
+                      {...register("contact", {
                         required: "Phone number is required",
                         minLength: {
                           value: 10,
@@ -161,47 +162,21 @@ const ContactUs = () => {
                       })}
                     />
                     <span className="text-danger">
-                      {errors.phone && <p>{errors.phone.message}</p>}
+                      {errors.contact && <p>{errors.contact.message}</p>}
                     </span>
                   </div>
-                  <div className="col-md-6 mb-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Area, City"
-                      {...register("location", {
-                        required: "Location is required",
-                      })}
-                    />
-                    <span className="text-danger">
-                      {errors.location && <p>{errors.location.message}</p>}
-                    </span>
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Subject"
-                    {...register("subject", {
-                      required: "Subject is required",
-                    })}
-                  />
-                  <span className="text-danger">
-                    {errors.subject && <p>{errors.subject.message}</p>}
-                  </span>
                 </div>
                 <div className="mb-3">
                   <textarea
                     className="form-control"
                     placeholder="Comment"
-                    {...register("comment", {
+                    {...register("message", {
                       required: "Comment is required",
                     })}
                     rows="5"
                   ></textarea>
                   <span className="text-danger">
-                    {errors.comment && <p>{errors.comment.message}</p>}
+                    {errors.message && <p>{errors.message.message}</p>}
                   </span>
                 </div>
                 <div className="button-container">

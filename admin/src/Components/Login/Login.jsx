@@ -5,8 +5,8 @@ import toast from 'react-hot-toast'
 // import login from './image/loinin.avif'
 
 const Login = () => {
-  const email = "samuhikvivah@gmail.com"
-  const password = "Sitaram@2207"
+  const email = "muslimmalik@gmail.com"
+  const password = "muslimmalik"
   const navigate = useNavigate()
   const [data, setData] = useState({
     email: "",

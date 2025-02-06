@@ -15,6 +15,7 @@ const vefiryADMIN = require('./Middleware/vefiryADMIN.js')
 const blockByADMINForWork = require('./Middleware/blockByAdmin.js');
 const freekaViewroute = require('./Routers/freekaViewroute.js');
 const ProfilesRouter = require('./Routers/ProfilesRouter.js');
+const contactRouter = require('./Routers/contactRouter.js');
 
 app.use(express.json());
 app.use(express.static('./public'));
@@ -39,9 +40,10 @@ app.use('/showpieces',freekaViewroute);
 app.use('/api/v1/auth',authenticationRouter);
 app.use('/api/v1/profiles',verifyToken,ProfilesRouter);
 app.use('/api/v1/myprofile',verifyToken,blockByADMINForWork,myprofileRouter);
-app.use('/api/v1/connectionRequest',verifyToken,connectionRouter);
+app.use('/api/v1/connectionRequest',connectionRouter);
 // app.use('/api/v1/adminPanel',verifyToken,vefiryADMIN,adminRouter);
 app.use('/api/v1/adminPanel',adminRouter);
+app.use('/api/v1/contact',contactRouter);
 
 
 connectDB(process.env.URL)

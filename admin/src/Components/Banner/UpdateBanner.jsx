@@ -20,10 +20,10 @@ const UpdateBanner = () => {
         }
     };
 
-    // const getFileData = (e) => {
-    //     const { name, files } = e.target;
-    //     setData({ ...data, [name]: files[0] });
-    // };
+    const getFileData = (e) => {
+        const { name, files } = e.target;
+        setData({ ...data, [name]: files[0] });
+    };
 
     const formData = new FormData();
     formData.append("image", data.image);
@@ -56,26 +56,15 @@ const UpdateBanner = () => {
                     <Sidebar />
                 </div>
                 <div className="col-md-9">
-                    <h5 className='bg-dark p-2 text-light text-center'>Update Planes</h5>
+                    <h5 className='bg-dark p-2 text-light text-center'>Update Banner</h5>
                     <div className="form-container">
                         <form onSubmit={postData}>
-                        <div className="row">
-                        <div className="col-md-6 mb-2">
-                                <label htmlFor="name" className="form-label">Plane Name</label>
-                                <input type="text" name="name" className="form-control" />
+                            <div className="mb-2">
+                                <label htmlFor="image" className="form-label">Image</label>
+                                <input type="file" name="image" className="form-control" onChange={getFileData} />
                             </div>
-                        <div className="col-md-6 mb-2">
-                                <label htmlFor="price" className="form-label">Plane Price</label>
-                                <input type="number" name="price" className="form-control" />
-                            </div>
-                        <div className="mb-2">
-                                <label htmlFor="details" className="form-label">Plane Details</label>
-                                <input type="text" name="details" className="form-control" />
-                            </div>
-                        </div>
-                           
                             <button type="submit" className="btn btn-dark w-100" disabled={loading}>
-                                {loading ? "Updating..." : "Update Planes"}
+                                {loading ? "Updating..." : "Update Banner"}
                             </button>
                         </form>
                     </div>

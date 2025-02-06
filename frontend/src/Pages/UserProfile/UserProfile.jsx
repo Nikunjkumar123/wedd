@@ -47,10 +47,17 @@ const UserProfile = () => {
     connections: [],
   });
 
+  const [seeRqt,SetRqt] = useState([]);
+
   const displayUserDetail = async () => {
     const response = await axiosInstance.get("/api/v1/myprofile/viewProfile");
     SetDisdata(response.data.message);
   };
+  const getConnectionRequest = async ()=>{
+    const response = await axiosInstance.get('/api/v1/connectionRequest/forme')
+    SetRqt(response.data.requests)
+    console.log(response.data.requests)
+  }
 
   useEffect(() => {
     if (disData.fullName) {
@@ -86,8 +93,8 @@ const UserProfile = () => {
       behavior: "smooth",
     });
     displayUserDetail();
+    getConnectionRequest();
   }, []);
-
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -124,6 +131,7 @@ const UserProfile = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -139,7 +147,7 @@ const UserProfile = () => {
           },
         }
       );
-
+      SetDisdata(response.data.message);
       console.log("API Response:", response.data);
       alert("Profile updated successfully!");
     } catch (error) {
@@ -172,18 +180,17 @@ const UserProfile = () => {
   //  User Connection Request
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  // Sample user data
-  const user = {
-    img: connectuser,
-    name: "Shruti",
-    age: "22",
-    working: "Software Eng.",
-    location: "Delhi",
-  };
+  const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
+
+  const openDetailsModal = (user) => {
+    setSelectedUser(user);
+    setDetailsModalIsOpen(true);
+  };
+  const closeDetailsModal = () => setDetailsModalIsOpen(false);
 
   const acceptRequest = () => {
     alert("Connection Request Accepted!");
@@ -194,12 +201,6 @@ const UserProfile = () => {
     alert("Connection Request Rejected!");
     closeModal();
   };
-
-  // const updateDATA = async(req,res)=>{
-  //   const respone = axios.patch("https://malikwedd.onrender.com/api/v1/myprofile/viewProfile",formData,{ headers: { "Content-Type": "application/json" }})
-  //   //   console.log("Profile updated:", respone.data);
-  //     setShowModal(false);
-  // }
 
   // ------------- Logout function --------------
 
@@ -443,90 +444,112 @@ const UserProfile = () => {
 
         {/* Edit Profile Modal */}
         <ReactModal
-          isOpen={showModal}
-          onRequestClose={() => setShowModal(false)}
-          className="modal-container"
-          overlayClassName="modal-overlay"
-        >
-          <h2>Edit Profile</h2>
-          <form onSubmit={handleFormSubmit}>
-            <div className="row modal-row">
-              {Object.entries(formData).map(([key, value], index) => (
-                <div className="col-md-4 mb-3" key={key}>
-                  <div className="form-group">
-                    <label htmlFor={key}>
-                      {key.replace(/_/g, " ").toUpperCase()}
-                    </label>
-                    <input
-                      type="text"
-                      id={key}
-                      name={key}
-                      value={value}
-                      onChange={handleInputChange}
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-              ))}
+      isOpen={showModal}
+      onRequestClose={() => setShowModal(false)}
+      className="modal-container"
+      overlayClassName="modal-overlay"
+    >
+      <h2>Edit Profile</h2>
+      <form onSubmit={handleFormSubmit}>
+        <div className="row modal-row">
+          {Object.entries(formData).map(([key, value]) => (
+            <div className="col-md-4 mb-3" key={key}>
+              <div className="form-group">
+                <label htmlFor={key}>{key.replace(/_/g, " ").toUpperCase()}</label>
+                <input
+                  type="text"
+                  id={key}
+                  name={key}
+                  value={value}
+                  onChange={handleInputChange}
+                  className="form-control"
+                />
+              </div>
             </div>
-            <div className="d-flex justify-content-end">
-              <button type="submit" className="btn save-change">
-                Save Changes
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => setShowModal(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </ReactModal>
+          ))}
+        </div>
+        <div className="d-flex justify-content-end">
+          <button type="submit" className="btn save-change">Save Changes</button>
+          <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
+        </div>
+      </form>
+    </ReactModal>
 
         {/* =========== User Connect Modal =========== */}
 
         <ReactModal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          className="modal-style"
-          overlayClassName="modal-overlay modal-overlay1 "
-          contentLabel="User Details Modal"
-        >
-          <button onClick={closeModal} className="modal-close-btn">
-            &times;
-          </button>
-          <div className="container connection-main">
-            <div className="row align-items-center">
-              <div className="col-md-2">
-                <img src={user.img} alt={user.name} className="user-image" />
-              </div>
-              <div className="col-md-4 text-start">
-                <p className="user-name">{user.name}</p>
-                <p>
-                  Age: <span className="text-secondary">{user.age}</span>
-                </p>
-              </div>
-              <div className="col-md-6 text-start">
-                <p>
-                  City: <span className="text-secondary">{user.location}</span>
-                </p>
-                <p>
-                  Work: <span className="text-secondary">{user.working}</span>
-                </p>
-              </div>
+  isOpen={modalIsOpen}
+  onRequestClose={closeModal}
+  className="modal-style"
+  overlayClassName="modal-overlay modal-overlay1"
+  contentLabel="User Requests"
+>
+  <button onClick={closeModal} className="modal-close-btn">&times;</button>
+
+  <div className="container connection-main">
+    {seeRqt.length > 0 ? (
+      seeRqt.map((conn, index) => (
+        <div key={index} className="profile-card">
+          <div className="row align-items-center">
+            <div className="col-md-2">
+              <img src={conn.sender.image} alt={conn.sender.fullName} className="user-image" />
+            </div>
+            <div className="col-md-4 text-start">
+              <p className="user-name">{conn.sender.fullName}</p>
+              <p>Age: <span className="text-secondary">{conn.sender.age}</span></p>
+            </div>
+            <div className="col-md-6 text-start">
+              <p>City: <span className="text-secondary">{conn.sender.city}</span></p>
+              {/* <p>Work: <span className="text-secondary">{conn.sender.working}</span></p>
+              <p>Mobile: <span className="text-secondary">{conn.sender.phone}</span></p> */}
             </div>
           </div>
 
           <div className="request-actions">
-            <button onClick={acceptRequest} className="accept-btn">
+            <button onClick={() => openDetailsModal(conn.sender)} className="accept-btn">
               Accept
             </button>
-            <button onClick={rejectRequest} className="reject-btn">
+            <button onClick={() => rejectRequest(conn.sender.id)} className="reject-btn">
               Reject
             </button>
           </div>
-        </ReactModal>
+
+          <hr />
+        </div>
+      ))
+    ) : (
+      <p>No requests available.</p>
+    )}
+  </div>
+</ReactModal>
+
+{/* Second Modal - User Details */}
+<ReactModal
+  isOpen={detailsModalIsOpen}
+  onRequestClose={closeDetailsModal}
+  className="modal-style"
+  overlayClassName="modal-overlay modal-overlay1"
+  contentLabel="User Details"
+>
+  <button onClick={closeDetailsModal} className="modal-close-btn">&times;</button>
+
+  {selectedUser && (
+    <div className="container user-details-card">
+  <h2 className="user-title">{selectedUser.fullName} Details</h2>
+  
+  <div className="user-info">
+    <p><strong>Age:</strong> <span>{selectedUser.age}</span></p>
+    <p><strong>City:</strong> <span>{selectedUser.city}</span></p>
+    <p><strong>Work:</strong> <span>{selectedUser.working}</span></p>
+    <p><strong>Phone:</strong> <span>{selectedUser.phone}</span></p>
+    <p><strong>Email:</strong> <span>{selectedUser.email}</span></p>
+    <p><strong>Marital Status:</strong> <span>{selectedUser.maritalstatus}</span></p>
+  </div>
+</div>
+
+  )}
+</ReactModal>
+
       </section>
     </>
   );

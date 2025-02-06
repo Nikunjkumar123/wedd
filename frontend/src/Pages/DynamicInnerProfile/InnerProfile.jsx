@@ -43,6 +43,21 @@ const InnerProfile = () => {
       console.error("Error fetching profile:", error);
     }
   }
+  const sendRequest = async (recipientId) => {
+    try {
+      const response = await axiosInstance.post('/api/v1/connectionRequest/sendrq', {
+        recipientId, // Send recipientId in the request body
+      }, {
+        withCredentials: true, // Ensure cookies are sent if needed for authentication
+      });
+  
+      console.log(response.data.msg); // Success message
+      alert("Connection request sent successfully!");
+    } catch (error) {
+      console.error("Error sending request:", error.response?.data?.msg || error.message);
+      alert(error.response?.data?.msg || "Something went wrong!");
+    }
+  };
 
   useEffect(() => {
     window.scrollTo({
@@ -252,7 +267,8 @@ const InnerProfile = () => {
             Note: Send Connection Request to Persone for Access Contact Details.
           </h5>
           <div className="button-container my-3">
-            <button className="viewall-btn" onClick={() => setModalOpen(true)}>
+            <button className="viewall-btn" onClick={() => {sendRequest(dis._id); //setModalOpen(true) 
+              }}>
               Connect Now
             </button>
           </div>

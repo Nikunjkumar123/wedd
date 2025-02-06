@@ -11,9 +11,9 @@ const Contact = () => {
 
     const getApiData = async () => {
         try {
-            let res = await axios.get("https://api.sitarammarriagebureau.com/api/contact")
+            let res = await axios.get("http://localhost:3000/api/v1/contact/user")
             console.log(res)
-            setData(res.data.data)
+            setData(res.data.msg)
         } catch (error) {
             console.log(error);
         }
@@ -59,7 +59,7 @@ const Contact = () => {
                                             <td>{index+1}</td>
                                             <td>{item.name}</td>
                                             <td>{item.email}</td>
-                                            <td>{item.phone}</td>
+                                            <td>{item.contact}</td>
                                             <td>{item.message}</td>
                                             <td>{new Date(item.createdAt).toLocaleDateString()}</td>
                                         </tr>
