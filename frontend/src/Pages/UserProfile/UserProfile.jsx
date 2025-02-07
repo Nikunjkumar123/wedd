@@ -481,6 +481,7 @@ const UserProfile = () => {
                 </div>
               ))}
             </div>
+            
             <div className="d-flex justify-content-end">
               <button type="submit" className="btn save-change">
                 Save Changes
