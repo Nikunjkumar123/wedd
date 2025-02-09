@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import profilebg from "../../Assets/ProfileBg.jpeg";
 import Modal from "react-modal";
-import axios from 'axios';
 import {axiosInstance} from "../Login/Loginpage";
 import { useNavigate } from "react-router-dom";
 
@@ -44,7 +43,7 @@ const ProfilePage = () => {
     gender: "",
     age: 25, 
     city: "",
-    budget: 50000, 
+    budget: 100000, 
   });
 
   const handleInputChange = (e) => {
@@ -167,9 +166,9 @@ const ProfilePage = () => {
                   type="range"
                   id="budget"
                   name="budget"
-                  min="10000"
-                  max="10000000"
-                  step="2"
+                  min="20000"
+                  max="1000000"
+                  step="10000"
                   value={filters.budget}
                   onChange={handleInputChange}
                   className="form-range"
@@ -248,7 +247,7 @@ const ProfilePage = () => {
                       alt={profile.fullName}
                       onClick={() => {
                         setModalOpen(true)
-                        navigate(`/login`)
+                       
                       }}
                       className="profile-pic"
                     />
@@ -307,7 +306,6 @@ const ProfilePage = () => {
                   border: "none",
                   borderRadius: "5px",
                 }}
-                onClick={() => alert("Redirecting to Login page...")}
               >
                 Login
               </button>

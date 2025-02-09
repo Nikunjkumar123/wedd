@@ -10,7 +10,7 @@
 }
 
 .pagination a {
-  color: #007bff; /* Bootstrap primary color */
+  color: #800020; /* Bootstrap primary color */
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -20,13 +20,13 @@
 
 .pagination a:hover {
   background-color: #f1f1f1;
-  color: #007bff;
+  color: #800020;
 }
 
 .pagination .active a {
-  background-color: #007bff;
+  background-color: #800020;
   color: white;
-  border-color: #007bff;
+  border-color: #800020;
 }
 
 .App {
@@ -49,7 +49,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #800020;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

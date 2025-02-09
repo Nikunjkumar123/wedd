@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState ,useEffect } from "react";
 import "./SignupPage.css";
 import { Link } from "react-router-dom";
 
 const ContactInfo = ({ formData, handleChange, goToTab }) => {
+   const [isFormValid, setIsFormValid] = useState(false);
+ 
+
+   useEffect(() => {
+    const requiredFields = [
+      "phone",
+      "email",
+      "area",
+      "city",
+      "state",
+      "pin",
+      "country",
+      "weddingStyle",
+      "acceptTerms",
+    ];
+
+    const isValid = requiredFields.every(
+      (field) => formData[field]?.trim() !== "" 
+    );
+    setIsFormValid(isValid);
+   }, [formData]);
+ 
   return (
     <>
       <div>
@@ -168,7 +190,7 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
 
           <div className="container my-2">
             <label>
-              <input type="checkbox" name="acceptTerms" required />I have read
+              <input type="checkbox" name="acceptTerms" id="acceptTerms" required />I have read
               and agree to the{" "}
               <Link to="/termCondition" rel="noopener noreferrer">
                 Terms and Conditions
@@ -182,11 +204,21 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           </div>
           <button
             type="button"
+            className="next-btn login-page-btn bg-secondary mx-1"
+            onClick={() => goToTab(1)}
+          >
+            Back
+          </button>
+          <button
+            type="button"
             className="next-btn login-page-btn"
             onClick={() => goToTab(3)}
+            disabled={!isFormValid}
+            title={!isFormValid ? "Please fill all mandatory fields." : ""}
           >
             Next
           </button>
+         
         </form>
       </div>
     </>

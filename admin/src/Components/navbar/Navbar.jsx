@@ -27,7 +27,7 @@ const Navbar = () => {
                         }
                     </ul>
                     <ul style={{ display: "flex", listStyle: "none", fontSize: "25px", color: "white" }}>
-                        {loginvalue ? <li><button onClick={logout} className="btn btn-danger text-light">Logout</button>
+                        {loginvalue ? <li><button onClick={logout} className="btn btn-dark text-light">Logout</button>
                         </li> :
                             <li> <Link to='/login' style={{ textDecoration: "none" }}><i class="ri-login-circle-line text-light"></i></Link></li>
                         }

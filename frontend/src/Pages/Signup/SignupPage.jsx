@@ -68,22 +68,21 @@ const SignupPage = () => {
               <ul>
                 <li>
                   <a
-                    href="#"
                     className={
                       currentTab === 1 ? "tab-link active" : "tab-link"
                     }
-                    onClick={() => goToTab(1)}
+                    // onClick={() => goToTab(1)}
                   >
                     Personal Details
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
+                   
                     className={
                       currentTab === 2 ? "tab-link active" : "tab-link"
                     }
-                    onClick={() => goToTab(2)}
+                    // onClick={() => goToTab(2)}
                   >
                     Other  Details
                   </a>
@@ -91,11 +90,10 @@ const SignupPage = () => {
 
                 <li>
                   <a
-                    href="#"
                     className={
                       currentTab === 3 ? "tab-link active" : "tab-link"
                     }
-                    onClick={() => goToTab(3)}
+                    // onClick={() => goToTab(3)}
                   >
                     Review
                   </a>
@@ -120,7 +118,7 @@ const SignupPage = () => {
                 />
               )}
 
-              {currentTab === 3 && <Review formData={formData} />}
+              {currentTab === 3 && <Review formData={formData}  goToTab={goToTab} />}
             </div>
           </div>
         </div>
