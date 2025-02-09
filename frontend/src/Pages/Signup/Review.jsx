@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./SignupPage.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Review = ({ formData, goToTab }) => {
   const [profileImage, setProfileImage] = useState(null);
-
+  const navigate = useNavigate();
   // Handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -38,7 +39,8 @@ const Review = ({ formData, goToTab }) => {
       );
 
       alert("Form submitted successfully!");
-      console.log("Response:", response.data);
+      navigate('/')
+      // console.log("Response:", response.data);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Failed to submit the form. Please try again.");

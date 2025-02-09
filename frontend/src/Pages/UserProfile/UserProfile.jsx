@@ -54,9 +54,14 @@ const UserProfile = () => {
     SetDisdata(response.data.message);
   };
   const getConnectionRequest = async () => {
-    const response = await axiosInstance.get("/api/v1/connectionRequest/forme");
-    SetRqt(response.data.requests);
-    console.log(response.data.requests);
+    try {
+      const response = await axiosInstance.get(
+        "/api/v1/connectionRequest/forme"
+      );
+      SetRqt(response.data.requests);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
@@ -134,7 +139,7 @@ const UserProfile = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated Data:", formData);
+    // console.log("Updated Data:", formData);
 
     try {
       const response = await axiosInstance.patch(
@@ -147,7 +152,7 @@ const UserProfile = () => {
         }
       );
       SetDisdata(response.data.message);
-      console.log("API Response:", response.data);
+      // console.log("API Response:", response.data);
       alert("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -192,14 +197,19 @@ const UserProfile = () => {
   const closeDetailsModal = () => setDetailsModalIsOpen(false);
 
   const acceptRequest = async (id) => {
-    alert(id);
-    // const res = await axiosInstance.get(`/api/v1/connectionRequest/sendrq/accept/${id}`);
-    // console.log(res);
-    closeModal();
+    try {
+      const res = await axiosInstance.get(
+        `/api/v1/connectionRequest/sendrq/accept/${id}`
+      );
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const rejectRequest = () => {
-    alert("Connection Request Rejected!");
+  const rejectRequest = async (id) => {
+    // console.log("id", id);
+    await axiosInstance.get(`/api/v1/connectionRequest/sendrq/reject/${id}`);
     closeModal();
   };
 
@@ -459,7 +469,7 @@ const UserProfile = () => {
           <form onSubmit={handleFormSubmit}>
             <div className="row modal-row">
               {Object.entries(formData).map(([key, value]) => (
-                <div className="col-md-4 col-6 mb-3" key={key}>
+                <div className="col-md-4 mb-3" key={key}>
                   <div className="form-group">
                     <label htmlFor={key}>
                       {key.replace(/_/g, " ").toUpperCase()}
@@ -475,6 +485,7 @@ const UserProfile = () => {
                   </div>
                 </div>
               ))}
+
               <div className="form-group">
               <label htmlFor="updatepic">Update Picture</label>
               <input
@@ -486,6 +497,7 @@ const UserProfile = () => {
               />
               </div>
             </div>
+
             <div className="d-flex justify-content-end">
               <button type="submit" className="btn save-change">
                 Save Changes
@@ -542,11 +554,14 @@ const UserProfile = () => {
                           {conn.sender.city}
                         </span>
                       </p>
+
                       <p>
                         Work:{" "}
                         <span className="text-secondary">
                           {conn.sender.working}
                         </span>
+
+
                       </p>
                     </div>
                   </div>

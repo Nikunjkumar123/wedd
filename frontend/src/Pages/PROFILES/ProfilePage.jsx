@@ -15,14 +15,22 @@ const ProfilePage = () => {
   const [allprf,SetAllPrf] = useState([])
 
   const getDETAILS = async()=>{
-    const response = await axiosInstance.get('/api/v1/profiles/opposite/users')
-    // console.log("adta is",response.data.opp);
-    SetPrf(response.data.opp);
+    try {
+      const response = await axiosInstance.get('/api/v1/profiles/opposite/users')
+      // console.log("adta is",response.data.opp);
+      SetPrf(response.data.opp);
+    } catch (error) {
+      console.log(error)
+    }
   }
   const getALLDETAILS = async()=>{
-    const response = await axiosInstance.get('/api/v1/adminPanel/allUsers')
-    // console.log("adta is",response.data.opp);
-    SetAllPrf(response.data);
+    try {
+      const response = await axiosInstance.get('/api/v1/adminPanel/allUsers')
+      // console.log("adta is",response.data.opp);
+      SetAllPrf(response.data);
+    } catch (error) {
+      console.log(error)
+    }
   }
   useEffect(() => {
     window.scrollTo({
@@ -71,7 +79,7 @@ const ProfilePage = () => {
           },
         }
       );
-      console.log("Filtered Users:", response.data.all);
+      // console.log("Filtered Users:", response.data.all);
       // Handle the response (e.g., set the filtered users in state to render them)
     } catch (error) {
       console.error("Error applying filters:", error);
