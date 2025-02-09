@@ -21,28 +21,24 @@ const oppUsers = async (req, res) => {
 const filteredData = async (req, res) => {
   try {
     const { gender, age, city, budget } = req.body;
-    // console.log(req.body);
-    const filter = {};
 
-    if (gender) filter.gender = gender;
-    if (age) filter.age = age;
-    if (city) filter.city = city;
-    if (budget) filter.weddingBudget = budget;
+    const all = await userModel.find(); // Fetch all users
 
-    // Find users based on the filter
-    const all = await userModel.find(filter);
-    // console.log(all)
-    
-    if (!all || all.length === 0) {
-      return res.status(400).json({ msg: "No users found" });
-    }
+    const filterData = all.filter(user => 
+      (!gender || user.gender === gender) &&
+      (!city || user.city === city) &&
+      (!age || user.age >= age) &&
+      (!budget || user.weddingBudget >= budget)
+    ); // Apply correct filtering conditions
 
-    return res.status(200).json({ all: all });
+    // console.log(filterData);
+    return res.status(200).json({ all: filterData });
 
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
 };
+
 
 const getSingleUser = async(req,res)=>{ // give user with id
   const id = req.params.id;

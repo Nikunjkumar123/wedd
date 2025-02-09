@@ -79,7 +79,8 @@ const ProfilePage = () => {
           },
         }
       );
-      // console.log("Filtered Users:", response.data.all);
+      console.log("Filtered Users:", response.data.all);
+      SetPrf(response.data.all);
       // Handle the response (e.g., set the filtered users in state to render them)
     } catch (error) {
       console.error("Error applying filters:", error);
@@ -131,8 +132,8 @@ const ProfilePage = () => {
                   className="form-control"
                 >
                   <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
                 </select>
               </div>
 

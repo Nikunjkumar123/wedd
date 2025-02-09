@@ -9,6 +9,8 @@ Modal.setAppElement("#root");
 
 const InnerProfile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [showPAss,SetShowPass] = useState([]);
+  const [passwordPermision,setPasswordPermission] = useState(0);
   const [dis,SetDis] = useState({
     name: "",
     fatherName: "",
@@ -31,14 +33,24 @@ const InnerProfile = () => {
     budget: "",
     style: "",
     familyHead: "",
+    connections:[]
   })
   const { id } = useParams();
 
   const getDeT = async(req,res)=>{
     try {
       const response = await axiosInstance.get(`/api/v1/profiles/single/user/${id}`);
-      // console.log(response.data.user.fullName);
       SetDis(response.data.user)
+      const response2 = await axiosInstance.get('/api/v1/myprofile/viewProfile')
+      const myId = response2.data.message._id;
+      // console.log("connection ids are ",response.data.user.connections,"and my id is",myId);
+      {
+        response.data.user.connections.map((check)=>{
+          if(check == myId){
+            setPasswordPermission(1);
+          }
+        })
+      }
     } catch (error) {
       console.error("Error fetching profile:", error);
     }
@@ -59,12 +71,28 @@ const InnerProfile = () => {
     }
   };
 
+  const checkToshowPassword = async()=>{
+    const response = await axiosInstance.get('/api/v1/myprofile/viewProfile')
+    // let a=0;
+    const myId = response.data.message._id;
+    console.log("connection ids are",showPAss,"and my id is",myId);
+    {
+      showPAss.map((check)=>{
+        if(check == myId){
+          setPasswordPermission(1);
+          // a=1;
+        }
+      })
+    }
+  }
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
     getDeT();
+    
   }, []);
 
   return (
@@ -121,7 +149,6 @@ const InnerProfile = () => {
                   </h6>
                   <span className="text-secondary">{dis.GrandFatherName}</span>
                 </li>
-               
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
@@ -134,7 +161,7 @@ const InnerProfile = () => {
                     <i className="bi bi-arrow-bar-right"></i>
                     Phone
                   </h6>
-                  <span className="text-secondary">{dis.phone}</span>
+                  <span className="text-secondary">{passwordPermision == 1? dis.phone : "**********"}</span>
                 </li>
               </ul>
             </div>

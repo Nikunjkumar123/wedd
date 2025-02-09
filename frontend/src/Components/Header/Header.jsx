@@ -7,6 +7,7 @@ import whatsapp from "../../Assets/whatsapp.png";
 const Header = () => {
   // const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [num,SetNum] = useState();
 
   // const toggleMenu = () => {
   //   setMenuOpen(!menuOpen);
@@ -23,6 +24,8 @@ const Header = () => {
 
     // Listen for login/logout events
     window.addEventListener("userStatusChanged", checkUserStatus);
+
+    // countConnections
 
     return () => {
       window.removeEventListener("userStatusChanged", checkUserStatus);

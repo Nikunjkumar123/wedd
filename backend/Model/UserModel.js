@@ -72,6 +72,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+  emailVerified:{
+    type:Boolean,
+  },
   image: {
     type: String,
   },

@@ -161,7 +161,7 @@ const LoginUser = async (req, res) => {
         });
         
 
-        return res.status(200).json({ user: 'Login successful' });
+        return res.status(200).json({ user: 'Login successful'});
     } catch (error) {
         console.error('Error during login:', error); // Log error for debugging
         res.status(500).json({ message: 'Login failed. Please try again later.' });

@@ -63,6 +63,14 @@ const UserProfile = () => {
       console.error("Error fetching data:", error);
     }
   };
+  const getMyConnections = async(req,res)=>{
+    try {
+      const myconn = await axiosInstance.get('/api/v1/connectionRequest/connection/myconn')
+      console.log(myconn);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
 
   useEffect(() => {
     if (disData.fullName) {
@@ -139,7 +147,7 @@ const UserProfile = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Updated Data:", formData);
+    console.log("Updated Data:", formData);
 
     try {
       const response = await axiosInstance.patch(
@@ -332,7 +340,7 @@ const UserProfile = () => {
                           Connection Request
                         </button>
                         <div>
-                          <button className="btn userprofile-creataccount mt-2">
+                          <button className="btn userprofile-creataccount mt-2" onClick={()=>{getMyConnections()}}>
                             My Connections
                           </button>
                         </div>
@@ -493,7 +501,6 @@ const UserProfile = () => {
                 accept="image/*"
                 onChange={handleImageChange}
                 className="btn btn-link"
-               
               />
               </div>
             </div>

@@ -26,7 +26,7 @@ const Bride = () => {
     const getApiData = async () => {
         try {
             const res = await axios.get("http://localhost:3000/api/v1/connectionRequest/allRequest");
-            console.log(res.data)
+            // console.log(res.data)
             const newData = res.data.all;
             setData(newData.reverse());
         } catch (error) {

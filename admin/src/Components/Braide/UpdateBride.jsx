@@ -16,7 +16,7 @@ const UpdateBride = () => {
     const getApiData = async () => {
         try {
             const res = await axios.get(`https://api.sitarammarriagebureau.com/api/bride/${_id}`);
-            console.log(res);
+            // console.log(res);
             setData(res.data.data);
         } catch (error) {
             console.log(error);
@@ -42,7 +42,7 @@ const UpdateBride = () => {
         setLoading(true); 
         try {
             const res = await axios.put(`https://api.sitarammarriagebureau.com/api/bride/${_id}`, formData);
-            console.log(res);
+            // console.log(res);
             if (res.status === 200) {
                 toast.success("Banner Updated Successfully");
                 navigate("/bride");

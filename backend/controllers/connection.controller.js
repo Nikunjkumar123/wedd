@@ -127,7 +127,7 @@ const allConections = async (req, res) => {
                 index === self.findIndex((c) => c._id.toString() === conn._id.toString())
         );
 
-        res.send(uniqueConnections);
+        res.status(200).json(uniqueConnections);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
