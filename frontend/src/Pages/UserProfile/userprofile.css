@@ -267,6 +267,10 @@
     height: 50px;
   }
 
+  .modal-container .form-group label {
+    font-size: 11px;
+}
+
   .user-name {
     font-size: 1rem;
   }
@@ -294,7 +298,7 @@
   .modal-overlay {
     position: absolute;
     align-items: start;
-    bottom: -818px;
+    bottom: -560px;
     top: auto;
   }
 

@@ -5,12 +5,12 @@ import websitelogo from "../../Assets/malikLogobgr.png";
 import whatsapp from "../../Assets/whatsapp.png";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setMenuOpen(!menuOpen);
+  // };
 
   useEffect(() => {
     const checkUserStatus = () => {
@@ -53,29 +53,21 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className={`nav-center-data ${menuOpen ? "menu-open" : ""}`}>
+          <div className={"nav-center-data"}>
             <ul className="nav-links-container">
               <li className="nav-links">
-                <Link to="/" onClick={() => setMenuOpen(false)}>
-                  HOME
-                </Link>
+                <Link to="/">HOME</Link>
               </li>
               <li className="nav-links">
-                <Link to="/profilePage" onClick={() => setMenuOpen(false)}>
-                  PROFILES
-                </Link>
+                <Link to="/profilePage">PROFILES</Link>
               </li>
 
               <li className="nav-links">
-                <Link to="/member" onClick={() => setMenuOpen(false)}>
-                  MEMBERSHIP
-                </Link>
+                <Link to="/member">MEMBERSHIP</Link>
               </li>
 
               <li className="nav-links">
-                <Link to="/contactUs" onClick={() => setMenuOpen(false)}>
-                  CONTACT US
-                </Link>
+                <Link to="/contactUs">CONTACT US</Link>
               </li>
             </ul>
           </div>
@@ -110,15 +102,24 @@ const Header = () => {
                 </div>
               </div>
             )}
-          </div>
 
-          {/* <div className="hamburger-menu" onClick={toggleMenu}>
-            {menuOpen ? (
-              <i className="bi bi-x-lg"></i> // Cross Icon
+            {!isLoggedIn ? (
+              <div className="nav-login-btn">
+                <div className="login-icon">
+                  <Link to="/signup">
+                    <i class="bi bi-person-fill-add"></i>
+                  </Link>
+                </div>
+                <div className="login-name">
+                  <p>
+                    <Link to="/signup">SIGN UP</Link>
+                  </p>
+                </div>
+              </div>
             ) : (
-              <i className="bi bi-list"></i> // Hamburger Icon
+              ""
             )}
-          </div> */}
+          </div>
         </nav>
 
         <nav className="mobile-navbar">
@@ -130,6 +131,21 @@ const Header = () => {
             <i class="bi bi-person-circle"></i>
             <span>User Profiles</span>
           </Link>
+
+          {!isLoggedIn ? (
+            <Link to="/signup" className="nav-item">
+              <i class="bi bi-person-plus-fill"></i>
+              <span>Sign Up</span>
+            </Link>
+          ) : (
+            <Link to="/signup" className="nav-item">
+              <i class="bi bi-chat-heart-fill">
+                <sup>+5</sup>
+              </i>
+              <span>My Connections</span>
+            </Link>
+          )}
+
           {!isLoggedIn ? (
             <Link to="/login" className="nav-item">
               <i class="bi bi-person-fill-check"></i>
@@ -141,13 +157,9 @@ const Header = () => {
               <span>My Profile</span>
             </Link>
           )}
-          <Link to="/signup" className="nav-item">
-            <i class="bi bi-person-plus-fill"></i>
-            <span>Sign Up</span>
-          </Link>
-          <Link to="/contactUs" className="nav-item">
+          {/* <Link to="/contactUs" className="nav-item">
             <i class="bi bi-gear-wide-connected"></i> <span>Contact Us</span>
-          </Link>
+          </Link> */}
         </nav>
       </div>
     </>

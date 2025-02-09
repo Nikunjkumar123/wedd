@@ -1,12 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SignupPage.css";
 
 const Basicinfo = ({ formData, handleChange, goToTab }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  useEffect(() => {
+    // Check if all required fields are filled
+    const requiredFields = [
+      "fullName",
+      "age",
+      "gender",
+      "fatherName",
+      "GrandFatherName",
+      "height",
+      "dob",
+      "maritalstatus",
+      "FamilyHead",
+      "FamilyHeadOccupation",
+      "siblings",
+      "Sistersiblings",
+      "pehchan",
+      "education",
+      "working",
+      "house",
+      "password",
+    ];
+    const isValid = requiredFields.every(
+      (field) => formData[field]?.trim() !== ""
+    );
+    setIsFormValid(isValid);
+  }, [formData]);
 
   return (
     <>
@@ -170,7 +198,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-4 col-6">
+            <div className="col-md-4 col-4">
               <div className="form-field gender-style">
                 <label htmlFor="FamilyHead" className="label-main">
                   Family Head <sup>*</sup>
@@ -197,23 +225,7 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
               </div>
             </div>
 
-            <div className="col-md-4 col-6">
-              <div className="form-field">
-                <label htmlFor="siblings" className="label-main">
-                  No. of Brothers<sup>*</sup>
-                </label>
-                <input
-                  type="number"
-                  id="siblings"
-                  name="siblings"
-                  value={formData.siblings}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="col-md-4">
+            <div className="col-md-4 col-8">
               <div className="form-field">
                 <label htmlFor="FamilyHeadOccupation" className="label-main">
                   Family Head Occupation<sup>*</sup>
@@ -229,7 +241,21 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
               </div>
             </div>
 
-           
+            <div className="col-md-4">
+              <div className="form-field">
+                <label htmlFor="siblings" className="label-main">
+                  No. of Brothers<sup>*</sup>
+                </label>
+                <input
+                  type="number"
+                  id="siblings"
+                  name="siblings"
+                  value={formData.siblings}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
           </div>
           <div className="row">
             <div className="col-md-4 col-6">
@@ -366,6 +392,9 @@ const Basicinfo = ({ formData, handleChange, goToTab }) => {
             type="button"
             className="next-btn login-page-btn"
             onClick={() => goToTab(2)}
+            disabled={!isFormValid} // Disable button if form is not valid
+            title={!isFormValid ? "Please fill all mandatory fields." : ""}
+
           >
             Next
           </button>

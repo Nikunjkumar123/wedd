@@ -121,19 +121,20 @@ const InnerProfile = () => {
                   </h6>
                   <span className="text-secondary">{dis.GrandFatherName}</span>
                 </li>
-                <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <h6 className="mb-0">
-                    <i className="bi bi-arrow-bar-right"></i>
-                    Phone
-                  </h6>
-                  <span className="text-secondary">{dis.phone}</span>
-                </li>
+               
                 <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <h6 className="mb-0">
                     <i className="bi bi-arrow-bar-right"></i>
                     Height
                   </h6>
                   <span className="text-secondary">{dis.height}</span>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <h6 className="mb-0">
+                    <i className="bi bi-arrow-bar-right"></i>
+                    Phone
+                  </h6>
+                  <span className="text-secondary">{dis.phone}</span>
                 </li>
               </ul>
             </div>

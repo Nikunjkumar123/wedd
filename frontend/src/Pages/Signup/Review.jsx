@@ -3,7 +3,7 @@ import axios from "axios";
 import "./SignupPage.css";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const Review = ({ formData }) => {
+const Review = ({ formData, goToTab }) => {
   const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
   // Handle image upload
@@ -190,6 +190,13 @@ const Review = ({ formData }) => {
           onClick={handleSubmit}
         >
           Submit
+        </button>
+        <button
+          type="button"
+          className="submit-btn login-page-btn bg-secondary mt-1"
+          onClick={() => goToTab(2)}
+        >
+          Go Back
         </button>
       </div>
     </>

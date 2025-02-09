@@ -176,7 +176,7 @@ const UserProfile = () => {
       const croppedImage = canvas.toDataURL();
       setProfileImage(croppedImage); // Update the profile image
       setShowAvatarEditor(false); // Close the avatar editor
-      alert("Profile image updated successfully!");
+      // alert("Profile image updated successfully!");
     }
   };
 
@@ -292,14 +292,14 @@ const UserProfile = () => {
                         width={200}
                       />
 
-                      <div className="d-flex justify-content-center align-items-center">
+                      {/* <div className="d-flex justify-content-center align-items-center">
                         <input
                           type="file"
                           accept="image/*"
                           onChange={handleImageChange}
                           className="btn btn-link"
                         />
-                      </div>
+                      </div> */}
 
                       <div className="profile-data mt-3">
                         <h4>{disData.fullName}</h4>
@@ -326,11 +326,16 @@ const UserProfile = () => {
                         </button>
 
                         <button
-                          className="btn userprofile-creataccount mt-2"
+                          className="btn userprofile-logout mt-2"
                           onClick={openModal}
                         >
                           Connection Request
                         </button>
+                        <div>
+                          <button className="btn userprofile-creataccount mt-2">
+                            My Connections
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -480,8 +485,19 @@ const UserProfile = () => {
                   </div>
                 </div>
               ))}
+
+              <div className="form-group">
+              <label htmlFor="updatepic">Update Picture</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="btn btn-link"
+               
+              />
+              </div>
             </div>
-            
+
             <div className="d-flex justify-content-end">
               <button type="submit" className="btn save-change">
                 Save Changes
@@ -538,44 +554,90 @@ const UserProfile = () => {
                           {conn.sender.city}
                         </span>
                       </p>
-                    </div>
-                    <div className="col-md-6 text-start">
+
                       <p>
-                        status:{" "}
-                        <span className="text-secondary">{conn.status}</span>
+                        Work:{" "}
+                        <span className="text-secondary">
+                          {conn.sender.working}
+                        </span>
+
+
                       </p>
                     </div>
                   </div>
 
-                  {conn.status === "accepted" || conn.status === "rejected" ? (
-                    <div className="request-actions">
-                      {/* {console.log(conn.sender._id)} */}
-                    </div>
-                  ) : (
-                    <div className="request-actions">
-                      <button
-                        onClick={() => {
-                          acceptRequest(conn._id);
-                          openDetailsModal(conn.sender);
-                        }}
-                        className="accept-btn"
-                      >
-                        Accept
-                      </button>
-                      <button
-                        onClick={() => rejectRequest(conn._id)}
-                        className="reject-btn"
-                      >
-                        Reject
-                      </button>
-                    </div>
-                  )}
+                  <div className="request-actions">
+                    <button
+                      onClick={() => {
+                        openDetailsModal(conn.sender);
+                        acceptRequest(conn._id);
+                      }}
+                      className="accept-btn"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => rejectRequest(conn.sender.id)}
+                      className="reject-btn"
+                    >
+                      Reject
+                    </button>
+                  </div>
 
                   <hr />
                 </div>
               ))
             ) : (
-              <p>No Pending requests available.</p>
+              <p>No requests available.</p>
+            )}
+          </div>
+        </ReactModal>
+
+        {/* =========== My Connection =============== */}
+
+        <ReactModal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          className="modal-style"
+          overlayClassName="modal-overlay modal-overlay1"
+          contentLabel="User Requests"
+        >
+          <button onClick={closeModal} className="modal-close-btn">
+            &times;
+          </button>
+
+          <div className="container connection-main">
+            {seeRqt.length > 0 ? (
+              seeRqt.map((conn, index) => (
+                <div key={index} className="profile-card">
+                  <div className="row align-items-center">
+                    <div className="col-md-2">
+                      <img
+                        src={conn.sender.image}
+                        alt={conn.sender.fullName}
+                        className="user-image"
+                      />
+                    </div>
+                    <div className="col-md-10 text-start">
+                      <p className="user-name">{conn.sender.fullName}</p>
+                      <p>
+                        {conn.sender.fullName}{" "}
+                        <span className="text-secondary">
+                          has accept you request.
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="request-actions">
+                    <button className="accept-btn">View Details</button>
+                  </div>
+
+                  <hr />
+                </div>
+              ))
+            ) : (
+              <p>No connection available.</p>
             )}
           </div>
         </ReactModal>
