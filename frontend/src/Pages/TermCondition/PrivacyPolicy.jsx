@@ -115,7 +115,7 @@ const PrivacyPolicy = () => {
         <p>
           If you have any questions or concerns about this Privacy Policy or how we handle your personal information, please contact us at:
           <br />
-          <strong>[contact email or phone]</strong>
+          <strong>[muslimmalikrishte@gmail.com / +919599467465]</strong>
         </p>
       </section>
     </div>

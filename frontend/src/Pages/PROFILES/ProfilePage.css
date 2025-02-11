@@ -101,7 +101,13 @@
 }
 
 .profile-details {
-  padding: 10px 30px;
+  padding: 5px 40px;
+}
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
 }
 
 .details-row p {
@@ -110,12 +116,6 @@
   font-size: 13px;
   flex: 1;
   text-align: left;
-}
-
-.details-row {
-  display: flex;
-  justify-content: space-around;
-  margin: 5px 0;
 }
 
 .details-row p strong {
@@ -148,7 +148,8 @@
   }
 
   .profile-details {
-    padding: 0px 30px;
+    padding: 5px 0;
+    width: 60%;
   }
 
   .filter-form {
@@ -158,5 +159,23 @@
 
   .filter-item {
     width: 100%;
+  }
+
+  .details-row {
+    width: 135%;
+  }
+
+  .details-row p {
+    font-size: 10px;
+  }
+
+  .details-row p strong {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile-details {
+    width: 83%;
   }
 }

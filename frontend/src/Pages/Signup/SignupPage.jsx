@@ -70,6 +70,8 @@ const SignupPage = () => {
                   <a
                     className={
                       currentTab === 1 ? "tab-link active" : "tab-link"
+                    
+                    
                     }
                     // onClick={() => goToTab(1)}
                   >

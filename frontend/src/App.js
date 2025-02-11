@@ -13,6 +13,8 @@ import InnerProfile from "./Pages/DynamicInnerProfile/InnerProfile";
 import TermsAndConditions from "./Pages/TermCondition/TermsAndConditions ";
 import PrivacyPolicy from "./Pages/TermCondition/PrivacyPolicy";
 import PageNotFound from "./Pages/PageNotFound";
+import ConnectionReq from "./Pages/UserProfile/ConnectionReq";
+import MyConnection from "./Pages/UserProfile/MyConnection";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/InnerProfile/:id" element={<InnerProfile />} />
         <Route path="/termCondition" element={<TermsAndConditions/>} />
         <Route path="/privacyPolicy" element={<PrivacyPolicy/>} />
+        <Route path="/connectionReq" element={<ConnectionReq/>} />
+        <Route path="/myConnection" element={<MyConnection/>} />
         <Route path="/*" element={<PageNotFound/>} />
       </Routes>
       <MalikFooter/>

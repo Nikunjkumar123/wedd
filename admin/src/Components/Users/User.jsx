@@ -1,50 +1,54 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import Sidebar from '../Sidebar'
-import { Link } from 'react-router-dom'
-import toast from 'react-hot-toast'
-import ReactPaginate from 'react-paginate'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Sidebar from "../Sidebar";
+import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import ReactPaginate from "react-paginate";
 // import './App.css'; // Ensure this path is correct
 
 const User = () => {
-  const [data, setData] = useState([])
-  const [currentPage, setCurrentPage] = useState(0)
-  const [itemsPerPage] = useState(5)
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage] = useState(5);
 
   const getApiData = async () => {
     try {
-      let res = await axios.get("http://localhost:3000/api/v1/adminPanel/allUsers")
+      let res = await axios.get(
+        "http://localhost:3000/api/v1/adminPanel/allUsers"
+      );
       const newData = res.data;
-      setData(newData.reverse())
+      setData(newData.reverse());
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const deleteRecord = async (_id) => {
     try {
-      let res = await axios.delete("http://localhost:3000/api/v1/adminPanel/updateUser/" + _id)
+      let res = await axios.delete(
+        "http://localhost:3000/api/v1/adminPanel/updateUser/" + _id
+      );
       if (res.status === 200) {
-        toast.success("User Details Deleted Successfully")
+        toast.success("User Details Deleted Successfully");
       }
-      getApiData()
+      getApiData();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getApiData()
-  }, [])
+    getApiData();
+  }, []);
 
   const handlePageClick = (event) => {
-    setCurrentPage(event.selected)
-  }
+    setCurrentPage(event.selected);
+  };
 
   // Calculate current items
-  const offset = currentPage * itemsPerPage
-  const currentPageData = data.slice(offset, offset + itemsPerPage)
-  const pageCount = Math.ceil(data.length / itemsPerPage)
+  const offset = currentPage * itemsPerPage;
+  const currentPageData = data.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(data.length / itemsPerPage);
 
   return (
     <>
@@ -54,8 +58,14 @@ const User = () => {
             <Sidebar />
           </div>
           <div className="col-md-9">
-            <div className='text-center fs-4 mb-2'>Users List</div>
-            <table className='table table-bordered'>
+            <div className="text-center fs-4 mb-2">Users List</div>
+            <Link
+                to="https://www.muslimmalikrishte.com/signup"
+                target="_blank"
+              >
+                <button className="btn btn-secondary mb-2">Add User</button>
+              </Link>
+            <table className="table table-bordered">
               <thead>
                 <tr>
                   <th>S No.</th>
@@ -67,41 +77,47 @@ const User = () => {
                 </tr>
               </thead>
               <tbody>
-                {
-                  currentPageData.map((item, index) =>
-                    <tr key={index}>
-                      <td>{index + 1 + offset}</td>
-                      <td>{item.fullName}</td>
-                      <td>{item.email}</td>
-                      <td>{item.phone}</td>
-                      <td>{item.gender}</td>
-                      <td>
-                        <Link to={`/userdetails/${item._id}`}><button className='btn btn-success'>See Details</button></Link>&nbsp;
-                        <button className='btn btn-danger' onClick={() => deleteRecord(item._id)}>Delete</button>
-                      </td>
-                    </tr>
-                  )
-                }
+                {currentPageData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1 + offset}</td>
+                    <td>{item.fullName}</td>
+                    <td>{item.email}</td>
+                    <td>{item.phone}</td>
+                    <td>{item.gender}</td>
+                    <td>
+                      <Link to={`/userdetails/${item._id}`}>
+                        <button className="btn btn-success">See Details</button>
+                      </Link>
+                      &nbsp;
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => deleteRecord(item._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <ReactPaginate
-              previousLabel={'previous'}
-              nextLabel={'next'}
-              breakLabel={'...'}
-              breakClassName={'break-me'}
+              previousLabel={"previous"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
               pageCount={pageCount}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}
-              containerClassName={'pagination'}
-              subContainerClassName={'pages pagination'}
-              activeClassName={'active'}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
             />
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default User
+export default User;

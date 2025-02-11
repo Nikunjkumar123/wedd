@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ReactModal from "react-modal";
 import "./SignupPage.css";
+ReactModal.setAppElement("#root");
 
 const Review = ({ formData, goToTab }) => {
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+  
   const [profileImage, setProfileImage] = useState(null);
 
   // Handle image upload
@@ -44,6 +54,8 @@ const Review = ({ formData, goToTab }) => {
       alert("Failed to submit the form. Please try again.");
     }
   };
+
+  // ------------ OTP Verification ---------------
 
   return (
     <>
@@ -186,6 +198,7 @@ const Review = ({ formData, goToTab }) => {
           type="button"
           className="submit-btn login-page-btn"
           onClick={handleSubmit}
+          // onClick={() => setShowOTPForm(true)}
         >
           Submit
         </button>
@@ -196,6 +209,7 @@ const Review = ({ formData, goToTab }) => {
         >
           Go Back
         </button>
+
       </div>
     </>
   );

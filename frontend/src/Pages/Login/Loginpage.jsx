@@ -37,7 +37,9 @@ const Loginpage = () => {
   const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axiosInstance.post("/api/v1/auth/forgotPassword", { email: femail });
+      const res = await axiosInstance.post("/api/v1/auth/forgotPassword", {
+        email: femail,
+      });
       Swal.fire({
         icon: "success",
         title: "OTP Sent!",
@@ -48,7 +50,11 @@ const Loginpage = () => {
       setShowForgotPassword(false);
       setShowOTPForm(true);
     } catch (error) {
-      setError(error.response?.data?.message || "Error sending OTP. Try again.");
+      alert(
+        setError(
+          error.response?.data?.message || "Error sending OTP. Try again."
+        )
+      );
     }
   };
 
@@ -60,7 +66,10 @@ const Loginpage = () => {
       return;
     }
     try {
-      await axiosInstance.post("/api/v1/auth/verifyToken", { email: femail, myToken: otpValue });
+      await axiosInstance.post("/api/v1/auth/verifyToken", {
+        email: femail,
+        myToken: otpValue,
+      });
       Swal.fire({
         icon: "success",
         title: "OTP Verified!",
@@ -68,7 +77,8 @@ const Loginpage = () => {
         timer: 1500,
         showConfirmButton: false,
       });
-      setShowOTPForm(false);setShowUpdatePasswordModal(true); 
+      setShowOTPForm(false);
+      setShowUpdatePasswordModal(true);
     } catch (error) {
       setError("Invalid OTP. Please try again.");
     }
@@ -77,7 +87,10 @@ const Loginpage = () => {
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await axiosInstance.post("/api/v1/auth/updatePassword", { email: femail, password: newPassword });
+      const res = await axiosInstance.post("/api/v1/auth/updatePassword", {
+        email: femail,
+        password: newPassword,
+      });
       Swal.fire({
         icon: "success",
         title: "Password Updated!",
@@ -197,7 +210,7 @@ const Loginpage = () => {
             </button>
             <div className="register">
               <p>
-                Don't have an account? <Link to="/signup">Create Account</Link>
+                Don't have an account? <Link to="/signup">Create Profile</Link>
               </p>
             </div>
           </form>
@@ -215,7 +228,12 @@ const Loginpage = () => {
           <h3>Forgot Password</h3>
           <form onSubmit={handleForgotPasswordSubmit}>
             <div className="input-field">
-              <input type="email" required  value={femail} onChange={(e) => setfEmail(e.target.value)}/>
+              <input
+                type="email"
+                required
+                value={femail}
+                onChange={(e) => setfEmail(e.target.value)}
+              />
               <label>Enter your Email</label>
             </div>
             <button type="submit" className="submit-button">
@@ -294,8 +312,16 @@ const Loginpage = () => {
               />
               <label>Enter New Password</label>
             </div>
-            <button type="submit" className="submit-button">Update Password</button>
-            <button type="button" className="close-button" onClick={() => setShowUpdatePasswordModal(false)}>Close</button>
+            <button type="submit" className="submit-button">
+              Update Password
+            </button>
+            <button
+              type="button"
+              className="close-button"
+              onClick={() => setShowUpdatePasswordModal(false)}
+            >
+              Close
+            </button>
           </form>
         </div>
       </ReactModal>

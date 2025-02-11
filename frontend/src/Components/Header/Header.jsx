@@ -112,7 +112,7 @@ const Header = () => {
                 </div>
                 <div className="login-name">
                   <p>
-                    <Link to="/signup">SIGN UP</Link>
+                    <Link to="/signup">Create Profile</Link>
                   </p>
                 </div>
               </div>
@@ -129,20 +129,20 @@ const Header = () => {
           </Link>
           <Link to="/profilePage" className="nav-item">
             <i class="bi bi-person-circle"></i>
-            <span>User Profiles</span>
+            <span>Profiles</span>
           </Link>
 
           {!isLoggedIn ? (
             <Link to="/signup" className="nav-item">
               <i class="bi bi-person-plus-fill"></i>
-              <span>Sign Up</span>
+              <span>Create Profile</span>
             </Link>
           ) : (
-            <Link to="/signup" className="nav-item">
+            <Link to="/ConnectionReq" className="nav-item">
               <i class="bi bi-chat-heart-fill">
                 <sup>+5</sup>
               </i>
-              <span>My Connections</span>
+              <span>Connections Request</span>
             </Link>
           )}
 

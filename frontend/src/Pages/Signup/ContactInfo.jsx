@@ -1,12 +1,19 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./SignupPage.css";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
+import Swal from "sweetalert2";
+Modal.setAppElement("#root"); // Required for accessibility
 
 const ContactInfo = ({ formData, handleChange, goToTab }) => {
-   const [isFormValid, setIsFormValid] = useState(false);
- 
+  const [isFormValid, setIsFormValid] = useState(false);
 
-   useEffect(() => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    
     const requiredFields = [
       "phone",
       "email",
@@ -20,11 +27,59 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
     ];
 
     const isValid = requiredFields.every(
-      (field) => formData[field]?.trim() !== "" 
+      (field) => formData[field]?.trim() !== ""
     );
     setIsFormValid(isValid);
-   }, [formData]);
- 
+  }, [formData]);
+
+  // ----------- Email verify ----------
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleEmailChange = (e, index) => {
+    const value = e.target.value;
+    if (!/^\d*$/.test(value)) return; // Only allow numbers
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Move to next input if a digit is entered
+    if (value && index < 5) {
+      document.getElementById(`otp-${index + 1}`).focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && index > 0 && !otp[index]) {
+      document.getElementById(`otp-${index - 1}`).focus();
+    }
+  };
+
+  const handleVerifyEmail = (isSuccess) => {
+    if (isSuccess) {
+      Swal.fire({
+        title: "OTP Verified Successfully!",
+        text: "Your email has been verified.",
+        icon: "success",
+        confirmButtonText: "OK",
+       
+      });
+      setIsModalOpen(false)
+    } else {
+      Swal.fire({
+        title: "OTP Verification Failed!",
+        text: "Please enter the correct OTP.",
+        icon: "error",
+        confirmButtonText: "Retry",
+      });
+    }
+  };
+
   return (
     <>
       <div>
@@ -189,18 +244,20 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
           </div>
 
           <div className="container my-2">
-            <label>
-              <input type="checkbox" name="acceptTerms" id="acceptTerms" required />I have read
-              and agree to the{" "}
-              <Link to="/termCondition" rel="noopener noreferrer">
-                Terms and Conditions
-              </Link>{" "}
-              and{" "}
-              <Link to="/privacyPolicy" rel="noopener noreferrer">
-                Privacy Policy
-              </Link>
-              
-            </label>
+            <input
+              type="checkbox"
+              name="acceptTerms"
+              id="acceptTerms"
+              required
+            />
+            I have read and agree to the{" "}
+            <Link to="/termCondition" rel="noopener noreferrer">
+              Terms and Conditions
+            </Link>{" "}
+            and{" "}
+            <Link to="/privacyPolicy" rel="noopener noreferrer">
+              Privacy Policy
+            </Link>
           </div>
           <button
             type="button"
@@ -214,12 +271,55 @@ const ContactInfo = ({ formData, handleChange, goToTab }) => {
             className="next-btn login-page-btn"
             onClick={() => goToTab(3)}
             disabled={!isFormValid}
-            title={!isFormValid ? "Please fill all mandatory fields." : ""}
+            title={!isFormValid ? "Please fill all mandatory fields." : ""} // ✅ Shows message when disabled
           >
             Next
           </button>
-         
+          <button
+            type="button"
+            className="btn bg-info mx-2"
+            onClick={openModal}
+          >
+            Verify Email
+          </button>
         </form>
+
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          className="otp-modal-content"
+          overlayClassName="modal-overlay"
+        >
+          <div className="modal-header d-flex justify-content-between">
+            <h5 className="modal-title">OTP has been sent to your Email</h5>
+            <button className="btn-close" onClick={closeModal}></button>
+          </div>
+
+          <div className="modal-body text-center">
+            <p>Please enter the OTP</p>
+            <div className="d-flex justify-content-center">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  id={`otp-${index}`}
+                  type="text"
+                  maxLength="1"
+                  className="otp-input text-center"
+                  value={digit}
+                  onChange={(e) => handleEmailChange(e, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              className="verfity-btn"
+              onClick={() => handleVerifyEmail(true)} // Pass true for success, false for error
+            >
+              Verify Email
+            </button>
+          </div>
+        </Modal>
       </div>
     </>
   );

@@ -189,6 +189,52 @@ sup {
   color: red;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.otp-modal-content {
+  background: whitesmoke;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.otp-input {
+  width: 40px;
+  height: 50px;
+  margin: 5px;
+  font-size: 22px;
+  text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+.otp-input:focus {
+  border-color: #17a2b8;
+  outline: none;
+}
+
+.verfity-btn {
+  outline: none;
+  border: none;
+  background: var(--font-color);
+  color: #fff;
+  padding: .50rem;
+  border-radius: 3rem;
+  margin-top: .5rem;
+}
+
 /* Responsive Styles */
 @media screen and (max-width: 992px) {
   .Main-Form_container {
@@ -236,6 +282,10 @@ sup {
 
   .form-field .Signup-Review {
     width: 100%;
+  }
+
+  .modal-title {
+    font-size: 16px;
   }
 }
 

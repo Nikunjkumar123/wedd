@@ -86,7 +86,7 @@ const MalikFooter = () => {
             {/* Replace email with your dynamic value */}
             <h6 className="text-uppercase small mt-2">Address</h6>
             <Link to="#" target="_blank">
-              Kirti Nagar Metro Station
+              Ajmeri Gate, Delhi - 110006
             </Link>{" "}
           </Col>
         </Row>

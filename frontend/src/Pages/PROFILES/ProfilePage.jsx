@@ -4,26 +4,26 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import profilebg from "../../Assets/ProfileBg.jpeg";
 import Modal from "react-modal";
-import {axiosInstance} from "../Login/Loginpage";
+import { axiosInstance } from "../Login/Loginpage";
 import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const [prf,SetPrf] = useState([])
-  const [allprf,SetAllPrf] = useState([])
+  const [prf, SetPrf] = useState([]);
+  const [allprf, SetAllPrf] = useState([]);
 
-  const getDETAILS = async()=>{
-    const response = await axiosInstance.get('/api/v1/profiles/opposite/users')
+  const getDETAILS = async () => {
+    const response = await axiosInstance.get("/api/v1/profiles/opposite/users");
     // console.log("adta is",response.data.opp);
     SetPrf(response.data.opp);
-  }
-  const getALLDETAILS = async()=>{
-    const response = await axiosInstance.get('/api/v1/adminPanel/allUsers')
+  };
+  const getALLDETAILS = async () => {
+    const response = await axiosInstance.get("/api/v1/adminPanel/allUsers");
     // console.log("adta is",response.data.opp);
     SetAllPrf(response.data);
-  }
+  };
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -32,7 +32,7 @@ const ProfilePage = () => {
     const userStatus = localStorage.getItem("user");
     if (userStatus) {
       getDETAILS();
-    }else{
+    } else {
       getALLDETAILS();
     }
   }, []);
@@ -41,9 +41,9 @@ const ProfilePage = () => {
 
   const [filters, setFilters] = useState({
     gender: "",
-    age: 25, 
+    age: 25,
     city: "",
-    budget: 100000, 
+    budget: 100000,
   });
 
   const handleInputChange = (e) => {
@@ -63,11 +63,11 @@ const ProfilePage = () => {
   const handlefilterSubmit = async () => {
     try {
       const response = await axiosInstance.post(
-        '/api/v1/profiles/profiles/filter',
+        "/api/v1/profiles/profiles/filter",
         filters, // Make sure 'filters' contains gender, age, city, and budget
         {
           headers: {
-            'Content-Type': 'application/json', 
+            "Content-Type": "application/json",
           },
         }
       );
@@ -78,7 +78,6 @@ const ProfilePage = () => {
       // You can show an error message to the user
     }
   };
-  
 
   return (
     <>
@@ -177,7 +176,11 @@ const ProfilePage = () => {
 
               {/* Submit Button */}
               <div className="col-md-1 col-12 text-center mt-md-0 mt-3">
-                <button type="submit" className="btn-btn filter-submit" onClick={handlefilterSubmit}>
+                <button
+                  type="submit"
+                  className="btn-btn filter-submit"
+                  onClick={handlefilterSubmit}
+                >
                   Search
                 </button>
               </div>
@@ -185,95 +188,92 @@ const ProfilePage = () => {
           </div>
 
           <div className="row">
-          {localStorage.getItem("user") ? (
-            <div className="profile-container">
-              {prf.map((profile) => (
-                <div
-                  className="profile-card col-md-3 mb-4"
-                  key={profile._id}
-                >
-                  <div
-                    className="profile-image"
-                    style={{
-                      backgroundImage: `url(${profilebg})`,
-                    }}
-                  >
-                    <img
-                      src={profile.image}
-                      alt={profile.fullName}
-                      onClick={() => {
-                        setModalOpen(true)
-                        navigate(`/InnerProfile/${profile._id}`)
+            {localStorage.getItem("user") ? (
+              <div className="profile-container">
+                {prf.map((profile) => (
+                  <div className="profile-card col-md-3 mb-4" key={profile._id}>
+                    <div
+                      className="profile-image"
+                      style={{
+                        backgroundImage: `url(${profilebg})`,
                       }}
-                      className="profile-pic"
-                    />
-                  </div>
-                  <div className="profile-details">
-                    <div className="details-row">
-                      <p>
-                        <strong>Name:</strong> {profile.fullName}
-                      </p>
-                      <p>
-                        <strong>Age:</strong> {profile.age}
-                      </p>
+                    >
+                      <img
+                        src={profile.image}
+                        alt={profile.fullName}
+                        onClick={() => {
+                          setModalOpen(false);
+                          navigate(`/InnerProfile/${profile._id}`);
+                        }}
+                        className="profile-pic"
+                      />
                     </div>
-                    <div className="details-row">
-                      <p>
-                        <strong>Place:</strong> {profile.state}
-                      </p>
-                      <p>
-                        <strong>Height:</strong> {profile.height}
-                      </p>
+                    <div className="profile-details">
+                      <div className="details-row">
+                        <p>
+                          <strong>Name:</strong> {profile.fullName}
+                        </p>
+                      </div>
+                      <div className="details-row">
+                        <p>
+                          <strong>Height:</strong> {profile.height}
+                        </p>
+                        <p>
+                          <strong>Age:</strong> {profile.age}
+                        </p>
+                      </div>
+                      <div className="details-row">
+                        <p>
+                          <strong>Place:</strong> {profile.state}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          ) :(
-            <div className="profile-container">
-              {allprf.map((profile) => (
-                <div
-                  className="profile-card col-md-3 mb-4"
-                  key={profile._id}
-                >
-                  <div
-                    className="profile-image"
-                    style={{
-                      backgroundImage: `url(${profilebg})`,
-                    }}
-                  >
-                    <img
-                      src={profile.image}
-                      alt={profile.fullName}
-                      onClick={() => {
-                        setModalOpen(true)
-                       
+                ))}
+              </div>
+            ) : (
+              <div className="profile-container">
+                {allprf.map((profile) => (
+                  <div className="profile-card col-md-3 mb-4" key={profile._id}>
+                    <div
+                      className="profile-image"
+                      style={{
+                        backgroundImage: `url(${profilebg})`,
                       }}
-                      className="profile-pic"
-                    />
-                  </div>
-                  <div className="profile-details">
-                    <div className="details-row">
-                      <p>
-                        <strong>Name:</strong> {profile.fullName}
-                      </p>
-                      <p>
-                        <strong>Age:</strong> {profile.age}
-                      </p>
+                    >
+                      <img
+                        src={profile.image}
+                        alt={profile.fullName}
+                        onClick={() => {
+                          setModalOpen(true);
+                        }}
+                        className="profile-pic"
+                      />
                     </div>
-                    <div className="details-row">
-                      <p>
-                        <strong>Place:</strong> {profile.state}
-                      </p>
-                      <p>
-                        <strong>Height:</strong> {profile.height}
-                      </p>
+                    <div className="profile-details">
+                      <div className="details-row">
+                        <p>
+                          <strong>Name:</strong> {profile.fullName}
+                        </p>
+                      </div>
+                      <div className="details-row">
+                        <p>
+                          <strong>Height:</strong> {profile.height}
+                        </p>
+                        <p>
+                          <strong>Age:</strong> {profile.age}
+                        </p>
+                      </div>
+                      <div className="details-row">
+                        <p>
+                          <strong>Place:</strong> {profile.state}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
           </div>
 
           <Modal

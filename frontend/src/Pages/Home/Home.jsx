@@ -80,7 +80,7 @@ const Home = () => {
             <h5 className="hero-paragraph"> Ab Sabhi Rishte Online</h5>
           </div>
      <Link to="/profilePage">
-      <button className="hero-login">User Profiles</button>
+      <button className="hero-login">Profiles</button>
      </Link>
         </div>
       </div>
@@ -103,7 +103,7 @@ const Home = () => {
                   <h5>Connect</h5>
                   <p>Select & Connect with matches you like.</p>
                 </div>
-                <div className="match-icon match-icon1">
+                <div className="match-icon match-icon1 phone-connect">
                   <i className="bi bi-wechat match-icon-color"></i>{" "}
                 </div>
               </div>

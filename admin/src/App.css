@@ -5,6 +5,10 @@
   list-style: none;
 }
 
+.nav-bg {
+  background: #800020;
+}
+
 .pagination li {
   margin: 0 5px;
 }

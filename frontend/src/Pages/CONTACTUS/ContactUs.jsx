@@ -87,7 +87,7 @@ const ContactUs = () => {
               <div className="col-md-3 info-box">
                 <i className="bi bi-geo-alt icon"></i>
                 <a href=" " target="_blank" rel="noopener noreferrer">
-                  Kirti Nagar, New Delhi-110077
+                  Ajmeri Gate, Delhi - 110006
                 </a>
               </div>
               <div className="col-md-3 info-box">

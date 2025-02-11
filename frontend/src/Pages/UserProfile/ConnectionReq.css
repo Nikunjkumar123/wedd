@@ -1,0 +1,113 @@
+.connecReq-maindiv {
+  background: #f7dde3;
+  border-radius: 10px;
+  padding: 20px;
+  max-height: 600px; /* Fixed height */
+  overflow-y: auto; /* Scrollable when content exceeds height */
+}
+
+.request-data {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #800020;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.req-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.req-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.req-image p {
+  text-align: center;
+}
+
+.req-user-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.req-user-data div {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+}
+
+.req-inner-detail strong {
+  display: block;
+  font-size: 12px;
+  color: #333;
+}
+
+.req-inner-detail p {
+  margin: 0;
+  font-weight: bold;
+  color: #555;
+}
+
+.request-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.accept-btn,
+.reject-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.accept-btn {
+  background: #800020;
+  color: white;
+}
+
+.reject-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.view-profile {
+  outline: none;
+  border: none;
+  background: #800020;
+  color: #fff;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+@media (max-width: 1200px) {
+  .request-actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 1100px) {
+  .request-data {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .req-user-data {
+    justify-content: center;
+  }
+}
