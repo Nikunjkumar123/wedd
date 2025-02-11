@@ -47,4 +47,13 @@ const getSingleUser = async(req,res)=>{ // give user with id
   return res.status(202).json({user:user});
 }
 
-module.exports = { oppUsers ,filteredData,getSingleUser};
+const allCities = async(req,res)=>{
+  try {
+    const allCity = await userModel.find();
+    return res.status(200).json({city:allCity});
+  } catch (error) {
+    return res.status(502).json({error:error});
+  }
+}
+
+module.exports = { oppUsers ,filteredData,getSingleUser, allCities};
