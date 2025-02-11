@@ -340,11 +340,11 @@ const UserProfile = () => {
                           Connection Request
                         </button>
                         <div>
-                          <button className="btn userprofile-creataccount mt-2" onClick={()=>{getMyConnections()}}>
+                          <button className="btn userprofile-creataccount mt-2">
                             My Connections
                           </button>
                         </div>
-                      </div>
+                      </div>cd #root
                     </div>
                   </div>
                 </div>
