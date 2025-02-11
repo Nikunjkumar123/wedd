@@ -125,12 +125,12 @@ const Loginpage = () => {
     e.preventDefault();
 
     try {
-      console.log(axiosInstance);
+      // console.log(axiosInstance);
       const response = await axiosInstance.post("/api/v1/auth/login", {
         email,
         password,
       });
-      console.log("Login response: ", response.data);
+      // console.log("Login response: ", response.data);
 
       localStorage.setItem("user", "true");
 

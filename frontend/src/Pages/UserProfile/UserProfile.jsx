@@ -52,12 +52,11 @@ const UserProfile = () => {
     const response = await axiosInstance.get("/api/v1/myprofile/viewProfile");
     SetDisdata(response.data.message);
   };
-
-  // const getConnectionRequest = async () => {
-  //   const response = await axiosInstance.get("/api/v1/connectionRequest/forme");
-  //   SetRqt(response.data.requests);
-  //   console.log(response.data.requests);
-  // };
+  const getConnectionRequest = async () => {
+    const response = await axiosInstance.get("/api/v1/connectionRequest/forme");
+    SetRqt(response.data.requests);
+    console.log(response.data.requests);
+  };
 
   useEffect(() => {
     if (disData.fullName) {
@@ -134,7 +133,7 @@ const UserProfile = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated Data:", formData);
+    // console.log("Updated Data:", formData);
 
     try {
       const response = await axiosInstance.patch(
@@ -147,7 +146,7 @@ const UserProfile = () => {
         }
       );
       SetDisdata(response.data.message);
-      console.log("API Response:", response.data);
+      // console.log("API Response:", response.data);
       alert("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -178,10 +177,31 @@ const UserProfile = () => {
   // ==================================
   //  User Connection Request
 
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  // const openModal = () => setModalIsOpen(true);
-  // const closeModal = () => setModalIsOpen(false);
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
+
+  const openDetailsModal = (user) => {
+    setSelectedUser(user);
+    setDetailsModalIsOpen(true);
+  };
+  const closeDetailsModal = () => setDetailsModalIsOpen(false);
+
+  const acceptRequest = async (id) => {
+    alert(id);
+    // const res = await axiosInstance.get(`/api/v1/connectionRequest/sendrq/accept/${id}`);
+    // console.log(res);
+    closeModal();
+  };
+
+  const rejectRequest = () => {
+    alert("Connection Request Rejected!");
+    closeModal();
+  };
+
   // ------------- Logout function --------------
 
   const navigate = useNavigate(); // Initialize navigation
@@ -428,7 +448,7 @@ const UserProfile = () => {
           <form onSubmit={handleFormSubmit}>
             <div className="row modal-row">
               {Object.entries(formData).map(([key, value]) => (
-                <div className="col-md-4 col-6 mb-3" key={key}>
+                <div className="col-md-4 mb-3" key={key}>
                   <div className="form-group">
                     <label htmlFor={key}>
                       {key.replace(/_/g, " ").toUpperCase()}
@@ -444,6 +464,7 @@ const UserProfile = () => {
                   </div>
                 </div>
               ))}
+
               <div className="form-group">
                 <label htmlFor="updatepic">Update Picture</label>
                 <input
@@ -454,6 +475,7 @@ const UserProfile = () => {
                 />
               </div>
             </div>
+
             <div className="d-flex justify-content-end">
               <button type="submit" className="btn save-change">
                 Save Changes
@@ -467,6 +489,173 @@ const UserProfile = () => {
               </button>
             </div>
           </form>
+        </ReactModal>
+
+        {/* =========== User Connect Modal =========== */}
+
+        <ReactModal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          className="modal-style"
+          overlayClassName="modal-overlay modal-overlay1"
+          contentLabel="User Requests"
+        >
+          <button onClick={closeModal} className="modal-close-btn">
+            &times;
+          </button>
+
+          <div className="container connection-main">
+            {seeRqt.length > 0 ? (
+              seeRqt.map((conn, index) => (
+                <div key={index} className="profile-card">
+                  <div className="row align-items-center">
+                    <div className="col-md-2">
+                      <img
+                        src={conn.sender.image}
+                        alt={conn.sender.fullName}
+                        className="user-image"
+                      />
+                    </div>
+                    <div className="col-md-4 text-start">
+                      <p className="user-name">{conn.sender.fullName}</p>
+                      <p>
+                        Age:{" "}
+                        <span className="text-secondary">
+                          {conn.sender.age}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="col-md-6 text-start">
+                      <p>
+                        City:{" "}
+                        <span className="text-secondary">
+                          {conn.sender.city}
+                        </span>
+                      </p>
+                      <p>
+                        Work:{" "}
+                        <span className="text-secondary">
+                          {conn.sender.working}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="request-actions">
+                    <button
+                      onClick={() => {
+                        openDetailsModal(conn.sender);
+                        acceptRequest(conn._id);
+                      }}
+                      className="accept-btn"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => rejectRequest(conn.sender.id)}
+                      className="reject-btn"
+                    >
+                      Reject
+                    </button>
+                  </div>
+
+                  <hr />
+                </div>
+              ))
+            ) : (
+              <p>No requests available.</p>
+            )}
+          </div>
+        </ReactModal>
+
+        {/* =========== My Connection =============== */}
+
+        <ReactModal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          className="modal-style"
+          overlayClassName="modal-overlay modal-overlay1"
+          contentLabel="User Requests"
+        >
+          <button onClick={closeModal} className="modal-close-btn">
+            &times;
+          </button>
+
+          <div className="container connection-main">
+            {seeRqt.length > 0 ? (
+              seeRqt.map((conn, index) => (
+                <div key={index} className="profile-card">
+                  <div className="row align-items-center">
+                    <div className="col-md-2">
+                      <img
+                        src={conn.sender.image}
+                        alt={conn.sender.fullName}
+                        className="user-image"
+                      />
+                    </div>
+                    <div className="col-md-10 text-start">
+                      <p className="user-name">{conn.sender.fullName}</p>
+                      <p>
+                        {conn.sender.fullName}{" "}
+                        <span className="text-secondary">
+                          has accept you request.
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="request-actions">
+                    <button className="accept-btn">View Details</button>
+                  </div>
+
+                  <hr />
+                </div>
+              ))
+            ) : (
+              <p>No connection available.</p>
+            )}
+          </div>
+        </ReactModal>
+
+        {/* Second Modal - User Details */}
+        <ReactModal
+          isOpen={detailsModalIsOpen}
+          onRequestClose={closeDetailsModal}
+          className="modal-style"
+          overlayClassName="modal-overlay modal-overlay1"
+          contentLabel="User Details"
+        >
+          <button onClick={closeDetailsModal} className="modal-close-btn">
+            &times;
+          </button>
+
+          {selectedUser && (
+            <div className="container user-details-card">
+              <h2 className="user-title">{selectedUser.fullName} Details</h2>
+
+              <div className="user-info">
+                <p>
+                  <strong>Age:</strong> <span>{selectedUser.age}</span>
+                </p>
+                <p>
+                  <strong>City:</strong> <span>{selectedUser.city}</span>
+                </p>
+                <p>
+                  <strong>Work:</strong> <span>{selectedUser.working}</span>
+                </p>
+                <p>
+                  <strong>Phone:</strong> <span>{selectedUser.phone}</span>
+                </p>
+                <p>
+                  <strong>Email:</strong> <span>{selectedUser.email}</span>
+                </p>
+                <p>
+                  <strong>Marital Status:</strong>{" "}
+                  <span>{selectedUser.maritalstatus}</span>
+                </p>
+              </div>
+            </div>
+          )}
         </ReactModal>
       </section>
     </>

@@ -138,7 +138,7 @@ const LoginUser = async (req, res) => {
         }
 
         const checkuser = await UserModel.findOne({email} );
-        console.log(checkuser)
+        // console.log(checkuser)
         if (!checkuser) {
             return res.status(400).json({ message: 'Enter correct email' });
         }

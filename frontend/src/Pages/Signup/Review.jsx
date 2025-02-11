@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactModal from "react-modal";
 import "./SignupPage.css";
+<<<<<<< HEAD
 ReactModal.setAppElement("#root");
+=======
+import { Navigate, useNavigate } from "react-router-dom";
+>>>>>>> 3881121b66a33c3d046b4f934577ee89d52fd57d
 
 const Review = ({ formData, goToTab }) => {
 
@@ -14,7 +18,7 @@ const Review = ({ formData, goToTab }) => {
   }, []);
   
   const [profileImage, setProfileImage] = useState(null);
-
+  const navigate = useNavigate();
   // Handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -48,7 +52,8 @@ const Review = ({ formData, goToTab }) => {
       );
 
       alert("Form submitted successfully!");
-      console.log("Response:", response.data);
+      navigate('/')
+      // console.log("Response:", response.data);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Failed to submit the form. Please try again.");
